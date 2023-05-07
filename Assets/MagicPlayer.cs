@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MagicPlayer : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class MagicPlayer : MonoBehaviour
     AttackMagic _attackMagic;
     [Tooltip("魔法発動のコルーチンを動かすためのbool")]
     bool _magicTime;
+    [SerializeField] Text _enumtext;
 
     void Start()
     {
@@ -53,6 +55,7 @@ public class MagicPlayer : MonoBehaviour
     {
         transform.position = _trans[i].position;
         _magicpos = magic;
+        ShowText(_magicpos.ToString());
         if(_magicpos == MagicPosition.AttackMagic)
         {
             _attackMagic = (AttackMagic)_blockMagic;
@@ -70,12 +73,12 @@ public class MagicPlayer : MonoBehaviour
         if(_magicpos == MagicPosition.AttackMagic)
         {
             _attackMagic = (AttackMagic)i;
-            Debug.Log(_attackMagic);
+            ShowText(_attackMagic.ToString());
         }
         else
         {
             _blockMagic = (BlockMagic)i;
-            Debug.Log(_blockMagic);
+            ShowText(_blockMagic.ToString());
         }
     }
 
@@ -84,13 +87,18 @@ public class MagicPlayer : MonoBehaviour
         yield return new WaitForSeconds(5f);
         if(_magicpos == MagicPosition.AttackMagic)
         {
-            Debug.Log(_attackMagic + "発動！");
+            ShowText($"{_attackMagic}！");
         }
         else
         {
-            Debug.Log(_blockMagic + "発動！");
+            ShowText($"{_blockMagic}！");
         }
         _magicTime = false;
+    }
+
+    void ShowText(string str)
+    {
+        _enumtext.text = str;
     }
 
     enum MagicPosition

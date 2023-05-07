@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class BlockPlayer : MonoBehaviour
 {
@@ -24,6 +24,8 @@ public class BlockPlayer : MonoBehaviour
     bool _attackTime;
     [Tooltip("Counterの際、コルーチンを適切に動かすためのbool")]
     bool _counterTime;
+    [Tooltip("状態のテキスト")]
+    [SerializeField] Text _enumtext;
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +64,6 @@ public class BlockPlayer : MonoBehaviour
         {
             if(!_counterTime)
             {
-                Debug.Log(_condition);
                 _counterTime = true;
                 StartCoroutine(CoolCounterTime());
             }
@@ -86,6 +87,7 @@ public class BlockPlayer : MonoBehaviour
             if (_guageAttack >= 100)
             {
                 _condition = BlockorAttack.ChageAttack;
+                ShowText("チャージアタック");
             }
             else if(!_attackTime)
             {
@@ -104,6 +106,11 @@ public class BlockPlayer : MonoBehaviour
         }
     }
 
+    void ShowText(string str)
+    {
+        _enumtext.text = str;
+    }
+
     /// <summary>ブロックをしている際のコルーチン</summary>
     /// <returns></returns>
     IEnumerator BlockTime()
@@ -112,12 +119,12 @@ public class BlockPlayer : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if (_condition == BlockorAttack.LeftBlock)
         {
-            Debug.Log(_condition);
+            ShowText(_condition.ToString());
             _guageAttack += 5;
         }
         else if(_condition == BlockorAttack.RightBlock)
         {
-            Debug.Log(_condition);
+            ShowText(_condition.ToString());
             _guageAttack += 5;
         }
         _blockTime = false;
@@ -130,7 +137,7 @@ public class BlockPlayer : MonoBehaviour
         yield return new WaitForSeconds(2f);
         if (_condition == BlockorAttack.Attack)
         {
-            Debug.Log(_condition);
+            ShowText(_condition.ToString());
             _guageAttack += 1;
         }
         _attackTime = false;
@@ -146,6 +153,7 @@ public class BlockPlayer : MonoBehaviour
             float distance = Vector2.Distance(transform.position, _trans[0].position);
             if (distance > _stopdis)
             {
+                ShowText("クールタイム");
                 _condition = BlockorAttack.CoolTime;
                 Vector3 dir = (_trans[0].position - transform.position).normalized * _speed;
                 dir.y = 0;
@@ -167,7 +175,7 @@ public class BlockPlayer : MonoBehaviour
         {
             transform.position = _trans[i].position;
             _condition = counter;
-            Debug.Log("カウンター準備");
+            ShowText("カウンター準備");
         }
     }
 
