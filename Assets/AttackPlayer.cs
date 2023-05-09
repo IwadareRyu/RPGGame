@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AttackPlayer : MonoBehaviour
+public class AttackPlayer : StatusClass
 {
     Skill _skill;
     float _time;
     bool _commandbool;
     [SerializeField]GameObject _commandObj;
     [SerializeField] Text _enumtext;
-
     // Start is called before the first frame update
     void Start()
     {
+        _enemy = GameObject.FindGameObjectWithTag("Enemy")?.GetComponent<EnemyController>();
         if (_commandObj) _commandObj.SetActive(false);
+        SetStatus();
+        ShowSlider();
+        Debug.Log($"AttackerHP:{HP}");
+        Debug.Log($"AttackerAttack:{Attack}");
+        Debug.Log($"AttackerDiffence:{Diffence}");
     }
 
     // Update is called once per frame
@@ -38,7 +43,7 @@ public class AttackPlayer : MonoBehaviour
 
             if (Input.GetButtonDown("Attack"))
             {
-                Attack();
+                Attacker();
             }
 
             if(Input.GetButtonDown("Skill1"))
@@ -58,9 +63,10 @@ public class AttackPlayer : MonoBehaviour
         }
     }
 
-    void Attack()
+    void Attacker()
     {
         ShowText("çUåÇÅI");
+        _enemy.AddDamage(Attack);
         CommandReset();
     }
 
@@ -68,6 +74,7 @@ public class AttackPlayer : MonoBehaviour
     {
         _skill = (Skill)i;
         ShowText($"{_skill}ÅI");
+        _enemy.AddDamage(Attack, 1.2f);
         CommandReset();
     }
 

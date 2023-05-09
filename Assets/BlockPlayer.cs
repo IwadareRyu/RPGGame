@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BlockPlayer : MonoBehaviour
+public class BlockPlayer : StatusClass
 {
     [Tooltip("BlockPlayerの移動場所")]
     [SerializeField]
@@ -27,10 +27,17 @@ public class BlockPlayer : MonoBehaviour
     [Tooltip("状態のテキスト")]
     [SerializeField] Text _enumtext;
 
+    [SerializeField] float _blockHP = 100;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        _enemy = GameObject.FindGameObjectWithTag("Enemy")?.GetComponent<EnemyController>();
+        SetStatus();
+        ShowSlider();
+        Debug.Log($"BlockerHP:{HP}");
+        Debug.Log($"BlockerAttack:{Attack}");
+        Debug.Log($"BlockerDiffence:{Diffence}");
     }
 
     // Update is called once per frame
@@ -101,6 +108,7 @@ public class BlockPlayer : MonoBehaviour
         {
             //チャージアタックをした後、ゲージを０にして、Attack状態に戻る。
             Debug.Log(_condition);
+            _enemy.AddMagicDamage(Attack, 5);
             _guageAttack = 0;
             _condition = BlockorAttack.Attack;
         }
@@ -139,6 +147,7 @@ public class BlockPlayer : MonoBehaviour
         {
             ShowText(_condition.ToString());
             _guageAttack += 1;
+            _enemy.AddDamage(Attack);
         }
         _attackTime = false;
     }
@@ -193,7 +202,10 @@ public class BlockPlayer : MonoBehaviour
     IEnumerator TrueCounrerTime(BlockorAttack tmp)
     {
         //カウンターの処理//
-        Debug.Log("カウンター攻撃！");
+        Debug.Log("カウンター！");
+        _enumtext.text = "カウンター！";
+        _enemy.AddDamage(Attack,2);
+        _guageAttack += 10;
         //終わり//
         yield return new WaitForSeconds(2f);
         if(tmp == BlockorAttack.CoolLeftCounter)
@@ -208,17 +220,19 @@ public class BlockPlayer : MonoBehaviour
 
     IEnumerator CoolCounterTime()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         if (_condition == BlockorAttack.CoolLeftCounter || 
             _condition == BlockorAttack.CoolRightCounter)
         {
             Debug.Log("カウンター失敗、防御態勢へ移行");
             if (_condition == BlockorAttack.CoolLeftCounter)
             {
+                _enumtext.text = "LeftBlock";
                 _condition = BlockorAttack.LeftBlock;
             }
             else
             {
+                _enumtext.text = "RightBlock";
                 _condition = BlockorAttack.RightBlock;
             }
         }

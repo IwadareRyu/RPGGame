@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MagicPlayer : MonoBehaviour
+public class MagicPlayer : StatusClass
 {
     [Tooltip("à⁄ìÆÇ∑ÇÈèÍèä")]
     [SerializeField]
@@ -19,9 +19,16 @@ public class MagicPlayer : MonoBehaviour
     bool _magicTime;
     [SerializeField] Text _enumtext;
 
+    [SerializeField] float _magicHP = 10;
+
     void Start()
     {
-        
+        _enemy = GameObject.FindGameObjectWithTag("Enemy")?.GetComponent<EnemyController>();
+        SetStatus();
+        ShowSlider();
+        Debug.Log($"MagicHP:{HP}");
+        Debug.Log($"MagicAttack:{Attack}");
+        Debug.Log($"MagicDiffence:{Diffence}");
     }
 
     // Update is called once per frame
@@ -88,6 +95,7 @@ public class MagicPlayer : MonoBehaviour
         if(_magicpos == MagicPosition.AttackMagic)
         {
             ShowText($"{_attackMagic}ÅI");
+            _enemy.AddMagicDamage(Attack);
         }
         else
         {
