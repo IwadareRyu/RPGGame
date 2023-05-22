@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be2bc401196512c438bd5e27424c9141, type: 3}
+  m_Name: BlockMagic
+  m_EditorClassIdentifier: 
+  _skillName: "\u6E3E\u6C8C\u306E\u53CC\u7FFC\u6B4C"
+  _type: 2
+  _description: "Attack\u3068Diffence\u304C15\u30A2\u30C3\u30D7"
+  _plusDiffencePower: 15
+  _plusAttackPower: 15
+  _skillPoint: 10
+  _healingHP: 0

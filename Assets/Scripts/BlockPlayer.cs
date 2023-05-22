@@ -15,7 +15,7 @@ public class BlockPlayer : StatusClass
     BlockorAttack _condition = BlockorAttack.Attack;
     public BlockorAttack Condition => _condition;
     [Tooltip("移動の際止まる力")]
-    float _stopdis = 0.1f;
+    float _stopdis = 1f;
     [Tooltip("移動スピード")]
     float _speed = 6f;
     [Tooltip("Blockの際、コルーチンを適切に動かすためのbool")]
@@ -220,7 +220,7 @@ public class BlockPlayer : StatusClass
 
     IEnumerator CoolCounterTime()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         if (_condition == BlockorAttack.CoolLeftCounter || 
             _condition == BlockorAttack.CoolRightCounter)
         {
