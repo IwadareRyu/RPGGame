@@ -8,7 +8,7 @@ public class SkillObjects : ScriptableObject
     string _skillName;
     public string SkillName => _skillName;
     [Header("ƒXƒLƒ‹‚ÌŽí—Þ"),Tooltip("Skill‚ÌŽí—Þ")] 
-    public SkillTypeEnum.SkillType _type;
+    public SkillType _type;
     [TextArea(10, 10)] 
     public string _description;
 }

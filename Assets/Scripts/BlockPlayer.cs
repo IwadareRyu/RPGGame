@@ -15,7 +15,7 @@ public class BlockPlayer : StatusClass
     BlockorAttack _condition = BlockorAttack.Attack;
     public BlockorAttack Condition => _condition;
     [Tooltip("移動の際止まる力")]
-    float _stopdis = 1f;
+    float _stopdis = 0.1f;
     [Tooltip("移動スピード")]
     float _speed = 6f;
     [Tooltip("Blockの際、コルーチンを適切に動かすためのbool")]
@@ -26,8 +26,6 @@ public class BlockPlayer : StatusClass
     bool _counterTime;
     [Tooltip("状態のテキスト")]
     [SerializeField] Text _enumtext;
-
-    [SerializeField] float _blockHP = 100;
 
     // Start is called before the first frame update
     void Start()

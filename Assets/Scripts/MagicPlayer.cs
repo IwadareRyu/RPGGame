@@ -19,8 +19,6 @@ public class MagicPlayer : StatusClass
     bool _magicTime;
     [SerializeField] Text _enumtext;
 
-    [SerializeField] float _magicHP = 10;
-
     void Start()
     {
         _enemy = GameObject.FindGameObjectWithTag("Enemy")?.GetComponent<EnemyController>();

@@ -5,20 +5,22 @@ using UnityEngine.UI;
 
 public abstract class StatusClass : MonoBehaviour
 {
-    [SerializeField] float _minHP;
+    [SerializeField] public float _minHP;
     float _hp = 100;
     public float HP => _hp;
 
     [SerializeField] float _minAttack;
     float _attack = 10;
+
     public float Attack => _attack;
 
     [SerializeField] float _minDiffence;
     float _diffence = 5;
+
     public float Diffence => _diffence;
     [HideInInspector]
     public EnemyController _enemy;
-    [SerializeField] 
+    [SerializeField]
     Slider _hpSlider;
     public void SetStatus()
     {

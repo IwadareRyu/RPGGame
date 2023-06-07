@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bedfa94da57fc8541b5ea29c02750363, type: 3}
-  m_Name: EndRain
+  m_Name: 1.4Magic
   m_EditorClassIdentifier: 
-  _skillName: "\u7D42\u7109\u306E\u66B4\u98A8\u96E8\u0444"
-  _type: 1
-  _description: "1.5\u500D\u306E\u9B54\u6CD5\u653B\u6483"
-  _attackValue: 1.5
-  _skillPoint: 3
+  _skillName: "\u30D5\u30A1\u30A4\u30A2\u30C9\u30E9\u30B4\u30F3\u306E\u7948\u308A"
+  _type: 2
+  _description: "1.4\u500D\u306E\u9B54\u6CD5\u653B\u6483"
+  _attackValue: 1.4
+  _skillPoint: 5

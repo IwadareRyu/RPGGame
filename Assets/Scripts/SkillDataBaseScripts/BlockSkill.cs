@@ -11,6 +11,6 @@ public class BlockSkill : SkillObjects
     [SerializeField] float _enemyOffencePower = 1;
     private void Awake()
     {
-        _type = SkillTypeEnum.SkillType.BlockSkill;
+        _type = SkillType.BlockSkill;
     }
 }

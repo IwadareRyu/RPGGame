@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RebaniraZiro
   m_EditorClassIdentifier: 
   _skillName: "\u751F\u30EC\u30D0\u30CB\u30E9\u751F\u9B5A\u751F\u7261\u8823"
-  _type: 1
+  _type: 2
   _description: "\uFF13\u500D\u306E\u9B54\u6CD5\u653B\u6483"
   _attackValue: 3
-  _skillPoint: 1
+  _skillPoint: 30

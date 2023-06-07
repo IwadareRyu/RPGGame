@@ -12,6 +12,6 @@ public class BlockMagic : SkillObjects
     [SerializeField] int _healingHP = 0;
     private void Awake()
     {
-        _type = SkillTypeEnum.SkillType.BlockMagic;
+        _type = SkillType.BlockMagic;
     }
 }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bedfa94da57fc8541b5ea29c02750363, type: 3}
-  m_Name: NinshinPower
+  m_Name: 1.9Magic
   m_EditorClassIdentifier: 
-  _skillName: "\u30CB\u30F3\u30B8\u30F3\u306E\u529B"
-  _type: 1
-  _description: "1.2\u500D\u306E\u9B54\u6CD5\u653B\u6483"
-  _attackValue: 1.2
-  _skillPoint: 2
+  _skillName: "\u71C3\u3086\u308B\u708E"
+  _type: 2
+  _description: "1.9\u500D\u306E\u9B54\u6CD5\u653B\u6483"
+  _attackValue: 1.9
+  _skillPoint: 13

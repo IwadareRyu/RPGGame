@@ -10,6 +10,6 @@ public class AttackSkill : SkillObjects
     [SerializeField] int _requireAttack = 1;
     private void Awake()
     {
-        _type = SkillTypeEnum.SkillType.BlockMagic;
+        _type = SkillType.BlockMagic;
     }
 }

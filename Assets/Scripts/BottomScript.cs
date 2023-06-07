@@ -8,6 +8,6 @@ public class BottomScript : MonoBehaviour
 
     public void SkillNo_Sansyo()
     {
-        ItemInventory.instance.SelectSkill(_skillNo);
+        GameObject.FindObjectOfType<SkillSetScripts>().SelectSkill(_skillNo);
     }
 }

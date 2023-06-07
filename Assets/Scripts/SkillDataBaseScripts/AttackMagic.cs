@@ -10,6 +10,6 @@ public class AttackMagic : SkillObjects
     [SerializeField] int _skillPoint = 1;
     private void Awake()
     {
-        _type = SkillTypeEnum.SkillType.AttackMagic;
+        _type = SkillType.AttackMagic;
     }
 }
