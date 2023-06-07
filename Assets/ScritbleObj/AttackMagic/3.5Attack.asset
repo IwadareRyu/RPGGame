@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bedfa94da57fc8541b5ea29c02750363, type: 3}
-  m_Name: RebaniraZiro
+  m_Name: 3.5Attack
   m_EditorClassIdentifier: 
-  _skillName: "\u751F\u30EC\u30D0\u30CB\u30E9\u751F\u9B5A\u751F\u7261\u8823"
-  _type: 2
-  _description: "\uFF13\u500D\u306E\u9B54\u6CD5\u653B\u6483"
-  _attackValue: 3
+  _skillName: "\u30B5\u30F3\u30D7\uFF13"
+  _type: 0
+  _description: "3.5\u500D\u306E\u7269\u7406\u653B\u6483"
+  _attackValue: 3.5
   _skillPoint: 30

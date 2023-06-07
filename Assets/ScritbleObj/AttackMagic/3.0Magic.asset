@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bedfa94da57fc8541b5ea29c02750363, type: 3}
-  m_Name: 1.8Attack
+  m_Name: 3.0Magic
   m_EditorClassIdentifier: 
-  _skillName: "\u30C0\u30FC\u30D5\u30A3\u30E9\u30D4\u30B9"
+  _skillName: "\u751F\u30EC\u30D0\u30CB\u30E9\u751F\u9B5A\u751F\u7261\u8823"
   _type: 2
-  _description: "1.8\u500D\u306E\u7269\u7406\u653B\u6483"
-  _attackValue: 1.8
-  _skillPoint: 6
+  _description: "\uFF13\u500D\u306E\u9B54\u6CD5\u653B\u6483"
+  _attackValue: 3
+  _skillPoint: 30

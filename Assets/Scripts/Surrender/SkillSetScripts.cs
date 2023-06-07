@@ -19,6 +19,8 @@ public class SkillSetScripts : MonoBehaviour
     [SerializeField]
     SkillType _skilltype;
 
+    public SkillType SkillType => _skilltype;
+
     [SerializeField]
     Text _tutorialText;
 
@@ -31,6 +33,12 @@ public class SkillSetScripts : MonoBehaviour
     {
         _dataBase = GameObject.FindAnyObjectByType<DataBase>();
 
+        for (var i = 0; i < _skillPanel.Length; i++)
+        {
+            var num = i;
+            var button = _skillPanel[i].GetComponent<Button>();
+            button.onClick.AddListener(() => MoveSkillChoice(num));
+        }
         if (_skillPanel.Length != 0)
         {
             for (var i = 0; i < _skillPanel.Length; i++)
@@ -55,6 +63,33 @@ public class SkillSetScripts : MonoBehaviour
             }
         }
 
+        //if (_dataBase)
+        //{
+        //    if (_skilltype == SkillType.BlockSkill)
+        //    {
+        //        SkillSet(_dataBase._blockSkillbool, _dataBase.BlockSkillData);
+        //    }
+        //    else if (_skilltype == SkillType.AttackSkill)
+        //    {
+        //        SkillSet(_dataBase._attackSkillbool, _dataBase.AttackSkillData);
+        //    }
+        //    else if (_skilltype == SkillType.AttackMagic)
+        //    {
+        //        SkillSet(_dataBase._attackMagicbool, _dataBase.AttackMagicData);
+        //    }
+        //    else
+        //    {
+        //        SkillSet(_dataBase._blockMagicbool, _dataBase.BlockMagicData);
+        //    }
+        //}
+    }
+
+    private void OnEnable()
+    {
+        foreach(Transform trans in _skillSetPoint.gameObject.transform)
+        {
+            Destroy(trans.gameObject);
+        }
         if (_dataBase)
         {
             if (_skilltype == SkillType.BlockSkill)
@@ -83,17 +118,20 @@ public class SkillSetScripts : MonoBehaviour
             if (skillbool[i])
             {
                 //ボタンを生成してボタンの変数を宣言
-                var bottom = Instantiate(_skillbottom, transform.position, Quaternion.identity);
-                if (bottom)
+                var button = Instantiate(_skillbottom, transform.position, Quaternion.identity);
+                if (button)
                 {
                     //ボタンを_skillSetPoint(Scrollview/Viewport/Content)の直下に配置する。
-                    bottom.transform.SetParent(_skillSetPoint.transform);
+                    button.transform.SetParent(_skillSetPoint.transform);
                     //ボタンのテキストにデータベースに登録されているスキルの名前を入力。
-                    var text = bottom.GetComponentInChildren<Text>();
+                    var text = button.GetComponentInChildren<Text>();
                     if (text) text.text = skillObjs[i].SkillName;
                     //ボタンにスキルの要素数を持っておく。
-                    var bottomScript = bottom.GetComponent<BottomScript>();
-                    if (bottomScript) bottomScript._skillNo = i;
+                    var click = button.GetComponent<Button>();
+                    var num = i;
+                    click.onClick.AddListener(() => SelectSkill(num));
+                    //var buttonScript = button.GetComponent<BottomScript>();
+                    //if (buttonScript) buttonScript._skillNo = i;
                 }
             }
         }
