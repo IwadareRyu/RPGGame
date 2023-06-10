@@ -31,8 +31,7 @@ public class SkillSetScripts : MonoBehaviour
 
     private void Awake()
     {
-        _dataBase = GameObject.FindAnyObjectByType<DataBase>();
-
+        _dataBase = DataBase.Instance;
         for (var i = 0; i < _skillPanel.Length; i++)
         {
             var num = i;
@@ -62,26 +61,6 @@ public class SkillSetScripts : MonoBehaviour
                 }
             }
         }
-
-        //if (_dataBase)
-        //{
-        //    if (_skilltype == SkillType.BlockSkill)
-        //    {
-        //        SkillSet(_dataBase._blockSkillbool, _dataBase.BlockSkillData);
-        //    }
-        //    else if (_skilltype == SkillType.AttackSkill)
-        //    {
-        //        SkillSet(_dataBase._attackSkillbool, _dataBase.AttackSkillData);
-        //    }
-        //    else if (_skilltype == SkillType.AttackMagic)
-        //    {
-        //        SkillSet(_dataBase._attackMagicbool, _dataBase.AttackMagicData);
-        //    }
-        //    else
-        //    {
-        //        SkillSet(_dataBase._blockMagicbool, _dataBase.BlockMagicData);
-        //    }
-        //}
     }
 
     private void OnEnable()
@@ -130,8 +109,6 @@ public class SkillSetScripts : MonoBehaviour
                     var click = button.GetComponent<Button>();
                     var num = i;
                     click.onClick.AddListener(() => SelectSkill(num));
-                    //var buttonScript = button.GetComponent<BottomScript>();
-                    //if (buttonScript) buttonScript._skillNo = i;
                 }
             }
         }
@@ -173,6 +150,7 @@ public class SkillSetScripts : MonoBehaviour
 
     public void MoveSkillChoice(int i)
     {
+        if (_tmp == -1) { return; }
         if (_skilltype == SkillType.BlockSkill)
         {
             MoveSkill(i, _dataBase._blockSkillSetNo, _dataBase.BlockSkillData[_tmp]);
@@ -193,11 +171,8 @@ public class SkillSetScripts : MonoBehaviour
 
     public void MoveSkill(int i,int[] SetNo,SkillObjects _skill)
     {
-        if (_tmp != -1)
-        {
-            var text = _skillPanel[i].GetComponentInChildren<Text>();
-            text.text = _skill.SkillName;
-            SetNo[i] = _tmp;
-        }
+        var text = _skillPanel[i].GetComponentInChildren<Text>();
+        text.text = _skill.SkillName;
+        SetNo[i] = _tmp;
     }
 }

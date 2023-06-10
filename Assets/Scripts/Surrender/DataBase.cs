@@ -30,4 +30,13 @@ public class DataBase : SingletonMonovihair<DataBase>
     protected override bool _dontDestroyOnLoad { get { return true; } }
 
     public bool[] _blockMagicbool;
+
+    [Header("今持っているスキルポイント"),Tooltip("今持っているスキルポイント"),SerializeField]
+    int _skillPoint = 5;
+    public int SkillPoint => _skillPoint;
+
+    public void GetSkillPoint(int i)
+    {
+        _skillPoint += i;
+    }
 }

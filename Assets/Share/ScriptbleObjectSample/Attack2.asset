@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d53542bb365534195e3819dcae6b49, type: 3}
+  m_Name: Attack2
+  m_EditorClassIdentifier: 
+  _skillName: "\u4E2D\u304F\u3089\u3044\u306E\u653B\u6483"
+  _type: 0
+  _description: "2\u500D\u306E\u30C0\u30E1\u30FC\u30B8"
+  _skillPoint: 10
+  _attackValue: 2
+  _diffencePower: 0
+  _attackPower: 0
+  _healingHP: 0

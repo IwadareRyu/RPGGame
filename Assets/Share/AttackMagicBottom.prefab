@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6182355480490886842}
   - component: {fileID: 454347924880444684}
   - component: {fileID: 3318574424509416363}
-  - component: {fileID: -4358868999132074532}
   m_Layer: 5
   m_Name: AttackMagicBottom
   m_TagString: Untagged
@@ -123,19 +122,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &-4358868999132074532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5896513611901882633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a40af32878e6df4c9c2567633dade08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _skillNo: -1
 --- !u!1 &9179394242852658574
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +189,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 8ae87f2b56708534c851eefbbff85661, type: 3}
     m_FontSize: 150
     m_FontStyle: 0
     m_BestFit: 0
