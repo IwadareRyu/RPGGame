@@ -18,6 +18,8 @@ public class MagicPlayer : StatusClass
     [Tooltip("魔法発動のコルーチンを動かすためのbool")]
     bool _magicTime;
     [SerializeField] Text _enumtext;
+    [SerializeField] AttackPlayer _attackPlayer;
+    [SerializeField] BlockPlayer _blockPlayer;
 
     void Start()
     {

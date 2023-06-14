@@ -24,6 +24,8 @@ public class BlockPlayer : StatusClass
     bool _attackTime;
     [Tooltip("Counterの際、コルーチンを適切に動かすためのbool")]
     bool _counterTime;
+    [Tooltip("CoolTimeの際、コルーチンを適切に動かすためのbool")]
+    bool _coolTimebool;
     [Tooltip("状態のテキスト")]
     [SerializeField] Text _enumtext;
 
@@ -42,25 +44,34 @@ public class BlockPlayer : StatusClass
     void Update()
     {
         //Qボタンで左に移動して状態がCoolLeftCounterになる。
-        if (Input.GetButton("BlockLeft") && 
+        if (Input.GetButton("BlockLeft") &&
             _condition != BlockorAttack.CoolTime &&
-            _condition != BlockorAttack.RightBlock)
+            _condition != BlockorAttack.RightBlock &&
+            _condition != BlockorAttack.CoolRightCounter &&
+            _condition != BlockorAttack.Counter)
         {
-            CoolCounter(1,BlockorAttack.CoolLeftCounter);
+            CoolCounter(1, BlockorAttack.CoolLeftCounter);
         }
         //Eボタンで右に移動して状態がCoolRightCounterになる。
         else if (Input.GetButton("BlockRight") &&
             _condition != BlockorAttack.CoolTime &&
-            _condition != BlockorAttack.LeftBlock)
+            _condition != BlockorAttack.LeftBlock &&
+            _condition != BlockorAttack.CoolLeftCounter &&
+            _condition != BlockorAttack.Counter)
         {
             CoolCounter(2, BlockorAttack.CoolRightCounter);
         }
         //ニュートラルでカウンター状態じゃない限り、真ん中に移動して状態がAttackになる。
         else if(_condition != BlockorAttack.CoolLeftCounter && 
             _condition != BlockorAttack.CoolRightCounter && 
-            _condition != BlockorAttack.Counter)
+            _condition != BlockorAttack.Counter &&
+            _condition != BlockorAttack.Attack)
         {
-            DistanceMove(BlockorAttack.Attack);
+            if (!_coolTimebool)
+            {
+                _coolTimebool = true;
+                CoolTime(BlockorAttack.Attack);
+            }
         }
 
         //CoolLeftCounterかCoolRightCounter時に実行
@@ -105,8 +116,9 @@ public class BlockPlayer : StatusClass
         if(_condition == BlockorAttack.ChageAttack)
         {
             //チャージアタックをした後、ゲージを０にして、Attack状態に戻る。
-            Debug.Log(_condition);
-            _enemy.AddMagicDamage(Attack, 5);
+            var set = DataBase.BlockSkillData[DataBase._blockSkillSetNo[1]];
+            Debug.Log(set.SkillName);
+            _enemy.AddDebuffDamage(Attack, set.AttackValue * 5,set.EnemyOffencePower * 5,set.EnemyDiffencePower * 5);
             _guageAttack = 0;
             _condition = BlockorAttack.Attack;
         }
@@ -143,34 +155,34 @@ public class BlockPlayer : StatusClass
         yield return new WaitForSeconds(2f);
         if (_condition == BlockorAttack.Attack)
         {
-            ShowText(_condition.ToString());
+            var set = DataBase.BlockSkillData[DataBase._blockSkillSetNo[0]];
+            ShowText(set.SkillName);
             _guageAttack += 1;
-            _enemy.AddDamage(Attack);
+            _enemy.AddDebuffDamage(Attack,set.AttackValue,set.EnemyOffencePower,set.EnemyDiffencePower);
         }
         _attackTime = false;
     }
 
-    /// <summary>距離を計算して特定の位置へ移動するメソッド。移動し終わったら状態変化</summary>
+    /// <summary>ブロックからアタックに切り替わるときの状態変化</summary>
     /// <param name="i">配列の要素数</param>
     /// <param name="state">状態変化</param>
-    void DistanceMove(BlockorAttack state = BlockorAttack.LeftBlock)
+    void CoolTime(BlockorAttack state = BlockorAttack.LeftBlock)
     {
         if (_condition != BlockorAttack.ChageAttack)
         {
-            float distance = Vector2.Distance(transform.position, _trans[0].position);
-            if (distance > _stopdis)
-            {
-                ShowText("クールタイム");
-                _condition = BlockorAttack.CoolTime;
-                Vector3 dir = (_trans[0].position - transform.position).normalized * _speed;
-                dir.y = 0;
-                transform.Translate(dir * Time.deltaTime);
-            }
-            else
-            {
-                _condition = state;
-            }
+            StartCoroutine(CoolTimeCoroutine());
         }
+    }
+
+    IEnumerator CoolTimeCoroutine()
+    {
+        _condition = BlockorAttack.CoolTime;
+        transform.position = _trans[0].position;
+        ShowText("CoolTime");
+        yield return new WaitForSeconds(1.5f);
+        _condition = BlockorAttack.Attack;
+        ShowText("CoolTime終了");
+        _coolTimebool = false;
     }
 
     /// <summary>カウンター待機にするための処理</summary>
@@ -180,8 +192,8 @@ public class BlockPlayer : StatusClass
     {
         if (_condition == BlockorAttack.Attack)
         {
-            transform.position = _trans[i].position;
             _condition = counter;
+            transform.position = _trans[i].position;
             ShowText("カウンター準備");
         }
     }

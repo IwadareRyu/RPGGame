@@ -10,6 +10,7 @@ public class EnemyController : StatusClass
     private AttackPlayer _attackPlayer;
     [SerializeField] Text _enemytext;
     bool _enemyAttackbool;
+    [SerializeField] Animator _anim;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +38,7 @@ public class EnemyController : StatusClass
     {
         yield return new WaitForSeconds(5f);
         var ram = Random.Range(0,100);
+        _anim.SetBool("Attack",true);
         if(ram < 50)
         {
             _enemytext.text = "Magic‚ÉUŒ‚";
@@ -51,7 +53,7 @@ public class EnemyController : StatusClass
 
     IEnumerator EnemyAttack(bool magicTAttackF)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.1f);
         if(magicTAttackF)
         {
             if(_blockPlayer.Condition == BlockPlayer.BlockorAttack.LeftBlock)
@@ -84,6 +86,7 @@ public class EnemyController : StatusClass
                 _attackPlayer.AddDamage(Attack);
             }
         }
+        _anim.SetBool("Attack", false);
         _enemyAttackbool = false;
     }
 

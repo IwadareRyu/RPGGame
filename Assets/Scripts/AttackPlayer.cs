@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class AttackPlayer : StatusClass
 {
-    Skill _skill;
     float _time;
     bool _commandbool;
     [SerializeField]GameObject _commandObj;
+    [SerializeField] Text[] _commandText;
     [SerializeField] Text _enumtext;
     // Start is called before the first frame update
     void Start()
@@ -20,6 +20,10 @@ public class AttackPlayer : StatusClass
         Debug.Log($"AttackerHP:{HP}");
         Debug.Log($"AttackerAttack:{Attack}");
         Debug.Log($"AttackerDiffence:{Diffence}");
+        for(var i = 0;i < _commandText.Length;i++)
+        {
+            _commandText[i].text = DataBase.AttackSkillData[DataBase._attackSkillSetNo[i]].SkillName.Substring(0,4);
+        }
     }
 
     // Update is called once per frame
@@ -72,9 +76,9 @@ public class AttackPlayer : StatusClass
 
     void SkillAttack(int i)
     {
-        _skill = (Skill)i;
-        ShowText($"{_skill}I");
-        _enemy.AddDamage(Attack, 1.2f);
+        var set = DataBase.AttackSkillData[DataBase._attackSkillSetNo[i]];
+        ShowText($"{set.SkillName}I");
+        _enemy.AddDamage(Attack, set.AttackValue);
         CommandReset();
     }
 
@@ -88,12 +92,5 @@ public class AttackPlayer : StatusClass
     void ShowText(string str)
     {
         _enumtext.text = str;
-    }
-
-    enum Skill
-    {
-        SkillOne,
-        SkillTwo,
-        SkillThree,
     }
 }

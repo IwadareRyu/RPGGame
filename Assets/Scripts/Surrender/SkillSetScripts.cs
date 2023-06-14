@@ -38,6 +38,10 @@ public class SkillSetScripts : MonoBehaviour
             var button = _skillPanel[i].GetComponent<Button>();
             button.onClick.AddListener(() => MoveSkillChoice(num));
         }
+    }
+
+    private void OnEnable()
+    {
         if (_skillPanel.Length != 0)
         {
             for (var i = 0; i < _skillPanel.Length; i++)
@@ -61,11 +65,7 @@ public class SkillSetScripts : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void OnEnable()
-    {
-        foreach(Transform trans in _skillSetPoint.gameObject.transform)
+        foreach (Transform trans in _skillSetPoint.gameObject.transform)
         {
             Destroy(trans.gameObject);
         }

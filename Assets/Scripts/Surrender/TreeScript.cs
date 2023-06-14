@@ -57,7 +57,7 @@ public class TreeScript : MonoBehaviour
     bool _answerbool;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         _database = DataBase.Instance;
         for(var i = 0;i < _attackMagicTreeButtom.Length;i++)
@@ -89,6 +89,7 @@ public class TreeScript : MonoBehaviour
         _confirmation.SetActive(false);
         _falseComfimation.SetActive(false);
         _menuSkillPtText.text = _database.SkillPoint.ToString();
+        
     }
 
     /// <summary>スキルが選択されたときに呼ばれる処理。</summary>
@@ -172,6 +173,16 @@ public class TreeScript : MonoBehaviour
         }   //スキルポイントがあるなら、合計コスト分、ポイントを消費して、取得したスキルのボタンを押せなくする。
         AnswerReset();
     }
+
+    public void ResetButton()
+    {
+        for (var i = 1; i < _attackMagicTreeButtom.Length; i++)
+        {
+            _attackMagicTreeButtom[i].interactable = true;
+        }
+    }
+
+
 
     /// <summary>確認を受け入れなかった時の処理</summary>
     void NoConfirmation()
