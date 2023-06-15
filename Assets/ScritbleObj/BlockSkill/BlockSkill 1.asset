@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skillName: "\u30DF\u30BC\u30E9\u306E\u5486\u54EE"
   _type: 0
-  _description: "\u6575\u306EDiffence\u309210\nAttack\u309225\n\u6E1B\u3089\u3059\u653B\u6483"
+  _description: "\u6575\u306EDiffence\u309210\nAttack\u309220\n\u6E1B\u3089\u3059\u653B\u6483"
   _attackValue: 1
   _enemyDiffencePower: -10
   _enemyOffencePower: -20

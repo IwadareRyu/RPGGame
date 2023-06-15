@@ -20,6 +20,7 @@ public class MagicPlayer : StatusClass
     [SerializeField] Text _enumtext;
     [SerializeField] AttackPlayer _attackPlayer;
     [SerializeField] BlockPlayer _blockPlayer;
+    [SerializeField] GameObject _magicObj;
 
     void Start()
     {
@@ -34,27 +35,43 @@ public class MagicPlayer : StatusClass
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("MagicForward"))
+        if (_survive == Survive.Survive)
         {
-            ChangeCondition(0,MagicPosition.AttackMagic);
-        }
-        if(Input.GetButtonDown("MagicBack"))
-        {
-            ChangeCondition(1,MagicPosition.BlockMagic);
-        }
-        if(Input.GetButtonDown("LeftMagic"))
-        {
-            ChangeMagic(0);
-        }
-        if(Input.GetButtonDown("RightMagic"))
-        {
-            ChangeMagic(1);
-        }
+            if (Input.GetButtonDown("MagicForward"))
+            {
+                ChangeCondition(0, MagicPosition.AttackMagic);
+            }
+            if (Input.GetButtonDown("MagicBack"))
+            {
+                ChangeCondition(1, MagicPosition.BlockMagic);
+            }
+            if (Input.GetButtonDown("LeftMagic"))
+            {
+                ChangeMagic(0);
+            }
+            if (Input.GetButtonDown("RightMagic"))
+            {
+                ChangeMagic(1);
+            }
 
-        if(!_magicTime)
+            if (!_magicTime)
+            {
+                _magicTime = true;
+                StartCoroutine(MagicTime());
+            }
+            if(_hp == 0)
+            {
+                _survive = Survive.Death;
+            }
+            TimeMethod();
+        }
+        else
         {
-            _magicTime = true;
-            StartCoroutine(MagicTime());
+            if (!_death)
+            {
+                _death = true;
+                Death();
+            }
         }
     }
 
@@ -92,14 +109,22 @@ public class MagicPlayer : StatusClass
     IEnumerator MagicTime()
     {
         yield return new WaitForSeconds(5f);
-        if(_magicpos == MagicPosition.AttackMagic)
+        if (_survive == Survive.Survive)
         {
-            ShowText($"{_attackMagic}！");
-            _enemy.AddMagicDamage(Attack);
-        }
-        else
-        {
-            ShowText($"{_blockMagic}！");
+            if (_magicpos == MagicPosition.AttackMagic)
+            {
+                var set = DataBase.AttackMagicData[DataBase._attackMagicSetNo[(int)_attackMagic]];
+                ShowText($"{set.SkillName}！");
+                _enemy.AddMagicDamage(Attack);
+            }
+            else
+            {
+                var set = DataBase.BlockMagicData[DataBase._blockMagicSetNo[(int)_blockMagic]];
+                ShowText($"{set.SkillName}！");
+                _attackPlayer.AddBuff(set.PlusAttackPower, set.PlusDiffencePower, set.HealingHP);
+                _blockPlayer.AddBuff(set.PlusAttackPower, set.PlusDiffencePower, set.HealingHP);
+                AddBuff(set.PlusAttackPower, set.PlusDiffencePower, set.HealingHP);
+            }
         }
         _magicTime = false;
     }
@@ -107,6 +132,12 @@ public class MagicPlayer : StatusClass
     void ShowText(string str)
     {
         _enumtext.text = str;
+    }
+
+    void Death()
+    {
+        _magicObj.transform.Rotate(90f, 0f, 0f);
+        ShowText("俺は死んだぜ☆");
     }
 
     enum MagicPosition

@@ -10,6 +10,7 @@ public class AttackPlayer : StatusClass
     [SerializeField]GameObject _commandObj;
     [SerializeField] Text[] _commandText;
     [SerializeField] Text _enumtext;
+    [SerializeField] GameObject _attackObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,44 +30,61 @@ public class AttackPlayer : StatusClass
     // Update is called once per frame
     void Update()
     {
-        if (!_commandbool)
+        if (_survive == Survive.Survive)
         {
-            _time += Time.deltaTime;
-            //Debug.Log(_time);
+            if (!_commandbool)
+            {
+                _time += Time.deltaTime;
+                //Debug.Log(_time);
+            }
+
+            if (_time > 10f)
+            {
+                if (!_commandbool)
+                {
+                    if (_commandObj) _commandObj.SetActive(true);
+                    _commandbool = true;
+                    ShowText("コマンド？");
+                }
+
+                if (Input.GetButtonDown("Attack"))
+                {
+                    Attacker();
+                }
+
+                if (Input.GetButtonDown("Skill1"))
+                {
+                    SkillAttack(0);
+                }
+
+                if (Input.GetButtonDown("Skill2"))
+                {
+                    SkillAttack(1);
+                }
+
+                if (Input.GetButtonDown("Skill3"))
+                {
+                    SkillAttack(2);
+                }
+            }
+
+            if(HP <= 0)
+            {
+                _survive = Survive.Death;
+            }
+            TimeMethod();
         }
-
-        if (_time > 10f)
+        else
         {
-
-            if(!_commandbool)
+            if(!_death)
             {
-                if(_commandObj) _commandObj.SetActive(true);
-                _commandbool = true;
-                ShowText("コマンド？");
-            }
-
-            if (Input.GetButtonDown("Attack"))
-            {
-                Attacker();
-            }
-
-            if(Input.GetButtonDown("Skill1"))
-            {
-                SkillAttack(0);
-            }
-
-            if(Input.GetButtonDown("Skill2"))
-            {
-                SkillAttack(1);
-            }
-            
-            if(Input.GetButtonDown("Skill3"))
-            {
-                SkillAttack(2);
+                _death = true;
+                Death();
             }
         }
     }
 
+    /// <summary>普通の攻撃の処理</summary>
     void Attacker()
     {
         ShowText("攻撃！");
@@ -74,6 +92,8 @@ public class AttackPlayer : StatusClass
         CommandReset();
     }
 
+    /// <summary>スキルで攻撃したときの処理</summary>
+    /// <param name="i"></param>
     void SkillAttack(int i)
     {
         var set = DataBase.AttackSkillData[DataBase._attackSkillSetNo[i]];
@@ -82,6 +102,7 @@ public class AttackPlayer : StatusClass
         CommandReset();
     }
 
+    /// <summary>コマンドの待機時間などをリセットする処理</summary>
     void CommandReset()
     {
         _time = 0;
@@ -89,8 +110,17 @@ public class AttackPlayer : StatusClass
         _commandbool = false;
     }
 
+    /// <summary>テキストを更新するときの処理</summary>
+    /// <param name="str"></param>
     void ShowText(string str)
     {
         _enumtext.text = str;
+    }
+
+    /// <summary>死んだときの処理</summary>
+    void Death()
+    {
+        _attackObj.transform.Rotate(90f, 0f, 0f);
+        ShowText("俺は死んだぜ☆");
     }
 }

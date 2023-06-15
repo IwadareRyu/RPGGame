@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: BlockMagic
   m_EditorClassIdentifier: 
   _skillName: "\u6E3E\u6C8C\u306E\u53CC\u7FFC\u6B4C"
-  _type: 2
-  _description: "Attack\u3068Diffence\u304C15\u30A2\u30C3\u30D7"
-  _plusDiffencePower: 15
-  _plusAttackPower: 15
+  _type: 3
+  _description: "Attack\u304C10\nDiffence\u304C5\u30A2\u30C3\u30D7"
+  _plusDiffencePower: 5
+  _plusAttackPower: 5
   _skillPoint: 10
   _healingHP: 0

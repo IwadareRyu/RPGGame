@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skillName: "\u30EC\u30A4\u30B8\u30F3\u30B0\u30D6\u30EC\u30B9"
   _type: 3
-  _description: "Attack\u304C30\u30A2\u30C3\u30D7"
+  _description: "Attack\u304C20\u30A2\u30C3\u30D7"
   _plusDiffencePower: 0
-  _plusAttackPower: 30
+  _plusAttackPower: 20
   _skillPoint: 20
   _healingHP: 0

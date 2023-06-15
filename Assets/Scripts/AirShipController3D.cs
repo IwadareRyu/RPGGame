@@ -19,7 +19,6 @@ public class AirShipController3D : MonoBehaviour
     bool _airShipFly;
     [SerializeField] State _state = State.NomalMode;
     public bool _menu;
-    [SerializeField] GameObject _battleField;
 
     // Start is called before the first frame update
     void Start()
@@ -79,8 +78,6 @@ public class AirShipController3D : MonoBehaviour
         else
         {
             _rb.velocity = Vector3.zero;
-            Horizontal.Update(0);
-            Vertical.Update(0);
         }
     }
 
@@ -88,9 +85,7 @@ public class AirShipController3D : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
-            other.gameObject.SetActive(false);
-            Instantiate(_battleField, transform.position, transform.localRotation);
-            gameObject.SetActive(false);
+            FightManager.Instance.InBattle(other.gameObject);
         }
     }
 

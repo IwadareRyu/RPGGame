@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class EnemyController : StatusClass
     [SerializeField] Text _enemytext;
     bool _enemyAttackbool;
     [SerializeField] Animator _anim;
+    bool _fight;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,67 +29,94 @@ public class EnemyController : StatusClass
     // Update is called once per frame
     void Update()
     {
-        if(!_enemyAttackbool)
+        if (_survive == Survive.Survive)
         {
-            _enemyAttackbool = true;
-            StartCoroutine(EnemyAttackCoolTime());
+            if (!_enemyAttackbool)
+            {
+                _enemyAttackbool = true;
+                StartCoroutine(EnemyAttackCoolTime());
+            }
+
+            TimeMethod();
+
+            if (_magicPlayer.HP <= 0 && _attackPlayer.HP <= 0 && !_fight)
+            {
+                _fight = true;
+                FightManager.Instance.Lose();
+            }
+            else if (_hp <= 0 && !_fight)
+            {
+                _fight = true;
+                _anim.SetBool("Death", true);
+                _survive = Survive.Death;
+                _enemytext.text = "ぬわああああああああああああ";
+                FightManager.Instance.Win(50);
+            }
         }
     }
 
     IEnumerator EnemyAttackCoolTime()
     {
         yield return new WaitForSeconds(5f);
-        var ram = Random.Range(0,100);
-        _anim.SetBool("Attack",true);
-        if(ram < 50)
+        if (_survive != Survive.Death)
         {
-            _enemytext.text = "Magicに攻撃";
-            StartCoroutine(EnemyAttack(true));
-        }
-        else
-        {
-            _enemytext.text = "Attackerに攻撃";
-            StartCoroutine(EnemyAttack(false));
+            var ram = Random.Range(0, 100);
+            _anim.SetBool("Attack", true);
+            if (ram < 50 && _magicPlayer.HP > 0 || _attackPlayer.HP <= 0)
+            {
+                _enemytext.text = "Magicに攻撃";
+                StartCoroutine(EnemyAttack(true));
+            }
+            else
+            {
+                _enemytext.text = "Attackerに攻撃";
+                StartCoroutine(EnemyAttack(false));
+            }
         }
     }
 
     IEnumerator EnemyAttack(bool magicTAttackF)
     {
         yield return new WaitForSeconds(1.1f);
-        if(magicTAttackF)
+
+        if (_survive != Survive.Death)
         {
-            if(_blockPlayer.Condition == BlockPlayer.BlockorAttack.LeftBlock)
+            if (magicTAttackF)
             {
-                Guard();
-            }
-            else if(_blockPlayer.Condition == BlockPlayer.BlockorAttack.CoolLeftCounter)
-            {
-                Counter();
+                if (_blockPlayer.Condition == BlockPlayer.BlockorAttack.LeftBlock)
+                {
+                    Guard();
+                }
+                else if (_blockPlayer.Condition == BlockPlayer.BlockorAttack.CoolLeftCounter)
+                {
+                    Counter();
+                }
+                else
+                {
+                    _enemytext.text = "Magicにダメージ！";
+                    _magicPlayer.AddDamage(Attack);
+                }
             }
             else
             {
-                _enemytext.text = "Magicにダメージ！";
-                _magicPlayer.AddDamage(Attack);
+                if (_blockPlayer.Condition == BlockPlayer.BlockorAttack.RightBlock)
+                {
+                    Guard();
+                }
+                else if (_blockPlayer.Condition == BlockPlayer.BlockorAttack.CoolRightCounter)
+                {
+                    Counter();
+                }
+                else
+                {
+                    _enemytext.text = "Attackerにダメージ！";
+                    _attackPlayer.AddDamage(Attack);
+                }
             }
+            _anim.SetBool("Attack", false);
         }
-        else
-        {
-            if(_blockPlayer.Condition == BlockPlayer.BlockorAttack.RightBlock)
-            {
-                Guard();
-            }
-            else if(_blockPlayer.Condition == BlockPlayer.BlockorAttack.CoolRightCounter)
-            {
-                Counter();
-            }
-            else
-            {
-                _enemytext.text = "Attackerにダメージ！";
-                _attackPlayer.AddDamage(Attack);
-            }
-        }
-        _anim.SetBool("Attack", false);
         _enemyAttackbool = false;
+
     }
 
     void Guard()
@@ -100,7 +129,7 @@ public class EnemyController : StatusClass
     {
         _enemytext.text = "カウンターされた！";
         _blockPlayer.TrueCounter();
-        _blockPlayer.AddDamage(Attack,0.5f);
+        _blockPlayer.AddDamage(Attack);
     }
 
     enum EnemyEnum

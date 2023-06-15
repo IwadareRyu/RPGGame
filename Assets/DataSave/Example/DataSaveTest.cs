@@ -18,6 +18,11 @@ public class DataSaveTest : MonoBehaviour
         DataSaveManager.Instance.Save(skillData, fileName);
     }
 
+    public void SaveSkillPoint(DataBase.SkillPt skillPt,string fileName)
+    {
+        DataSaveManager.Instance.Save(skillPt, fileName);
+    }
+
     /// <summary>
     /// シングルトンのデータセーブクラスのロード処理を行う
     /// </summary>
@@ -29,5 +34,11 @@ public class DataSaveTest : MonoBehaviour
     public DataBase.SkillData LoadSkill(string fileName)
     {
         return DataSaveManager.Instance.Load<DataBase.SkillData>(fileName);
+    }
+
+    public DataBase.SkillPt LoadPoint(string fileName)
+    {
+        return DataSaveManager.Instance.Load<DataBase.SkillPt>(fileName);
+
     }
 }

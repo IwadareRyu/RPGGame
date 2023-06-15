@@ -28,6 +28,7 @@ public class BlockPlayer : StatusClass
     bool _coolTimebool;
     [Tooltip("状態のテキスト")]
     [SerializeField] Text _enumtext;
+    [SerializeField] GameObject _blockObj;
 
     // Start is called before the first frame update
     void Start()
@@ -43,87 +44,108 @@ public class BlockPlayer : StatusClass
     // Update is called once per frame
     void Update()
     {
-        //Qボタンで左に移動して状態がCoolLeftCounterになる。
-        if (Input.GetButton("BlockLeft") &&
-            _condition != BlockorAttack.CoolTime &&
-            _condition != BlockorAttack.RightBlock &&
-            _condition != BlockorAttack.CoolRightCounter &&
-            _condition != BlockorAttack.Counter)
+        if (_survive == Survive.Survive)
         {
-            CoolCounter(1, BlockorAttack.CoolLeftCounter);
-        }
-        //Eボタンで右に移動して状態がCoolRightCounterになる。
-        else if (Input.GetButton("BlockRight") &&
-            _condition != BlockorAttack.CoolTime &&
-            _condition != BlockorAttack.LeftBlock &&
-            _condition != BlockorAttack.CoolLeftCounter &&
-            _condition != BlockorAttack.Counter)
-        {
-            CoolCounter(2, BlockorAttack.CoolRightCounter);
-        }
-        //ニュートラルでカウンター状態じゃない限り、真ん中に移動して状態がAttackになる。
-        else if(_condition != BlockorAttack.CoolLeftCounter && 
-            _condition != BlockorAttack.CoolRightCounter && 
-            _condition != BlockorAttack.Counter &&
-            _condition != BlockorAttack.Attack)
-        {
-            if (!_coolTimebool)
+            //Qボタンで左に移動して状態がCoolLeftCounterになる。
+            if (Input.GetButton("BlockLeft") &&
+                _condition != BlockorAttack.CoolTime &&
+                _condition != BlockorAttack.RightBlock &&
+                _condition != BlockorAttack.CoolRightCounter &&
+                _condition != BlockorAttack.Counter)
             {
-                _coolTimebool = true;
-                CoolTime(BlockorAttack.Attack);
+                CoolCounter(1, BlockorAttack.CoolLeftCounter);
             }
-        }
+            //Eボタンで右に移動して状態がCoolRightCounterになる。
+            else if (Input.GetButton("BlockRight") &&
+                _condition != BlockorAttack.CoolTime &&
+                _condition != BlockorAttack.LeftBlock &&
+                _condition != BlockorAttack.CoolLeftCounter &&
+                _condition != BlockorAttack.Counter)
+            {
+                CoolCounter(2, BlockorAttack.CoolRightCounter);
+            }
+            //ニュートラルでカウンター状態じゃない限り、真ん中に移動して状態がAttackになる。
+            else if (_condition != BlockorAttack.CoolLeftCounter &&
+                _condition != BlockorAttack.CoolRightCounter &&
+                _condition != BlockorAttack.Counter &&
+                _condition != BlockorAttack.Attack)
+            {
+                if (!_coolTimebool)
+                {
+                    _coolTimebool = true;
+                    CoolTime(BlockorAttack.Attack);
+                }
+            }
 
-        //CoolLeftCounterかCoolRightCounter時に実行
-        if(_condition == BlockorAttack.CoolLeftCounter || 
-            _condition == BlockorAttack.CoolRightCounter)
-        {
-            if(!_counterTime)
+            //CoolLeftCounterかCoolRightCounter時に実行
+            if (_condition == BlockorAttack.CoolLeftCounter ||
+                _condition == BlockorAttack.CoolRightCounter)
             {
-                _counterTime = true;
-                StartCoroutine(CoolCounterTime());
+                if (!_counterTime)
+                {
+                    _counterTime = true;
+                    StartCoroutine(CoolCounterTime());
+                }
+            }
+
+            //LeftBlockかRightBlockの時に実行
+            if (_condition == BlockorAttack.LeftBlock ||
+                _condition == BlockorAttack.RightBlock)
+            {
+                if (!_blockTime)
+                {
+                    _blockTime = true;
+                    StartCoroutine(BlockTime());
+                }
+            }
+
+            //Attackの時に実行
+            if (_condition == BlockorAttack.Attack)
+            {
+                //チャージが100以上になったら状態をチャージアタックに変える。
+                if (_guageAttack >= 100)
+                {
+                    _condition = BlockorAttack.ChageAttack;
+                    ShowText("チャージアタック");
+                }
+                else if (!_attackTime)
+                {
+                    _attackTime = true;
+                    StartCoroutine(AttackTime());
+                }
+            }
+
+            //ChageAttackの時に実行
+            if (_condition == BlockorAttack.ChageAttack)
+            {
+                //チャージアタックをした後、ゲージを０にして、Attack状態に戻る。
+                var set = DataBase.BlockSkillData[DataBase._blockSkillSetNo[1]];
+                Debug.Log(set.SkillName);
+                _enemy.AddDebuffDamage(Attack, set.AttackValue * 5, set.EnemyOffencePower * 5, set.EnemyDiffencePower * 5);
+                _guageAttack = 0;
+                _condition = BlockorAttack.Attack;
+            }
+
+            TimeMethod();
+
+            if(_hp == 0)
+            {
+                _survive = Survive.Death;
             }
         }
-
-        //LeftBlockかRightBlockの時に実行
-        if(_condition == BlockorAttack.LeftBlock || 
-            _condition == BlockorAttack.RightBlock)
+        else
         {
-            if (!_blockTime)
+            if (!_death)
             {
-                _blockTime = true;
-                StartCoroutine(BlockTime());
+                _condition = BlockorAttack.Attack;
+                _death = true;
+                Death();
             }
-        }
-
-        //Attackの時に実行
-        if(_condition == BlockorAttack.Attack)
-        {
-            //チャージが100以上になったら状態をチャージアタックに変える。
-            if (_guageAttack >= 100)
-            {
-                _condition = BlockorAttack.ChageAttack;
-                ShowText("チャージアタック");
-            }
-            else if(!_attackTime)
-            {
-                _attackTime = true;
-                StartCoroutine(AttackTime());
-            }
-        }
-
-        //ChageAttackの時に実行
-        if(_condition == BlockorAttack.ChageAttack)
-        {
-            //チャージアタックをした後、ゲージを０にして、Attack状態に戻る。
-            var set = DataBase.BlockSkillData[DataBase._blockSkillSetNo[1]];
-            Debug.Log(set.SkillName);
-            _enemy.AddDebuffDamage(Attack, set.AttackValue * 5,set.EnemyOffencePower * 5,set.EnemyDiffencePower * 5);
-            _guageAttack = 0;
-            _condition = BlockorAttack.Attack;
         }
     }
 
+    /// <summary>テキストの更新の処理</summary>
+    /// <param name="str"></param>
     void ShowText(string str)
     {
         _enumtext.text = str;
@@ -135,15 +157,18 @@ public class BlockPlayer : StatusClass
     {
         //一秒後にそれぞれのブロックの処理どちらかを実行。
         yield return new WaitForSeconds(1f);
-        if (_condition == BlockorAttack.LeftBlock)
+        if (_survive != Survive.Death)
         {
-            ShowText(_condition.ToString());
-            _guageAttack += 5;
-        }
-        else if(_condition == BlockorAttack.RightBlock)
-        {
-            ShowText(_condition.ToString());
-            _guageAttack += 5;
+            if (_condition == BlockorAttack.LeftBlock)
+            {
+                ShowText(_condition.ToString());
+                _guageAttack += 5;
+            }
+            else if (_condition == BlockorAttack.RightBlock)
+            {
+                ShowText(_condition.ToString());
+                _guageAttack += 5;
+            }
         }
         _blockTime = false;
     }
@@ -153,12 +178,15 @@ public class BlockPlayer : StatusClass
     IEnumerator AttackTime()
     {
         yield return new WaitForSeconds(2f);
-        if (_condition == BlockorAttack.Attack)
+        if (_survive != Survive.Death)
         {
-            var set = DataBase.BlockSkillData[DataBase._blockSkillSetNo[0]];
-            ShowText(set.SkillName);
-            _guageAttack += 1;
-            _enemy.AddDebuffDamage(Attack,set.AttackValue,set.EnemyOffencePower,set.EnemyDiffencePower);
+            if (_condition == BlockorAttack.Attack)
+            {
+                var set = DataBase.BlockSkillData[DataBase._blockSkillSetNo[0]];
+                ShowText(set.SkillName);
+                _guageAttack += 1;
+                _enemy.AddDebuffDamage(Attack, set.AttackValue, set.EnemyOffencePower, set.EnemyDiffencePower);
+            }
         }
         _attackTime = false;
     }
@@ -174,13 +202,18 @@ public class BlockPlayer : StatusClass
         }
     }
 
+    /// <summary>BlockからAttackに切り替わるまでのクールタイムを書いたコルーチン</summary>
+    /// <returns></returns>
     IEnumerator CoolTimeCoroutine()
     {
         _condition = BlockorAttack.CoolTime;
         transform.position = _trans[0].position;
         ShowText("CoolTime");
         yield return new WaitForSeconds(1.5f);
-        _condition = BlockorAttack.Attack;
+        if (_survive != Survive.Death)
+        {
+            _condition = BlockorAttack.Attack;
+        }
         ShowText("CoolTime終了");
         _coolTimebool = false;
     }
@@ -198,6 +231,7 @@ public class BlockPlayer : StatusClass
         }
     }
 
+    /// <summary>カウンターが成功したときの処理</summary>
     public void TrueCounter()
     {
         if (_condition == BlockorAttack.CoolLeftCounter || 
@@ -209,6 +243,9 @@ public class BlockPlayer : StatusClass
         }
     }
 
+    /// <summary>カウンターが成功したときの処理から呼ばれるコルーチン</summary>
+    /// <param name="tmp"></param>
+    /// <returns></returns>
     IEnumerator TrueCounrerTime(BlockorAttack tmp)
     {
         //カウンターの処理//
@@ -218,35 +255,50 @@ public class BlockPlayer : StatusClass
         _guageAttack += 10;
         //終わり//
         yield return new WaitForSeconds(2f);
-        if(tmp == BlockorAttack.CoolLeftCounter)
+        if (_survive != Survive.Death)
         {
-            _condition = BlockorAttack.LeftBlock;
-        }
-        else
-        {
-            _condition = BlockorAttack.RightBlock;
-        }
-    }
-
-    IEnumerator CoolCounterTime()
-    {
-        yield return new WaitForSeconds(0.3f);
-        if (_condition == BlockorAttack.CoolLeftCounter || 
-            _condition == BlockorAttack.CoolRightCounter)
-        {
-            Debug.Log("カウンター失敗、防御態勢へ移行");
-            if (_condition == BlockorAttack.CoolLeftCounter)
+            if (tmp == BlockorAttack.CoolLeftCounter)
             {
-                _enumtext.text = "LeftBlock";
                 _condition = BlockorAttack.LeftBlock;
             }
             else
             {
-                _enumtext.text = "RightBlock";
                 _condition = BlockorAttack.RightBlock;
             }
         }
+    }
+
+    /// <summary>カウンター待機時間、カウンター失敗したときのコルーチン</summary>
+    /// <returns></returns>
+    IEnumerator CoolCounterTime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        if (_survive != Survive.Death)
+        {
+            if (_condition == BlockorAttack.CoolLeftCounter ||
+                _condition == BlockorAttack.CoolRightCounter)
+            {
+                Debug.Log("カウンター失敗、防御態勢へ移行");
+                if (_condition == BlockorAttack.CoolLeftCounter)
+                {
+                    _enumtext.text = "LeftBlock";
+                    _condition = BlockorAttack.LeftBlock;
+                }
+                else
+                {
+                    _enumtext.text = "RightBlock";
+                    _condition = BlockorAttack.RightBlock;
+                }
+            }
+        }
         _counterTime = false;
+    }
+
+    /// <summary>死んだときの処理</summary>
+    void Death()
+    {
+        _blockObj.transform.Rotate(90f, 0f, 0f);
+        ShowText("俺は死んだぜ☆");
     }
 
     /// <summary>BlockPlayerの状態</summary>

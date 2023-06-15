@@ -56,10 +56,20 @@ public class TreeScript : MonoBehaviour
     [Tooltip("経路を見つけた時に、探索を抜けるbool")]
     bool _answerbool;
 
+    private void Awake()
+    {
+        _database = DataBase.Instance;
+    }
+
+    private void OnEnable()
+    {
+        //スキルポイントの表示(ゲーム中に値が変わる可能性があるのでOnEnable)
+        _menuSkillPtText.text = _database.SkillPoint.ToString();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        _database = DataBase.Instance;
         for(var i = 0;i < _attackMagicTreeButtom.Length;i++)
         {
             var num = i;
@@ -88,8 +98,6 @@ public class TreeScript : MonoBehaviour
         _no.onClick.AddListener(NoConfirmation);
         _confirmation.SetActive(false);
         _falseComfimation.SetActive(false);
-        _menuSkillPtText.text = _database.SkillPoint.ToString();
-        
     }
 
     /// <summary>スキルが選択されたときに呼ばれる処理。</summary>
