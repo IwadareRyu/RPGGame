@@ -3,7 +3,18 @@ guid: 9c819aa2d8c761e499b79d7b2c7b6d8e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _enemy: {instanceID: 0}
+  - _hpSlider: {instanceID: 0}
+  - _swordUpPrehab: {fileID: 5215348680188089598, guid: 5197de5396c9ec54c95ad15368e432f8,
+      type: 3}
+  - _swordDownPrehab: {fileID: 1042081136916892199, guid: bd5f3519f6116d942b0a0170ca101064,
+      type: 3}
+  - _sheldUpPrehab: {fileID: 2543717421956013849, guid: 659f3de0ce440e849b9d50ef58e1cd60,
+      type: 3}
+  - _sheldDownPrehab: {fileID: 4261160431403236214, guid: 93be8a4510fdb264ea6948455b1ebf54,
+      type: 3}
+  - _conditionPanel: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

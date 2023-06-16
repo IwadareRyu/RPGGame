@@ -40,6 +40,7 @@ public class DataBase : SingletonMonovihair<DataBase>
         public int[] _SetNo;
     }
 
+    [System.Serializable]
     public struct SkillPt
     {
         public int _skillPt;

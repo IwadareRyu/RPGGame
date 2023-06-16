@@ -1521,6 +1521,15 @@ MonoBehaviour:
   _hpSlider: {fileID: 5140337627493258625}
   _survive: 0
   _death: 0
+  _swordUpPrehab: {fileID: 5215348680188089598, guid: 5197de5396c9ec54c95ad15368e432f8,
+    type: 3}
+  _swordDownPrehab: {fileID: 1042081136916892199, guid: bd5f3519f6116d942b0a0170ca101064,
+    type: 3}
+  _sheldUpPrehab: {fileID: 2543717421956013849, guid: 659f3de0ce440e849b9d50ef58e1cd60,
+    type: 3}
+  _sheldDownPrehab: {fileID: 4261160431403236214, guid: 93be8a4510fdb264ea6948455b1ebf54,
+    type: 3}
+  _conditionPanel: {fileID: 0}
   _trans:
   - {fileID: 5246063352484698949}
   - {fileID: 6960055967050071401}
@@ -2513,6 +2522,15 @@ MonoBehaviour:
   _hpSlider: {fileID: 7803615648904192896}
   _survive: 0
   _death: 0
+  _swordUpPrehab: {fileID: 5215348680188089598, guid: 5197de5396c9ec54c95ad15368e432f8,
+    type: 3}
+  _swordDownPrehab: {fileID: 1042081136916892199, guid: bd5f3519f6116d942b0a0170ca101064,
+    type: 3}
+  _sheldUpPrehab: {fileID: 2543717421956013849, guid: 659f3de0ce440e849b9d50ef58e1cd60,
+    type: 3}
+  _sheldDownPrehab: {fileID: 4261160431403236214, guid: 93be8a4510fdb264ea6948455b1ebf54,
+    type: 3}
+  _conditionPanel: {fileID: 0}
   _trans:
   - {fileID: 4588704321254494879}
   - {fileID: 1734170470755001709}
@@ -3009,6 +3027,15 @@ MonoBehaviour:
   _hpSlider: {fileID: 7782392807738530473}
   _survive: 0
   _death: 0
+  _swordUpPrehab: {fileID: 5215348680188089598, guid: 5197de5396c9ec54c95ad15368e432f8,
+    type: 3}
+  _swordDownPrehab: {fileID: 1042081136916892199, guid: bd5f3519f6116d942b0a0170ca101064,
+    type: 3}
+  _sheldUpPrehab: {fileID: 2543717421956013849, guid: 659f3de0ce440e849b9d50ef58e1cd60,
+    type: 3}
+  _sheldDownPrehab: {fileID: 4261160431403236214, guid: 93be8a4510fdb264ea6948455b1ebf54,
+    type: 3}
+  _conditionPanel: {fileID: 0}
   _enemytext: {fileID: 4986125937193322557}
   _anim: {fileID: 3169295071632014916}
 --- !u!1 &5178274194012710014
@@ -3178,6 +3205,15 @@ MonoBehaviour:
   _hpSlider: {fileID: 6929873057799020161}
   _survive: 0
   _death: 0
+  _swordUpPrehab: {fileID: 5215348680188089598, guid: 5197de5396c9ec54c95ad15368e432f8,
+    type: 3}
+  _swordDownPrehab: {fileID: 1042081136916892199, guid: bd5f3519f6116d942b0a0170ca101064,
+    type: 3}
+  _sheldUpPrehab: {fileID: 2543717421956013849, guid: 659f3de0ce440e849b9d50ef58e1cd60,
+    type: 3}
+  _sheldDownPrehab: {fileID: 4261160431403236214, guid: 93be8a4510fdb264ea6948455b1ebf54,
+    type: 3}
+  _conditionPanel: {fileID: 0}
   _commandObj: {fileID: 2355221437163457595}
   _commandText:
   - {fileID: 7736251377475454566}

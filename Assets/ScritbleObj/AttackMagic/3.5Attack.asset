@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 3.5Attack
   m_EditorClassIdentifier: 
   _skillName: "\u30B5\u30F3\u30D7\uFF13"
-  _type: 0
+  _type: 2
   _description: "3.5\u500D\u306E\u7269\u7406\u653B\u6483"
   _attackValue: 3.5
-  _skillPoint: 30
+  _skillPoint: 1000000

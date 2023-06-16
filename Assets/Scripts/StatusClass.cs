@@ -36,6 +36,12 @@ public abstract class StatusClass : MonoBehaviour
 
     public bool _death;
 
+    [SerializeField] GameObject _swordUpPrehab;
+    [SerializeField] GameObject _swordDownPrehab;
+    [SerializeField] GameObject _sheldUpPrehab;
+    [SerializeField] GameObject _sheldDownPrehab;
+    [SerializeField] GameObject _conditionPanel;
+
     public void Awake()
     {
         _dataBase = DataBase.Instance;
