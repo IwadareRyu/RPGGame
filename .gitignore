@@ -77,3 +77,6 @@ ProjectSettings/
 Assets/Unity.VisualScripting.Generated.meta
 Assets/GaibuAsset/
 Assets/ProBuilder Data/
+Assets/Plugins/
+Assets/Resources/DOTweenSettings.asset.meta
+Assets/Resources/DOTweenSettings.asset

@@ -23,7 +23,7 @@ public class AttackPlayer : StatusClass
         Debug.Log($"AttackerDiffence:{Diffence}");
         for(var i = 0;i < _commandText.Length;i++)
         {
-            _commandText[i].text = DataBase.AttackSkillData[DataBase._attackSkillSetNo[i]].SkillName.Substring(0,4);
+            //_commandText[i].text = DataBase.AttackSkillData[DataBase._attackSkillSetNo[i]].SkillName.Substring(0,4);
         }
     }
 
@@ -54,17 +54,17 @@ public class AttackPlayer : StatusClass
 
                 if (Input.GetButtonDown("Skill1"))
                 {
-                    SkillAttack(0);
+                    //SkillAttack(0);
                 }
 
                 if (Input.GetButtonDown("Skill2"))
                 {
-                    SkillAttack(1);
+                    //SkillAttack(1);
                 }
 
                 if (Input.GetButtonDown("Skill3"))
                 {
-                    SkillAttack(2);
+                    //SkillAttack(2);
                 }
             }
 
@@ -96,7 +96,7 @@ public class AttackPlayer : StatusClass
     /// <param name="i"></param>
     void SkillAttack(int i)
     {
-        var set = DataBase.AttackSkillData[DataBase._attackSkillSetNo[i]];
+        var set = DataBase.AttackSkills[DataBase._attackSkillSetNo[i]];
         ShowText($"{set.SkillName}ÅI");
         _enemy.AddDamage(Attack, set.AttackValue);
         CommandReset();

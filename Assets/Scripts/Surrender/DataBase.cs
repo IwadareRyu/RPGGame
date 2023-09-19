@@ -1,13 +1,21 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class DataBase : SingletonMonovihair<DataBase>
+public class DataBase : MonoBehaviour
 {
-    [Header("アタックスキル")]
-    [SerializeField] AttackSkill[] _attackData;
-    public AttackSkill[] AttackSkillData => _attackData;
-    public bool[] _attackSkillbool;
-    public int[] _attackSkillSetNo = new int[3] {0,0,0};
-    private const string _attackSkillFileName = "AttackSkill";
+    [SerializeField] bool IsVersionUpFlag = false;
+    //[Header("アタックスキル")]
+    //[SerializeField] AttackSkill[] _attackData;
+    //public AttackSkill[] AttackSkillData => _attackData;
+    //public bool[] _attackSkillbool;
+    public int[] _attackSkillSetNo = new int[3] { 0, 0, 0 };
+    //private const string _attackSkillFileName = "AttackSkill";
+
+    MasterData.MasterDataClass<MasterData.AttackSkill> attackSkillMaster;
+
+    static public MasterData.AttackSkill[] AttackSkills => Instance.attackSkillMaster.Data;
+
+    delegate void LoadMasterDataCallback<T>(T data);
 
     [Header("ブロックスキル")]
     [SerializeField] BlockSkill[] _blockData;
@@ -29,7 +37,6 @@ public class DataBase : SingletonMonovihair<DataBase>
     public bool[] _blockMagicbool;
     public int[] _blockMagicSetNo = new int[2] {0,0};
     private const string _blockMagicFileName = "BlockMagic";
-
     [System.Serializable]
     public struct SkillData
     {
@@ -46,7 +53,7 @@ public class DataBase : SingletonMonovihair<DataBase>
     SkillPt _pt;
 
     SkillData _skillData;
-    SkillData _attackSkillData;
+    //SkillData _attackSkillData;
     SkillData _blockSkillData;
     SkillData _blockMagicSkillData;
     SkillData _attackMagicSkillData;
@@ -54,7 +61,11 @@ public class DataBase : SingletonMonovihair<DataBase>
     [SerializeField]
     DataSaveTest _dataSave;
 
-    protected override bool _dontDestroyOnLoad { get { return true; } }
+    static DataBase instance = null;
+    public static DataBase Instance => instance;
+
+    int LoadingCount = 0;
+    int IsInit = 0;
     
     [Header("今持っているスキルポイント"),Tooltip("今持っているスキルポイント"),SerializeField]
     int _skillPoint = 5;
@@ -65,29 +76,84 @@ public class DataBase : SingletonMonovihair<DataBase>
         _skillPoint += i;
     }
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        LoadMasterData("AttackSkill",(MasterData.MasterDataClass<MasterData.AttackSkill> data)=> attackSkillMaster = data);
+
+    }
     private void OnEnable()
     {
+        //セーブデータロード処理
         _attackMagicSkillData = SkillDataLoad(_attackMagicFileName);
         _attackMagicSetNo = SetNoLoad(_attackMagicSetNo,_attackMagicSkillData);
         _attackMagicbool = GetBoolLoad(_attackMagicbool, _attackMagicSkillData);
         _blockSkillData = SkillDataLoad(_blockSkillFileName);
         _blockSkillSetNo = SetNoLoad(_blockSkillSetNo, _blockSkillData);
-        _attackSkillData = SkillDataLoad(_attackSkillFileName);
-        _attackSkillSetNo = SetNoLoad(_attackSkillSetNo, _attackSkillData);
+        //_attackSkillData = SkillDataLoad(_attackSkillFileName);
+        //_attackSkillSetNo = SetNoLoad(_attackSkillSetNo, _attackSkillData);
         _blockMagicSkillData = SkillDataLoad(_blockMagicFileName);
         _blockMagicSetNo = SetNoLoad(_blockMagicSetNo, _blockMagicSkillData);
         _skillPoint = SkillPointLoad(_skillPointFile);
         //_skillPoint = 0;
     }
 
+    private void Update()
+    {
+        if (LoadingCount == 0 && IsInit == 0)
+        {
+            IsInit = 1;
+            for (var i = 0;i < attackSkillMaster.Data.Length;i++)
+            {
+                var skill = attackSkillMaster.Data[i];
+                Debug.Log($"{skill.ID} {skill.SkillName} {skill.AttackValue} {skill.RequaireAttack}");
+            }
+        }
+        else if (IsInit == 0)
+        {
+            Debug.Log("読み込み失敗");
+        }
+    }
+
     private void OnDisable()
     {
+        //セーブデータセーブ処理
         SkillDataSave(_attackMagicSetNo,_attackMagicbool,_attackMagicFileName);
-        SkillDataSave(_attackSkillSetNo, _attackSkillbool, _attackSkillFileName);
+        //SkillDataSave(_attackSkillSetNo, _attackSkillbool, _attackSkillFileName);
         SkillDataSave(_blockSkillSetNo, _blockSkillbool, _blockSkillFileName);
         SkillDataSave(_blockMagicSetNo, _blockMagicbool, _blockMagicFileName);
         PtDataSave(_skillPoint,_skillPointFile);
     }
+
+    private void LoadMasterData<T>(string file, LoadMasterDataCallback<T> callback)
+    {
+        var data = LocalData.Load<T>(file);
+        if (data == null || IsVersionUpFlag)
+        {
+            LoadingCount++;
+            Network.WebRequest.Request<Network.WebRequest.GetString>("https://script.google.com/macros/s/AKfycbxFj8XSE6UFuc8R7MxPRJSfzkb1hNWHS3qKc2vH7OdPRmi6KuZ8-cSDgnQ_aaKOHMu2YQ/exec?sheet=" + file, 
+                Network.WebRequest.ResultType.String, 
+                (string json) =>
+            {
+                var dldata = JsonUtility.FromJson<T>(json);
+                LocalData.Save<T>(file, dldata);
+                callback(dldata);
+                Debug.Log($"NetWork download : {file} / {json} / {dldata}");
+                --LoadingCount;
+            });
+        }
+        else
+        {
+            Debug.Log($"Local load : {file} / {data}");
+            callback(data);
+        }
+    }
+
 
     void SkillDataSave(int[] setNo, bool[] getSkillbool,string fileName)
     {

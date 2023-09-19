@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirShipController3D : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     Rigidbody _rb;
     [Tooltip("プレイヤーの動きの速さ")]

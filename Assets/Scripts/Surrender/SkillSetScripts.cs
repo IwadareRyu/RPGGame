@@ -53,7 +53,7 @@ public class SkillSetScripts : MonoBehaviour
                 }
                 else if (_skilltype == SkillType.AttackSkill)
                 {
-                    text.text = _dataBase.AttackSkillData[_dataBase._attackSkillSetNo[i]].SkillName;
+                    //text.text = _dataBase.AttackSkillData[_dataBase._attackSkillSetNo[i]].SkillName;
                 }
                 else if (_skilltype == SkillType.AttackMagic)
                 {
@@ -77,7 +77,7 @@ public class SkillSetScripts : MonoBehaviour
             }
             else if (_skilltype == SkillType.AttackSkill)
             {
-                SkillSet(_dataBase._attackSkillbool, _dataBase.AttackSkillData);
+                //SkillSet(_dataBase._attackSkillbool, _dataBase.AttackSkillData);
             }
             else if (_skilltype == SkillType.AttackMagic)
             {
@@ -122,7 +122,7 @@ public class SkillSetScripts : MonoBehaviour
         }
         else if (_skilltype == SkillType.AttackSkill)
         {
-            SkillDis(i, _dataBase.AttackSkillData);
+            //SkillDis(i, _dataBase.AttackSkillData);
         }
         else if (_skilltype == SkillType.AttackMagic)
         {
@@ -157,7 +157,7 @@ public class SkillSetScripts : MonoBehaviour
         }
         else if (_skilltype == SkillType.AttackSkill)
         {
-            MoveSkill(i, _dataBase._attackSkillSetNo, _dataBase.AttackSkillData[_tmp]);
+            //MoveSkill(i, _dataBase._attackSkillSetNo, _dataBase.AttackSkillData[_tmp]);
         }
         else if (_skilltype == SkillType.AttackMagic)
         {

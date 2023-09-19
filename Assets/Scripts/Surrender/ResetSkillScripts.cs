@@ -24,7 +24,7 @@ public class ResetSkillScripts : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _dataBase = DataBase.Instance;
+        //_dataBase = DataBase.Instance;
         _resetSkill.onClick.AddListener(ResetSkill);
         _yesReset.onClick.AddListener(YesReset);
         _noReset.onClick.AddListener(NoReset);

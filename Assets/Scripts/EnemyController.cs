@@ -83,11 +83,11 @@ public class EnemyController : StatusClass
         {
             if (magicTAttackF)
             {
-                if (_blockPlayer.Condition == BlockPlayer.BlockorAttack.LeftBlock)
+                if (_blockPlayer.Condition == BlockPlayer.BlockState.LeftBlock)
                 {
                     Guard();
                 }
-                else if (_blockPlayer.Condition == BlockPlayer.BlockorAttack.CoolLeftCounter)
+                else if (_blockPlayer.Condition == BlockPlayer.BlockState.CoolLeftCounter)
                 {
                     Counter();
                 }
@@ -99,11 +99,11 @@ public class EnemyController : StatusClass
             }
             else
             {
-                if (_blockPlayer.Condition == BlockPlayer.BlockorAttack.RightBlock)
+                if (_blockPlayer.Condition == BlockPlayer.BlockState.RightBlock)
                 {
                     Guard();
                 }
-                else if (_blockPlayer.Condition == BlockPlayer.BlockorAttack.CoolRightCounter)
+                else if (_blockPlayer.Condition == BlockPlayer.BlockState.CoolRightCounter)
                 {
                     Counter();
                 }
