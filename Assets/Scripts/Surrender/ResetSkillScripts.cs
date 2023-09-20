@@ -39,7 +39,7 @@ public class ResetSkillScripts : MonoBehaviour
         {
             if (_dataBase._attackMagicbool[i])
             {
-                _cost += _dataBase.AttackMagicData[i].SkillPoint;
+                _cost += DataBase.AttackMagics[i].SkillPoint;
             }
         }
 

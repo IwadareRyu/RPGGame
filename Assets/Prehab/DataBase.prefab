@@ -46,33 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d265f664c170444e964750dc8a71fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsVersionUpFlag: 0
-  _blockData:
-  - {fileID: 11400000, guid: 40b67d6adc2a52d49b3f95424c41c269, type: 2}
-  - {fileID: 11400000, guid: 4097c2032269d824c89c461b8b0c4b14, type: 2}
-  - {fileID: 11400000, guid: fd9c15cf6a0e0584a9a08730c23bd8e1, type: 2}
-  - {fileID: 11400000, guid: cc2adcebf38bbfd41964e4d9351146d8, type: 2}
+  IsVersionUpFlag: 1
+  _attackSkillbool: 0101010101
+  _attackSkillSetNo: 000000000000000000000000
   _blockSkillbool: 01010101
   _blockSkillSetNo: 0000000000000000
-  _attackMagicData:
-  - {fileID: 11400000, guid: 68b84cbb5b903a4498fb3feed99937f2, type: 2}
-  - {fileID: 11400000, guid: 7534cbe0dc79bea4587d22b5074bf46f, type: 2}
-  - {fileID: 11400000, guid: cc83703dfa4439e4da851e2b78c6e27e, type: 2}
-  - {fileID: 11400000, guid: be48b811d41d70f4281627bb3c02948b, type: 2}
-  - {fileID: 11400000, guid: 4e9d85e5d7c248941987b8c90a04038c, type: 2}
-  - {fileID: 11400000, guid: 427aac91599061649ae4540a0e6a7b08, type: 2}
-  - {fileID: 11400000, guid: 5ae23ba295966b04bbdae6a455dfc2af, type: 2}
-  - {fileID: 11400000, guid: 0f69be6f70a079f4caac0d3e1140ae61, type: 2}
-  - {fileID: 11400000, guid: d98e37c3a3d5703439ff2fb7173d9c06, type: 2}
-  - {fileID: 11400000, guid: 07720764acec0d74f82c3274c38f50af, type: 2}
-  - {fileID: 11400000, guid: 7b1bc818dd85ade439d6425b325a104a, type: 2}
   _attackMagicbool: 0100000000000000000000
   _attackMagicSetNo: 0000000000000000
-  _blockMagicData:
-  - {fileID: 11400000, guid: 9e0c16f7d4824ff4584e12bc44d3921c, type: 2}
-  - {fileID: 11400000, guid: 9812c8dc39fd2c148926b04d1adee832, type: 2}
-  - {fileID: 11400000, guid: f6dfce9119af34645b0e4d125ea3bc67, type: 2}
-  - {fileID: 11400000, guid: 93e67e54ed1caa847b4e5189cb7f1bf1, type: 2}
   _blockMagicbool: 01010101
   _blockMagicSetNo: 0000000000000000
   _dataSave: {fileID: 6782907675678490662}

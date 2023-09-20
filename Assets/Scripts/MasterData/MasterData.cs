@@ -7,13 +7,18 @@ using UnityEngine;
 namespace MasterData
 {
     [Serializable]
-    public class AttackSkill
+    public class Skill
     {
         public int ID;
         public string SkillName;
         public string Description;
         public int AttackValue;
         public int RequaireAttack;
+        public int SkillPoint;
+        public int HealingHP;
+        public int DiffencePower;
+        public int OffencePower;
+        public SkillType SkillType;
     }
 
     [Serializable]

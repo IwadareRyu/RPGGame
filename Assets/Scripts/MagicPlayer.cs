@@ -113,17 +113,17 @@ public class MagicPlayer : StatusClass
         {
             if (_magicpos == MagicPosition.AttackMagic)
             {
-                var set = DataBase.AttackMagicData[DataBase._attackMagicSetNo[(int)_attackMagic]];
+                var set = DataBase.AttackMagics[DataBase._attackMagicSetNo[(int)_attackMagic]];
                 ShowText($"{set.SkillName}ÅI");
                 _enemy.AddMagicDamage(Attack);
             }
             else
             {
-                var set = DataBase.BlockMagicData[DataBase._blockMagicSetNo[(int)_blockMagic]];
+                var set = DataBase.BlockMagics[DataBase._blockMagicSetNo[(int)_blockMagic]];
                 ShowText($"{set.SkillName}ÅI");
-                _attackPlayer.AddBuff(set.PlusAttackPower, set.PlusDiffencePower, set.HealingHP);
-                _blockPlayer.AddBuff(set.PlusAttackPower, set.PlusDiffencePower, set.HealingHP);
-                AddBuff(set.PlusAttackPower, set.PlusDiffencePower, set.HealingHP);
+                _attackPlayer.AddBuff(set.OffencePower, set.DiffencePower, set.HealingHP);
+                _blockPlayer.AddBuff(set.OffencePower, set.DiffencePower, set.HealingHP);
+                AddBuff(set.OffencePower, set.DiffencePower, set.HealingHP);
             }
         }
         _magicTime = false;

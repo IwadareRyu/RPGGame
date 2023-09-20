@@ -9,16 +9,16 @@ public class HTTPRequest : MonoBehaviour
 {
     struct Packet<T>
     {
-        public string Uri;
+        public string Url;
         public RequestMethod Method;
         public ResultType Type;
         public T Delegate;
     }
 
-    public void Request<T>(string uri, ResultType type, T dlg)
+    public void Request<T>(string url, ResultType type, T dlg)
     {
         Packet<T> p = new Packet<T>();
-        p.Uri = uri;
+        p.Url = url;
         p.Type = type;
         p.Delegate = dlg;
         p.Method = RequestMethod.GET;
@@ -27,7 +27,7 @@ public class HTTPRequest : MonoBehaviour
 
     IEnumerator Send<T>(Packet<T> p)
     {
-        UnityWebRequest req = UnityWebRequest.Get(p.Uri);
+        UnityWebRequest req = UnityWebRequest.Get(p.Url);
         yield return req.SendWebRequest();
 
         if (req.error != null)

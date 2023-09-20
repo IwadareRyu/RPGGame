@@ -75,7 +75,7 @@ public class TreeScript : MonoBehaviour
             var num = i;
             _attackMagicTreeButtom[i].onClick.AddListener(() => DFSSkillTree(num));
             var text = _attackMagicTreeButtom[i].GetComponentInChildren<Text>();
-            var skillName = _database.AttackMagicData[i].SkillName;
+            var skillName = DataBase.AttackMagics[i].SkillName;
             text.text = skillName.Substring(0,4);
             if(_database._attackMagicbool[i])
             {
@@ -114,15 +114,15 @@ public class TreeScript : MonoBehaviour
         {
             if (!_database._attackMagicbool[i])
             {
-                _cost += _database.AttackMagicData[i].SkillPoint;
+                _cost += DataBase.AttackMagics[i].SkillPoint;
             }
         }   //データの要素数からスキルデータを取ってきて、スキルデータのスキルポイントを合計コストに加算。
 
         //スキルの説明、何のスキルを選択しているかを表示して、確認画面を出す。
-        _tutorialText.text = _database.AttackMagicData[end]._description;
-        _skillText.text = $"{_database.AttackMagicData[end].SkillName} を選択中";
+        _tutorialText.text = DataBase.AttackMagics[end].Description;
+        _skillText.text = $"{DataBase.AttackMagics[end].SkillName} を選択中";
         _confirmation.SetActive(true);
-        _skillNameText.text = _database.AttackMagicData[_ansList[_ansList.Count - 1]].SkillName;
+        _skillNameText.text = DataBase.AttackMagics[_ansList[_ansList.Count - 1]].SkillName;
         _skillPointText.text = _cost.ToString();
     }
 
