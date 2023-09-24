@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class TreeScript : MonoBehaviour
@@ -13,6 +15,9 @@ public class TreeScript : MonoBehaviour
 
     [Tooltip("隣接リスト")]
     List<int[]> _adjacentList = new List<int[]>();
+
+    [Tooltip("遡りリストの配列")]
+    List<int>[] _backList;
 
     [Tooltip("経路リスト")]
     List<int> _ansList = new List<int>();
@@ -56,6 +61,9 @@ public class TreeScript : MonoBehaviour
     [Tooltip("経路を見つけた時に、探索を抜けるbool")]
     bool _answerbool;
 
+    [Tooltip("習得するスキルの個数")]
+    int _skillCount;
+
     private void Awake()
     {
         _database = DataBase.Instance;
@@ -70,10 +78,14 @@ public class TreeScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //遡りリストの配列の数を宣言する。(スキルツリーのボタンの数と一緒)
+        _backList = new List<int>[_attackMagicTreeButtom.Length];
         for(var i = 0;i < _attackMagicTreeButtom.Length;i++)
         {
+            //遡りリストの配列の初期化を済ませておく。
+            _backList[i] = new List<int>();
             var num = i;
-            _attackMagicTreeButtom[i].onClick.AddListener(() => DFSSkillTree(num));
+            _attackMagicTreeButtom[i].onClick.AddListener(() => BFSSkillTree(num));
             var text = _attackMagicTreeButtom[i].GetComponentInChildren<Text>();
             var skillName = DataBase.AttackMagics[i].SkillName;
             text.text = skillName.Substring(0,4);
@@ -92,6 +104,8 @@ public class TreeScript : MonoBehaviour
             _adjacentList.Add(Array.ConvertAll(line.Split(" "), int.Parse));
         }   //ファイルの内容を一行ずつリストに追加。
 
+        //幅優先探索で遡りリストを作る。
+        InitialBFS();
 
         //yesとnoにonClickを追加した後、確認画面をfalseにする。
         _yes.onClick.AddListener(YesConfirmation);
@@ -107,10 +121,10 @@ public class TreeScript : MonoBehaviour
         Debug.Log($"{end}が選択されました。");
         _ansList.Add(0);
         //リストに最初の頂点を追加した後、深さ優先探索の開始。
-        DFS(0,end);
+        DFS(0, end);
         Debug.Log($"経路は{string.Join("→", _ansList)}です。");
 
-        foreach(var i in _ansList)
+        foreach (var i in _ansList)
         {
             if (!_database._attackMagicbool[i])
             {
@@ -129,19 +143,19 @@ public class TreeScript : MonoBehaviour
     /// <summary>深さ優先探索</summary>
     /// <param name="start">現在の頂点</param>
     /// <param name="end">最終地点</param>
-    void DFS(int start,int end)
+    void DFS(int start, int end)
     {
-        if(start == end)
+        if (start == end)
         {
             return;
         }   //すでに現在の頂点が最終地点なら探索終了。
         else
         {
             //現在の頂点に隣接している頂点を順番に見ていく。
-            foreach(int i in _adjacentList[start])
+            foreach (int i in _adjacentList[start])
             {
                 //隣接頂点がリストに含んでいなければリストに追加。
-                if(!_ansList.Contains(i))
+                if (!_ansList.Contains(i))
                 {
                     _ansList.Add(i);
                     if (i == end)
@@ -158,6 +172,72 @@ public class TreeScript : MonoBehaviour
             }
             _ansList.RemoveAt(_ansList.Count - 1);
         }   //現在の頂点の探索が終わったらリストから削除する。
+    }
+
+    /// <summary>初期化用幅優先探索</summary>
+    void InitialBFS()
+    {
+        Queue<int> queue = new Queue<int>();
+        queue.Enqueue(0);
+
+        while (queue.Count > 0)
+        {
+            var currentSkillNumber = queue.Dequeue();
+            foreach (var adjacentSkillNumber in _adjacentList[currentSkillNumber])
+            {
+                if (adjacentSkillNumber != -1)
+                {
+                    if (!_backList[adjacentSkillNumber].Contains(currentSkillNumber))
+                    {
+                        _backList[adjacentSkillNumber].Add(currentSkillNumber);
+                        queue.Enqueue(adjacentSkillNumber);
+                    }
+                }
+            }
+        }
+    }
+
+    /// <summary>スキルが選択されたときに呼ばれる処理</summary>
+    /// <param name="num"></param>
+    void BFSSkillTree(int choiceNumber)
+    {
+        Debug.Log($"{choiceNumber}が選択されました。");
+        _ansList.Add(choiceNumber);
+        //リストに選択した番号を追加した後、幅優先探索の開始。
+        BFS(choiceNumber);
+
+        Debug.Log($"習得するスキルは {string.Join(" ", _ansList)} の {_ansList.Count} 種です。");
+
+        foreach (var i in _ansList)
+        {
+            _cost += DataBase.AttackMagics[i].SkillPoint;
+        }   //データの要素数からスキルデータを取ってきて、スキルデータのスキルポイントを合計コストに加算。
+
+        //スキルの説明、何のスキルを選択しているかを表示して、確認画面を出す。
+        _tutorialText.text = DataBase.AttackMagics[choiceNumber].Description;
+        _skillText.text = $"{DataBase.AttackMagics[choiceNumber].SkillName} を選択中";
+        _confirmation.SetActive(true);
+        _skillNameText.text = $"{DataBase.AttackMagics[_ansList[0]].SkillName}\nを含む{_ansList.Count}種のスキル";
+        _skillPointText.text = _cost.ToString();
+    }
+
+    void BFS(int choiceNumber)
+    {
+        Queue<int> queue = new Queue<int>();
+        queue.Enqueue(choiceNumber);
+
+        while (queue.Count > 0)
+        {
+            var currentSkillNumber = queue.Dequeue();
+            foreach (var backSkillNumber in _backList[currentSkillNumber])
+            {
+                if (!_ansList.Contains(backSkillNumber) && !_database._attackMagicbool[backSkillNumber])
+                {
+                    _ansList.Add(backSkillNumber);
+                    queue.Enqueue(backSkillNumber);
+                }
+            }
+        }
     }
 
     /// <summary>確認を受け入れた時の処理。</summary>

@@ -9,16 +9,11 @@ public class PlayerController : MonoBehaviour
     [Tooltip("プレイヤーの動きの速さ")]
     [SerializeField]float _speed = 2f;
     [SerializeField] float _dashPower = 5f;
-    [Tooltip("カメラの上下を動かすためのオブジェクト")]
-    [SerializeField] Transform _eye;
-    [Tooltip("カメラを左右に動かす")]
-    [SerializeField] AxisState Horizontal;
-    [Tooltip("カメラを上下に動かす")]
-    [SerializeField] AxisState Vertical;
     [Tooltip("操作切り替えのbool型")]
     bool _airShipFly;
     [SerializeField] State _state = State.NomalMode;
     public bool _menu;
+    [SerializeField] Animator _robotAni;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +30,7 @@ public class PlayerController : MonoBehaviour
             float v = 0;
             h = Input.GetAxisRaw("Horizontal");
             v = Input.GetAxisRaw("Vertical");
+            float hAndV = Mathf.Abs(h) + Mathf.Abs(v);
             Vector3 dir = new Vector3(0, 0, 0);
 
             //飛行中かそうでないかで移動方法を変える。(力の加え方を変える。)
@@ -66,14 +62,7 @@ public class PlayerController : MonoBehaviour
 
             //飛行機の動きの計算
             _rb.velocity = dir + dash;
-            //カメラの動き
-            Horizontal.Update(Time.deltaTime);
-            Vertical.Update(Time.deltaTime);
-            //カメラを動かす
-            var horizontal = Quaternion.AngleAxis(Horizontal.Value, Vector3.up);
-            transform.rotation = horizontal;
-            var vertical = Quaternion.AngleAxis(Vertical.Value, Vector3.right);
-            _eye.localRotation = vertical;
+            _robotAni.SetFloat("Speed",hAndV);
         }
         else
         {

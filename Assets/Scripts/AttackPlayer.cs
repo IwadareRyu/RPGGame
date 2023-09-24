@@ -54,17 +54,17 @@ public class AttackPlayer : StatusClass
 
                 if (Input.GetButtonDown("Skill1"))
                 {
-                    //SkillAttack(0);
+                    SkillAttack(0);
                 }
 
                 if (Input.GetButtonDown("Skill2"))
                 {
-                    //SkillAttack(1);
+                    SkillAttack(1);
                 }
 
                 if (Input.GetButtonDown("Skill3"))
                 {
-                    //SkillAttack(2);
+                    SkillAttack(2);
                 }
             }
 

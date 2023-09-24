@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class DataBase : MonoBehaviour
 {
     [SerializeField] bool IsVersionUpFlag = false;
+    [SerializeField] bool _resetLoadData = false;
     //[Header("アタックスキル")]
     //[SerializeField] AttackSkill[] _attackData;
     //public AttackSkill[] AttackSkillData => _attackData;
@@ -97,22 +98,25 @@ public class DataBase : MonoBehaviour
         LoadMasterData("AttackSkill",(MasterData.MasterDataClass<MasterData.Skill> data)=> attackSkillMaster = data, "https://script.google.com/macros/s/AKfycbxD-VLj76crR54K8pQymLk2j-9pU9lTxrJZGAJPiNsKVEPYMGBMI4PHhEZuWp-QLlbQxQ/exec?sheet=");
         LoadMasterData("BlockSkill", (MasterData.MasterDataClass<MasterData.Skill> data) => blockSkillMaster = data, "https://script.google.com/macros/s/AKfycbzdgyB-ovKFBPe0LEmKBX0z7A6Mg4_naJ0IND9vvXRPDoebCZ2i7DW8RmL7TENvc8rQ/exec?sheet=");
         LoadMasterData("AttackMagic", (MasterData.MasterDataClass<MasterData.Skill> data) => attackMagicMaster = data, "https://script.google.com/macros/s/AKfycby-oXlJZ_LgQmqaoUsc1_t2Ka19HdpepnrPaLqZ3gT5Dwl6TrUiREEbpaw5QFIdMiue-w/exec?sheet=");
-        LoadMasterData("BlockSkill", (MasterData.MasterDataClass<MasterData.Skill> data) => blockMagicMaster = data, "https://script.google.com/macros/s/AKfycbwaHSj-kgaraMoQLPwJsQ5gQNwDWbEUMlpZgp2FQw4VeRRnyKGHXMCFRX7i71agoobohg/exec?sheet=");
+        LoadMasterData("BlockMagic", (MasterData.MasterDataClass<MasterData.Skill> data) => blockMagicMaster = data, "https://script.google.com/macros/s/AKfycbylB-h568JHNdda_Am68zPZBYzUZ5sHJnFcd-ib_CmUJECn201GBrrLCPHyBMALoNUzqA/exec?sheet=");
 
     }
     private void OnEnable()
     {
         //セーブデータロード処理
-        _attackMagicSkillData = SkillDataLoad(_attackMagicFileName);
-        _attackMagicSetNo = SetNoLoad(_attackMagicSetNo, _attackMagicSkillData);
-        _attackMagicbool = GetBoolLoad(_attackMagicbool, _attackMagicSkillData);
-        _blockSkillData = SkillDataLoad(_blockSkillFileName);
-        _blockSkillSetNo = SetNoLoad(_blockSkillSetNo, _blockSkillData);
-        _attackSkillData = SkillDataLoad(_attackSkillFileName);
-        _attackSkillSetNo = SetNoLoad(_attackSkillSetNo, _attackSkillData);
-        _blockMagicSkillData = SkillDataLoad(_blockMagicFileName);
-        _blockMagicSetNo = SetNoLoad(_blockMagicSetNo, _blockMagicSkillData);
-        _skillPoint = SkillPointLoad(_skillPointFile);
+        if (_resetLoadData)
+        {
+            _attackMagicSkillData = SkillDataLoad(_attackMagicFileName);
+            _attackMagicSetNo = SetNoLoad(_attackMagicSetNo, _attackMagicSkillData);
+            _attackMagicbool = GetBoolLoad(_attackMagicbool, _attackMagicSkillData);
+            _blockSkillData = SkillDataLoad(_blockSkillFileName);
+            _blockSkillSetNo = SetNoLoad(_blockSkillSetNo, _blockSkillData);
+            _attackSkillData = SkillDataLoad(_attackSkillFileName);
+            _attackSkillSetNo = SetNoLoad(_attackSkillSetNo, _attackSkillData);
+            _blockMagicSkillData = SkillDataLoad(_blockMagicFileName);
+            _blockMagicSetNo = SetNoLoad(_blockMagicSetNo, _blockMagicSkillData);
+            _skillPoint = SkillPointLoad(_skillPointFile);
+        }
         //_skillPoint = 0;
     }
 
