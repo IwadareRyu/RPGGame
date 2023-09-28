@@ -117,10 +117,7 @@ public class BlockPlayer : StatusClass
             //ChageAttackの時に実行
             if (_condition == BlockState.ChageAttack)
             {
-                //チャージアタックをした後、ゲージを０にして、Attack状態に戻る。
-                var set = DataBase.BlockSkills[DataBase._blockSkillSetNo[1]];
-                Debug.Log(set.SkillName);
-                _enemy.AddDebuffDamage(Attack, set.AttackValue * 5, set.OffencePower * 5, set.DiffencePower * 5);
+                StartCoroutine(AttackTime());
                 _guageAttack = 0;
                 _condition = BlockState.Attack;
             }
@@ -184,6 +181,13 @@ public class BlockPlayer : StatusClass
                 ShowText(set.SkillName);
                 _guageAttack += 1;
                 _enemy.AddDebuffDamage(Attack, set.AttackValue, set.OffencePower, set.DiffencePower);
+            }
+            else if(_condition == BlockState.ChageAttack)
+            {
+                //チャージアタックをした後、ゲージを０にして、Attack状態に戻る。
+                var set = DataBase.BlockSkills[DataBase._blockSkillSetNo[1]];
+                Debug.Log(set.SkillName);
+                _enemy.AddDebuffDamage(Attack, set.AttackValue * 5, set.OffencePower * 5, set.DiffencePower * 5);
             }
         }
         _attackTime = false;

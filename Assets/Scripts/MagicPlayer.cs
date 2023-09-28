@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class MagicPlayer : StatusClass
 {
@@ -21,6 +22,8 @@ public class MagicPlayer : StatusClass
     [SerializeField] AttackPlayer _attackPlayer;
     [SerializeField] BlockPlayer _blockPlayer;
     [SerializeField] GameObject _magicObj;
+    [SerializeField] Animator _animRobot;
+    [SerializeField] GameObject _ship;
 
     void Start()
     {
@@ -115,7 +118,20 @@ public class MagicPlayer : StatusClass
             {
                 var set = DataBase.AttackMagics[DataBase._attackMagicSetNo[(int)_attackMagic]];
                 ShowText($"{set.SkillName}ÅI");
-                _enemy.AddMagicDamage(Attack);
+                switch(set.ID)
+                {
+                    case 11:
+                        var insShip = Instantiate(_ship, InsObjPoint);
+                        yield return new WaitForSeconds(1f);
+                        _enemy.AddMagicDamage(Attack,set.AttackValue);
+
+                        break;
+                    default:
+                        _animRobot.SetTrigger("NormalAttack");
+                        break;
+
+                }
+                _enemy.AddMagicDamage(Attack,set.AttackValue);
             }
             else
             {

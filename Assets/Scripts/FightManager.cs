@@ -11,7 +11,8 @@ public class FightManager : SingletonMonovihair<FightManager>
     [SerializeField] GameObject _player;
     [SerializeField] Text _winlosetext;
     [SerializeField] Text _pointGetText;
-    bool _endFight;
+    bool _inFight;
+    public bool InFight => _inFight;
     protected override bool _dontDestroyOnLoad { get { return true; } }
 
     // Start is called before the first frame update
@@ -25,7 +26,7 @@ public class FightManager : SingletonMonovihair<FightManager>
     public void InBattle(GameObject other)
     {
         other.gameObject.SetActive(false);
-        _endFight = false;
+        _inFight = true;
         _battleField = Instantiate(_battleFieldPrehab, _player.transform.position, _player.transform.localRotation);
         _player.SetActive(false);
         StartCoroutine(EndFightCoroutine(other));
@@ -33,7 +34,7 @@ public class FightManager : SingletonMonovihair<FightManager>
 
     IEnumerator EndFightCoroutine(GameObject enemy)
     {
-        yield return new WaitUntil(() => _endFight == true);
+        yield return new WaitUntil(() => _inFight == false);
         yield return new WaitForSeconds(30f);
         enemy.gameObject.SetActive(true);
     }
@@ -60,7 +61,7 @@ public class FightManager : SingletonMonovihair<FightManager>
         yield return new WaitForSeconds(5f);
         _winlosetext.gameObject.SetActive(false);
         _pointGetText.gameObject.SetActive(false);
-        _endFight = true;
+        _inFight = false;
         _player.SetActive(true);
         Destroy(_battleField);
 

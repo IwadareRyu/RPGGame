@@ -9,6 +9,8 @@ TagManager:
   - AttackPlayer
   - Enemy
   - DataBase
+  - Bakuhatu
+  - FallPoint
   layers:
   - Default
   - TransparentFX

@@ -29,6 +29,11 @@ public abstract class StatusClass : MonoBehaviour
     [SerializeField]
     Slider _hpSlider;
 
+    [SerializeField]
+    Transform _insObjPoint;
+    public Transform InsObjPoint => _insObjPoint;
+    
+
     DataBase _dataBase;
     public DataBase DataBase => _dataBase;
 

@@ -104,7 +104,7 @@ public class DataBase : MonoBehaviour
     private void OnEnable()
     {
         //セーブデータロード処理
-        if (_resetLoadData)
+        if (!_resetLoadData)
         {
             _attackMagicSkillData = SkillDataLoad(_attackMagicFileName);
             _attackMagicSetNo = SetNoLoad(_attackMagicSetNo, _attackMagicSkillData);
