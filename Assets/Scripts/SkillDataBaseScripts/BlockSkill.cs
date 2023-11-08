@@ -1,3 +1,4 @@
+using MasterData;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,8 +13,13 @@ public class BlockSkill : SkillObjects
     public int EnemyDiffencePower => _enemyDiffencePower;
     [SerializeField] int _enemyOffencePower = 1;
     public int EnemyOffencePower => _enemyOffencePower;
-    private void Awake()
+
+    public void BlockSkillLoad(Skill skillobj)
     {
-        _type = SkillType.BlockSkill;
+        SkillObjectsLoad(skillobj);
+        _attackValue = skillobj.AttackValue;
+        _enemyDiffencePower = skillobj.DiffencePower;
+        _enemyOffencePower = skillobj.OffencePower;
+
     }
 }

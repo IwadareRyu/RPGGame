@@ -1,3 +1,4 @@
+using MasterData;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,13 @@ public class BlockMagic : SkillObjects
     public int SkillPoint => _skillPoint;
     [SerializeField] int _healingHP = 0;
     public int HealingHP => _healingHP;
-    private void Awake()
+
+    public void BlockMagicLoad(Skill skillobj)
     {
-        _type = SkillType.BlockMagic;
+        SkillObjectsLoad(skillobj);
+        _plusAttackPower = skillobj.OffencePower;
+        _plusDiffencePower = skillobj.DiffencePower;
+        _skillPoint = skillobj.SkillPoint;
+        _healingHP = skillobj.HealingHP;
     }
 }

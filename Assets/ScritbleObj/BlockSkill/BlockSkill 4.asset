@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be2bc401196512c438bd5e27424c9141, type: 3}
-  m_Name: BlockMagic
+  m_Script: {fileID: 11500000, guid: a4201bef95953e3488dec0d1432e97fa, type: 3}
+  m_Name: BlockSkill 4
   m_EditorClassIdentifier: 
-  _skillName: 
+  _skillName: "\u30D8\u30EA\u6295\u3052"
   _type: 0
-  _description: 
-  _plusDiffencePower: 5
-  _plusAttackPower: 5
-  _skillPoint: 10
-  _healingHP: 0
+  _description: "\u6575\u306EDiffence\u309220\n\u6E1B\u3089\u30592\u500D\u306E\u653B\u6483"
+  _attackValue: 2
+  _enemyDiffencePower: -20
+  _enemyOffencePower: 0

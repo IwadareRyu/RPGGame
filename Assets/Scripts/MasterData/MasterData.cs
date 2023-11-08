@@ -18,6 +18,7 @@ namespace MasterData
         public int HealingHP;
         public int DiffencePower;
         public int OffencePower;
+        public string Adjacent;
         public SkillType SkillType;
     }
 

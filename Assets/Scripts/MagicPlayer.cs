@@ -128,10 +128,10 @@ public class MagicPlayer : StatusClass
                         break;
                     default:
                         _animRobot.SetTrigger("NormalAttack");
+                        _enemy.AddMagicDamage(Attack, set.AttackValue);
                         break;
 
                 }
-                _enemy.AddMagicDamage(Attack,set.AttackValue);
             }
             else
             {

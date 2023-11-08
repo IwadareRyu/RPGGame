@@ -13,8 +13,8 @@ public class DataBase : MonoBehaviour
     public int[] _attackSkillSetNo = new int[3] { 0, 0, 0 };
     private const string _attackSkillFileName = "AttackSkill";
 
-    MasterData.MasterDataClass<MasterData.Skill> attackSkillMaster;
-    static public MasterData.Skill[] AttackSkills => Instance.attackSkillMaster.Data;
+    MasterDataClass<Skill> attackSkillMaster;
+    static public Skill[] AttackSkills => Instance.attackSkillMaster.Data;
 
     delegate void LoadMasterDataCallback<T>(T data);
 
@@ -25,8 +25,8 @@ public class DataBase : MonoBehaviour
     public int[] _blockSkillSetNo = new int[1] {0};
     private const string _blockSkillFileName = "BlockSkill";
 
-    MasterData.MasterDataClass<MasterData.Skill> blockSkillMaster;
-    static public MasterData.Skill[] BlockSkills => Instance.blockSkillMaster.Data;
+    MasterDataClass<Skill> blockSkillMaster;
+    static public Skill[] BlockSkills => Instance.blockSkillMaster.Data;
 
     [Header("çUåÇñÇñ@")]
     //[SerializeField] AttackMagic[] _attackMagicData;
@@ -35,8 +35,8 @@ public class DataBase : MonoBehaviour
     public int[] _attackMagicSetNo = new int[2] {0,0};
     private const string _attackMagicFileName = "AttackMagic";
 
-    MasterData.MasterDataClass<MasterData.Skill> attackMagicMaster;
-    static public MasterData.Skill[] AttackMagics => Instance.attackMagicMaster.Data;
+    MasterDataClass<MasterData.Skill> attackMagicMaster;
+    static public Skill[] AttackMagics => Instance.attackMagicMaster.Data;
 
     [Header("ñhå‰ñÇñ@")]
     //[SerializeField] BlockMagic[] _blockMagicData;
@@ -45,8 +45,8 @@ public class DataBase : MonoBehaviour
     public int[] _blockMagicSetNo = new int[2] {0,0};
     private const string _blockMagicFileName = "BlockMagic";
 
-    MasterData.MasterDataClass<MasterData.Skill> blockMagicMaster;
-    static public MasterData.Skill[] BlockMagics => Instance.blockMagicMaster.Data;
+    MasterDataClass<Skill> blockMagicMaster;
+    static public Skill[] BlockMagics => Instance.blockMagicMaster.Data;
 
     [System.Serializable]
     public struct SkillData
@@ -223,4 +223,9 @@ public class DataBase : MonoBehaviour
         }
         return _skillPoint;
     }
+}
+
+public struct SkillData
+{
+
 }
