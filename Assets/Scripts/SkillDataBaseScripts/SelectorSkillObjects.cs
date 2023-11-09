@@ -5,7 +5,33 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SkillObjcts", menuName = "Skill System/SkillObjects")]
 public class SelectorSkillObjects : ScriptableObject
 {
-    [SerializeReference, SubclassSelector] private IAttributeSkill[] skills;
+    [SerializeReference, SubclassSelector] private IAttributeSkill[] skillsSelector;
+
+    public IAttributeSkill[] SkillsSelector => skillsSelector;
+
+    public void AttributeSkillLoad(ref MasterDataClass<Skill> skills)
+    {
+        for(var i = 0;i < skillsSelector.Length && i < skills.Data.Length;i++)
+        {
+            if (skillsSelector[i] is AttackSkillSelect attackSkill)
+            {
+                attackSkill.AttackSkillLoad(skills.Data[i]);
+            }
+            else if(skillsSelector[i] is BlockSkillSelect blockSkill)
+            {
+                blockSkill.BlockSkillLoad(skills.Data[i]);
+            }
+            else if(skillsSelector[i] is AttackMagicSelect attackMagic)
+            {
+                attackMagic.AttackMagicLoad(skills.Data[i]);
+            }
+            else if(skillsSelector[i] is BlockMagicSelect blockMagic)
+            {
+                blockMagic.BlockMagicLoad(skills.Data[i]);
+            }
+        }
+    }
+
 }
 
 public interface IAttributeSkill { };
@@ -14,6 +40,7 @@ public class AttackSkillSelect : IAttributeSkill
 {
     [Header("スキルのID"), SerializeField]
     int _skillID;
+
     public int SkillID => _skillID;
 
     [Header("スキルの名前"), SerializeField]
@@ -107,7 +134,7 @@ public class AttackMagicSelect : IAttributeSkill
 
     [SerializeField] int[] _adjacent;
     public int[] Adjacent => _adjacent;
-    public void BlockSkillLoad(Skill skill)
+    public void AttackMagicLoad(Skill skill)
     {
         _skillID = skill.ID;
         _skillName = skill.SkillName;
@@ -115,7 +142,7 @@ public class AttackMagicSelect : IAttributeSkill
         _description = skill.Description;
         _attackValue = skill.AttackValue;
         _skillPoint = skill.SkillPoint;
-        if (skill.Adjacent == "null")
+        if (skill.Adjacent != "null")
         {
             _adjacent = Array.ConvertAll(skill.Adjacent.Split(), int.Parse);
         }
@@ -149,7 +176,7 @@ public class BlockMagicSelect : IAttributeSkill
     [SerializeField] int _healingHP = 0;
     public int HealingHP => _healingHP;
 
-    public void BlockSkillLoad(Skill skill)
+    public void BlockMagicLoad(Skill skill)
     {
         _skillID = skill.ID;
         _skillName = skill.SkillName;

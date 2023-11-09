@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: BlockSkills
   m_EditorClassIdentifier: 
   skills:
-  - rid: 2471628641189756945
+  - rid: 2471628660029784067
+  - rid: 2471628658318770190
   references:
     version: 2
     RefIds:
-    - rid: 2471628641189756945
+    - rid: 2471628658318770190
       type: {class: AttackMagicSelect, ns: , asm: Assembly-CSharp}
       data:
         _skillID: 0
@@ -26,3 +27,11 @@ MonoBehaviour:
         _attackValue: 0
         _skillPoint: 0
         _adjacent: 
+    - rid: 2471628660029784067
+      type: {class: AttackSkillSelect, ns: , asm: Assembly-CSharp}
+      data:
+        _skillID: 0
+        _skillName: 
+        _description: 
+        _attackValue: 1
+        _requireAttack: 1
