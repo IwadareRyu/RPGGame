@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public abstract class StatusClass : MonoBehaviour
 {
     [SerializeField] int _defaultHP;
+    public int DefaulrHP => _defaultHP;
     public int _hp = 100;
     public int HP => _hp;
 

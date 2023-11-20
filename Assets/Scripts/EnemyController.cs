@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class EnemyController : StatusClass
@@ -10,9 +11,13 @@ public class EnemyController : StatusClass
     private MagicPlayer _magicPlayer;
     private AttackPlayer _attackPlayer;
     [SerializeField] Text _enemytext;
+    [SerializeField] int _getSkillPoint = 50;
+    [SerializeField] float _actionTime = 60f;
     bool _enemyAttackbool;
     [SerializeField] Animator _anim;
+    [SerializeField] bool _boss;
     bool _fight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +34,8 @@ public class EnemyController : StatusClass
     // Update is called once per frame
     void Update()
     {
-        if (_survive == Survive.Survive)
+        if (_survive == Survive.Survive && 
+            FightManager.Instance.BattleState == BattleState.RPGBattle)
         {
             if (!_enemyAttackbool)
             {
@@ -50,7 +56,20 @@ public class EnemyController : StatusClass
                 _anim.SetBool("Death", true);
                 _survive = Survive.Death;
                 _enemytext.text = "‚Ê‚í‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ";
-                FightManager.Instance.Win(50);
+                FightManager.Instance.Win(_getSkillPoint);
+            }
+
+            if(_hp <= DefaulrHP * 0.75 && _boss)
+            {
+                FightManager.Instance.ActionEnter();
+            }
+        }
+        else if(FightManager.Instance.BattleState == BattleState.ActionBattle)
+        {
+            _actionTime -= Time.deltaTime;
+            if(_hp <= DefaulrHP * 0.25 || _actionTime < 0)
+            {
+                FightManager.Instance.RPGEnter();
             }
         }
     }
@@ -75,13 +94,13 @@ public class EnemyController : StatusClass
         }
     }
 
-    IEnumerator EnemyAttack(bool magicTAttackF)
+    IEnumerator EnemyAttack(bool targetMagic)
     {
         yield return new WaitForSeconds(1.1f);
 
         if (_survive != Survive.Death)
         {
-            if (magicTAttackF)
+            if (targetMagic)
             {
                 if (_blockPlayer.Condition == BlockPlayer.BlockState.LeftBlock)
                 {

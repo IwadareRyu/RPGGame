@@ -48,6 +48,8 @@ public class DataBase : MonoBehaviour
     MasterDataClass<Skill> blockMagicMaster;
     static public Skill[] BlockMagics => Instance.blockMagicMaster.Data;
 
+    [SerializeField] bool _dataSaveBool = true;
+
     [System.Serializable]
     public struct SkillData
     {
@@ -95,16 +97,18 @@ public class DataBase : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        LoadMasterData("AttackSkill",(MasterData.MasterDataClass<MasterData.Skill> data)=> attackSkillMaster = data, "https://script.google.com/macros/s/AKfycbxD-VLj76crR54K8pQymLk2j-9pU9lTxrJZGAJPiNsKVEPYMGBMI4PHhEZuWp-QLlbQxQ/exec?sheet=");
-        LoadMasterData("BlockSkill", (MasterData.MasterDataClass<MasterData.Skill> data) => blockSkillMaster = data, "https://script.google.com/macros/s/AKfycbzdgyB-ovKFBPe0LEmKBX0z7A6Mg4_naJ0IND9vvXRPDoebCZ2i7DW8RmL7TENvc8rQ/exec?sheet=");
-        LoadMasterData("AttackMagic", (MasterData.MasterDataClass<MasterData.Skill> data) => attackMagicMaster = data, "https://script.google.com/macros/s/AKfycby-oXlJZ_LgQmqaoUsc1_t2Ka19HdpepnrPaLqZ3gT5Dwl6TrUiREEbpaw5QFIdMiue-w/exec?sheet=");
-        LoadMasterData("BlockMagic", (MasterData.MasterDataClass<MasterData.Skill> data) => blockMagicMaster = data, "https://script.google.com/macros/s/AKfycbylB-h568JHNdda_Am68zPZBYzUZ5sHJnFcd-ib_CmUJECn201GBrrLCPHyBMALoNUzqA/exec?sheet=");
-
+        if (_dataSaveBool)
+        {
+            LoadMasterData("AttackSkill", (MasterData.MasterDataClass<MasterData.Skill> data) => attackSkillMaster = data, "https://script.google.com/macros/s/AKfycbxD-VLj76crR54K8pQymLk2j-9pU9lTxrJZGAJPiNsKVEPYMGBMI4PHhEZuWp-QLlbQxQ/exec?sheet=");
+            LoadMasterData("BlockSkill", (MasterData.MasterDataClass<MasterData.Skill> data) => blockSkillMaster = data, "https://script.google.com/macros/s/AKfycbzdgyB-ovKFBPe0LEmKBX0z7A6Mg4_naJ0IND9vvXRPDoebCZ2i7DW8RmL7TENvc8rQ/exec?sheet=");
+            LoadMasterData("AttackMagic", (MasterData.MasterDataClass<MasterData.Skill> data) => attackMagicMaster = data, "https://script.google.com/macros/s/AKfycby-oXlJZ_LgQmqaoUsc1_t2Ka19HdpepnrPaLqZ3gT5Dwl6TrUiREEbpaw5QFIdMiue-w/exec?sheet=");
+            LoadMasterData("BlockMagic", (MasterData.MasterDataClass<MasterData.Skill> data) => blockMagicMaster = data, "https://script.google.com/macros/s/AKfycbylB-h568JHNdda_Am68zPZBYzUZ5sHJnFcd-ib_CmUJECn201GBrrLCPHyBMALoNUzqA/exec?sheet=");
+        }
     }
     private void OnEnable()
     {
         //セーブデータロード処理
-        if (!_resetLoadData)
+        if (!_resetLoadData && _dataSaveBool)
         {
             _attackMagicSkillData = SkillDataLoad(_attackMagicFileName);
             _attackMagicSetNo = SetNoLoad(_attackMagicSetNo, _attackMagicSkillData);
@@ -122,24 +126,27 @@ public class DataBase : MonoBehaviour
 
     private void Update()
     {
-        if (LoadingCount == 0 && IsInit == 0)
+        if (_dataSaveBool)
         {
-            IsInit = 1;
-            for (var i = 0;i < attackSkillMaster.Data.Length;i++)
+            if (LoadingCount == 0 && IsInit == 0)
             {
-                var attackSkill = attackSkillMaster.Data[i];
-                Debug.Log($"{attackSkill.ID} {attackSkill.SkillName} {attackSkill.AttackValue} {attackSkill.RequaireAttack} {attackSkill.SkillType}");
-            }
+                IsInit = 1;
+                for (var i = 0; i < attackSkillMaster.Data.Length; i++)
+                {
+                    var attackSkill = attackSkillMaster.Data[i];
+                    Debug.Log($"{attackSkill.ID} {attackSkill.SkillName} {attackSkill.AttackValue} {attackSkill.RequaireAttack} {attackSkill.SkillType}");
+                }
 
-            for(var i = 0;i < blockSkillMaster.Data.Length;i++)
-            {
-                var blockSkill = blockSkillMaster.Data[i];
-                Debug.Log($"{blockSkill.ID} {blockSkill.SkillName} {blockSkill.AttackValue} {blockSkill.OffencePower} {blockSkill.DiffencePower} {blockSkill.SkillType}");
+                for (var i = 0; i < blockSkillMaster.Data.Length; i++)
+                {
+                    var blockSkill = blockSkillMaster.Data[i];
+                    Debug.Log($"{blockSkill.ID} {blockSkill.SkillName} {blockSkill.AttackValue} {blockSkill.OffencePower} {blockSkill.DiffencePower} {blockSkill.SkillType}");
+                }
             }
-        }
-        else if (IsInit == 0)
-        {
-            Debug.Log("読み込み失敗");
+            else if (IsInit == 0)
+            {
+                Debug.Log("読み込み失敗");
+            }
         }
     }
 

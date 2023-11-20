@@ -24,39 +24,39 @@ MonoBehaviour:
       type: {class: BlockMagicSelect, ns: , asm: Assembly-CSharp}
       data:
         _skillID: 0
-        _skillName: 
-        _description: 
-        _plusDiffencePower: 1
-        _plusAttackPower: 1
-        _skillPoint: 1
+        _skillName: "\u6E3E\u6C8C\u306E\u53CC\u7FFC\u6B4C"
+        _description: "Attack\u304C5\nDiffence\u304C5\u30A2\u30C3\u30D7"
+        _plusDiffencePower: 5
+        _plusAttackPower: 5
+        _skillPoint: 10
         _healingHP: 0
     - rid: 2471628661060534296
       type: {class: BlockMagicSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 0
-        _skillName: 
-        _description: 
-        _plusDiffencePower: 1
-        _plusAttackPower: 1
-        _skillPoint: 1
-        _healingHP: 0
+        _skillID: 1
+        _skillName: "\u5927\u5730\u306E\u6075\u307F"
+        _description: "HP10\u56DE\u5FA9"
+        _plusDiffencePower: 0
+        _plusAttackPower: 0
+        _skillPoint: 5
+        _healingHP: 10
     - rid: 2471628661060534297
       type: {class: BlockMagicSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 0
-        _skillName: 
-        _description: 
-        _plusDiffencePower: 1
-        _plusAttackPower: 1
-        _skillPoint: 1
+        _skillID: 2
+        _skillName: "\u4E09\u65E5\u6708\u306E\u5149"
+        _description: "Diffence\u304C10\u30A2\u30C3\u30D7"
+        _plusDiffencePower: 10
+        _plusAttackPower: 0
+        _skillPoint: 15
         _healingHP: 0
     - rid: 2471628661060534298
       type: {class: BlockMagicSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 0
-        _skillName: 
-        _description: 
-        _plusDiffencePower: 1
-        _plusAttackPower: 1
-        _skillPoint: 1
+        _skillID: 3
+        _skillName: "\u30EC\u30BE\u30CA\u30F3\u30B9\u30D6\u30EC\u30B9"
+        _description: "Attack\u304C20\u30A2\u30C3\u30D7"
+        _plusDiffencePower: 0
+        _plusAttackPower: 20
+        _skillPoint: 20
         _healingHP: 0
