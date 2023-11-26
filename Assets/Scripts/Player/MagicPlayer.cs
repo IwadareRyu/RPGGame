@@ -17,15 +17,16 @@ public class MagicPlayer : StatusClass
     AttackMagic _attackMagic;
     [Tooltip("魔法発動のコルーチンを動かすためのbool")]
     bool _magicTime;
-    [SerializeField]
-    float _attackLange = 3;
 
+    int _magicSkillCount = 0;
+    [SerializeField] float _attackLange = 3;
+    [SerializeField] Animator _animRobot;
     [SerializeField] Text _enumtext;
     [SerializeField] AttackPlayer _attackPlayer;
     [SerializeField] BlockPlayer _blockPlayer;
     [SerializeField] Transform _magicObj;
-    [SerializeField] Animator _animRobot;
     [SerializeField] GameObject _ship;
+    
 
     void Start()
     {
@@ -37,10 +38,7 @@ public class MagicPlayer : StatusClass
         Debug.Log($"MagicDiffence:{Diffence}");
     }
 
-    private void OnEnable()
-    {
-        FightManager.OnEnterAction += ActionMode;
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -85,7 +83,7 @@ public class MagicPlayer : StatusClass
                     
             }
 
-            if (_hp == 0)
+            if (HP == 0)
             {
                 _survive = Survive.Death;
             }
@@ -100,14 +98,19 @@ public class MagicPlayer : StatusClass
         }
     }
 
-    void ActionMode()
+    public override void ActionMode()
     {
         ChangeCondition(0, MagicPosition.AttackMagic);
+        for(var i = 0;i < DataBase._attackMagicbool.Length;i++)
+        {
+            _magicSkillCount += DataBase._attackMagicbool[i] ? 1 : 0;
+        }
+        ShowText("LeftShiftでAttack！");
     }
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(transform.position + transform.forward * 2, _attackLange);
+        Gizmos.DrawWireSphere(transform.position + transform.forward * 2, _attackLange);
     }
 
     void ChangeCondition(int i, MagicPosition magic)
@@ -141,6 +144,8 @@ public class MagicPlayer : StatusClass
         }
     }
 
+    /// <summary>RPGモード時の攻撃サポート</summary>
+    /// <returns></returns>
     IEnumerator MagicTime()
     {
         yield return new WaitForSeconds(5f);
@@ -177,38 +182,52 @@ public class MagicPlayer : StatusClass
         _magicTime = false;
     }
 
+    /// <summary>アクションモード時の攻撃</summary>
     void ActionAttack()
     {
-        Collider[] cols = Physics.OverlapSphere(transform.position + transform.forward * 2, _attackLange, default);
+        Collider[] cols = Physics.OverlapSphere(transform.position + transform.forward * 2, _attackLange);
         _animRobot.SetTrigger("NormalAttack");
         foreach (Collider col in cols)
         {
             if (col.gameObject.tag == "EnemyBullet")
             {
-                _enemy.AddDamage(Attack);
+                _enemy.AddMagicDamage(Attack * (Mathf.Max(0.1f,_magicSkillCount / 8)));
                 Destroy(col.gameObject);
             }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public override void RPGMode()
     {
-        if (other.gameObject.tag == "EnemyBullet")
-        {
-            AddDamage(10);
-            Destroy(other.gameObject);
-        }
+        ShowText("無事だったか！");
     }
 
+    /// <summary>テキスト表示</summary>
+    /// <param name="str"></param>
     void ShowText(string str)
     {
         _enumtext.text = str;
     }
 
+    /// <summary>死亡判定</summary>
     void Death()
     {
         _magicObj.Rotate(90f, 0f, 0f);
         ShowText("俺は死んだぜ☆");
+    }
+
+    /// <summary>当たり判定</summary>
+    /// <param name="other"></param>
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "EnemyBullet" && FightManager.Instance.BattleState == BattleState.ActionBattle)
+        {
+            if (FightManager.Instance.BattleState == BattleState.ActionBattle)
+            {
+                AddDamage(10);
+            }
+            Destroy(other.gameObject);
+        }
     }
 
     enum MagicPosition

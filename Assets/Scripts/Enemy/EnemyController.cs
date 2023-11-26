@@ -12,11 +12,15 @@ public class EnemyController : StatusClass
     private AttackPlayer _attackPlayer;
     [SerializeField] Text _enemytext;
     [SerializeField] int _getSkillPoint = 50;
-    [SerializeField] float _actionTime = 60f;
     bool _enemyAttackbool;
     [SerializeField] Animator _anim;
-    [SerializeField] bool _boss;
     bool _fight;
+    [Header("アクションモード設定")]
+    [SerializeField] bool _aliveAction;
+    [SerializeField] TimelineBullet _timelineBullet;
+    [SerializeField]
+    bool _debugActionModeBool;
+    float _actionTime;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +38,11 @@ public class EnemyController : StatusClass
     // Update is called once per frame
     void Update()
     {
+        if (_debugActionModeBool) 
+        {
+            AddDamage(HP * 0.3f);
+            _debugActionModeBool = false;
+        }
         if (_survive == Survive.Survive && 
             FightManager.Instance.BattleState == BattleState.RPGBattle)
         {
@@ -50,7 +59,7 @@ public class EnemyController : StatusClass
                 _fight = true;
                 FightManager.Instance.Lose();
             }
-            else if (_hp <= 0 && !_fight)
+            else if (HP <= 0 && !_fight)
             {
                 _fight = true;
                 _anim.SetBool("Death", true);
@@ -59,17 +68,20 @@ public class EnemyController : StatusClass
                 FightManager.Instance.Win(_getSkillPoint);
             }
 
-            if(_hp <= DefaulrHP * 0.75 && _boss)
+            if(HP <= DefaulrHP * 0.75 && _aliveAction)
             {
                 FightManager.Instance.ActionEnter();
+                _actionTime = _timelineBullet.ActionStart();
             }
         }
         else if(FightManager.Instance.BattleState == BattleState.ActionBattle)
         {
             _actionTime -= Time.deltaTime;
-            if(_hp <= DefaulrHP * 0.25 || _actionTime < 0)
+            if(HP <= DefaulrHP * 0.25 || _actionTime < 0)
             {
                 FightManager.Instance.RPGEnter();
+                _timelineBullet.ActionEnd();
+                _aliveAction = false;
             }
         }
     }
@@ -77,28 +89,30 @@ public class EnemyController : StatusClass
     IEnumerator EnemyAttackCoolTime()
     {
         yield return new WaitForSeconds(5f);
-        if (_survive != Survive.Death)
+        if (_survive != Survive.Death && FightManager.Instance.BattleState == BattleState.RPGBattle)
         {
             var ram = Random.Range(0, 100);
             _anim.SetBool("Attack", true);
             if (ram < 50 && _magicPlayer.HP > 0 || _attackPlayer.HP <= 0)
             {
                 _enemytext.text = "Magicに攻撃";
-                StartCoroutine(EnemyAttack(true));
+                yield return EnemyAttack(true);
             }
             else
             {
                 _enemytext.text = "Attackerに攻撃";
-                StartCoroutine(EnemyAttack(false));
+                yield return EnemyAttack(false);
             }
         }
+        _anim.SetBool("Attack", false);
+        _enemyAttackbool = false;
     }
 
     IEnumerator EnemyAttack(bool targetMagic)
     {
         yield return new WaitForSeconds(1.1f);
 
-        if (_survive != Survive.Death)
+        if (_survive != Survive.Death && FightManager.Instance.BattleState == BattleState.RPGBattle)
         {
             if (targetMagic)
             {
@@ -132,10 +146,19 @@ public class EnemyController : StatusClass
                     _attackPlayer.AddDamage(Attack);
                 }
             }
-            _anim.SetBool("Attack", false);
         }
-        _enemyAttackbool = false;
+    }
 
+    public override void ActionMode()
+    {
+        _anim.Play("LoopAttack");
+        _enemytext.text = "アクションモード！";
+    }
+
+    public override void RPGMode()
+    {
+        _anim.Play("Stand");
+        _enemytext.text = "RPGモード！";
     }
 
     void Guard()
