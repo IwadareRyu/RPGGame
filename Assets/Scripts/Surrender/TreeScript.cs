@@ -64,6 +64,8 @@ public class TreeScript : MonoBehaviour
     [Tooltip("習得するスキルの個数")]
     int _skillCount;
 
+    [SerializeField] bool _tmpNameBool = true;
+
     private void Awake()
     {
         _database = DataBase.Instance;
@@ -87,7 +89,7 @@ public class TreeScript : MonoBehaviour
             var num = i;
             _attackMagicTreeButtom[i].onClick.AddListener(() => BFSSkillTree(num));
             var text = _attackMagicTreeButtom[i].GetComponentInChildren<Text>();
-            var skillName = DataBase.AttackMagics[i].SkillName;
+            var skillName = DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._skillName;
             text.text = skillName.Substring(0,4);
             if(_database._attackMagicbool[i])
             {
@@ -128,15 +130,16 @@ public class TreeScript : MonoBehaviour
         {
             if (!_database._attackMagicbool[i])
             {
-                _cost += DataBase.AttackMagics[i].SkillPoint;
+                if(DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._selectSkill is AttackMagicSelect attackMagic)
+                _cost += attackMagic.SkillPoint;
             }
         }   //データの要素数からスキルデータを取ってきて、スキルデータのスキルポイントを合計コストに加算。
 
         //スキルの説明、何のスキルを選択しているかを表示して、確認画面を出す。
-        _tutorialText.text = DataBase.AttackMagics[end].Description;
-        _skillText.text = $"{DataBase.AttackMagics[end].SkillName} を選択中";
+        _tutorialText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[end]._description;
+        _skillText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[end]._skillName} を選択中";
         _confirmation.SetActive(true);
-        _skillNameText.text = DataBase.AttackMagics[_ansList[_ansList.Count - 1]].SkillName;
+        _skillNameText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[_ansList[_ansList.Count - 1]]._skillName;
         _skillPointText.text = _cost.ToString();
     }
 
@@ -210,14 +213,15 @@ public class TreeScript : MonoBehaviour
 
         foreach (var i in _ansList)
         {
-            _cost += DataBase.AttackMagics[i].SkillPoint;
+            if(DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._selectSkill is AttackMagicSelect attackMagic)
+            _cost += attackMagic.SkillPoint;
         }   //データの要素数からスキルデータを取ってきて、スキルデータのスキルポイントを合計コストに加算。
 
         //スキルの説明、何のスキルを選択しているかを表示して、確認画面を出す。
-        _tutorialText.text = DataBase.AttackMagics[choiceNumber].Description;
-        _skillText.text = $"{DataBase.AttackMagics[choiceNumber].SkillName} を選択中";
+        _tutorialText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[choiceNumber]._description;
+        _skillText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[choiceNumber]._skillName} を選択中";
         _confirmation.SetActive(true);
-        _skillNameText.text = $"{DataBase.AttackMagics[_ansList[0]].SkillName}\nを含む{_ansList.Count}種のスキル";
+        _skillNameText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[_ansList[0]]._skillName}\nを含む{_ansList.Count}種のスキル";
         _skillPointText.text = _cost.ToString();
     }
 

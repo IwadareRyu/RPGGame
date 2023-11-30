@@ -25,7 +25,7 @@ public class AttackPlayer : StatusClass
         for (var i = 0; i < _commandText.Length; i++)
         {
             var index = DataBase._attackSkillSetNo[i];
-            _commandText[i].text = DataBase.AttackSkills[index].SkillName.Substring(0, 4);
+            _commandText[i].text = DataBase.AttackSkillSelectData.SkillInfomation[index]._skillName.Substring(0, 4);
         }
     }
 
@@ -124,10 +124,11 @@ public class AttackPlayer : StatusClass
     /// <param name="i"></param>
     void SkillAttack(int i)
     {
-        var set = DataBase.AttackSkills[DataBase._attackSkillSetNo[i]];
-        ShowText($"{set.SkillName}ÅI");
+        var set = DataBase.AttackSkillSelectData.SkillInfomation[DataBase._attackSkillSetNo[i]];
+        ShowText($"{set._skillName}ÅI");
         _attackAnim.SetTrigger("NormalAttack");
-        _enemy.AddDamage(Attack, set.AttackValue);
+        if(set._selectSkill is AttackSkillSelect attackSkill)
+        _enemy.AddDamage(Attack, attackSkill.AttackValue);
         CommandReset();
     }
 

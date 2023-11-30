@@ -153,30 +153,36 @@ public class MagicPlayer : StatusClass
         {
             if (_magicpos == MagicPosition.AttackMagic)
             {
-                var set = DataBase.AttackMagics[DataBase._attackMagicSetNo[(int)_attackMagic]];
-                ShowText($"{set.SkillName}！");
-                switch (set.ID)
+                var set = DataBase.AttackMagicSelectData.SkillInfomation[DataBase._attackMagicSetNo[(int)_attackMagic]];
+                ShowText($"{set._skillName}！");
+                if (set._selectSkill is AttackMagicSelect attackMagic)
                 {
-                    case 11:
-                        var insShip = Instantiate(_ship, InsObjPoint);
-                        yield return new WaitForSeconds(1f);
-                        _enemy.AddMagicDamage(Attack, set.AttackValue);
+                    switch (set._skillID)
+                    {
+                        case 11:
+                            var insShip = Instantiate(_ship, InsObjPoint);
+                            yield return new WaitForSeconds(1f);
+                            _enemy.AddMagicDamage(Attack, attackMagic.AttackValue);
 
-                        break;
-                    default:
-                        _animRobot.SetTrigger("NormalAttack");
-                        _enemy.AddMagicDamage(Attack, set.AttackValue);
-                        break;
+                            break;
+                        default:
+                            _animRobot.SetTrigger("NormalAttack");
+                            _enemy.AddMagicDamage(Attack, attackMagic.AttackValue);
+                            break;
 
+                    }
                 }
             }
             else
             {
-                var set = DataBase.BlockMagics[DataBase._blockMagicSetNo[(int)_blockMagic]];
-                ShowText($"{set.SkillName}！");
-                _attackPlayer.AddBuff(set.OffencePower, set.DiffencePower, set.HealingHP);
-                _blockPlayer.AddBuff(set.OffencePower, set.DiffencePower, set.HealingHP);
-                AddBuff(set.OffencePower, set.DiffencePower, set.HealingHP);
+                var set = DataBase.BlockMagicSelectData.SkillInfomation[DataBase._blockMagicSetNo[(int)_blockMagic]];
+                ShowText($"{set._skillName}！");
+                if (set._selectSkill is BlockMagicSelect blockMagic)
+                {
+                    _attackPlayer.AddBuff(blockMagic.PlusAttackPower, blockMagic.PlusDiffencePower, blockMagic.HealingHP);
+                    _blockPlayer.AddBuff(blockMagic.PlusAttackPower, blockMagic.PlusDiffencePower, blockMagic.HealingHP);
+                    AddBuff(blockMagic.PlusAttackPower, blockMagic.PlusDiffencePower, blockMagic.HealingHP);
+                }
             }
         }
         _magicTime = false;

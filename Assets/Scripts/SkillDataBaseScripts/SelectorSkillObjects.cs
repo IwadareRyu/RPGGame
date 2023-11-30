@@ -5,27 +5,32 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SkillObjcts", menuName = "Skill System/SkillObjects")]
 public class SelectorSkillObjects : ScriptableObject
 {
-    [SerializeReference, SubclassSelector] private IAttributeSkill[] skillsSelector;
+    [SerializeField] SkillInfomation[] _skillInfomation;
 
-    public IAttributeSkill[] SkillsSelector => skillsSelector;
+    public SkillInfomation[] SkillInfomation => _skillInfomation;
 
     public void AttributeSkillLoad(ref MasterDataClass<Skill> skills)
     {
-        for(var i = 0;i < skillsSelector.Length && i < skills.Data.Length;i++)
+        for(var i = 0;i < _skillInfomation.Length && i < skills.Data.Length;i++)
         {
-            if (skillsSelector[i] is AttackSkillSelect attackSkill)
+            _skillInfomation[i]._skillID = skills.Data[i].ID;
+            _skillInfomation[i]._skillName = skills.Data[i].SkillName;
+            _skillInfomation[i]._tmpSkillName = skills.Data[i].TmpName;
+            _skillInfomation[i]._description = skills.Data[i].Description;
+            _skillInfomation[i]._type = skills.Data[i].SkillType;
+            if (_skillInfomation[i]._selectSkill is AttackSkillSelect attackSkill)
             {
                 attackSkill.AttackSkillLoad(skills.Data[i]);
             }
-            else if(skillsSelector[i] is BlockSkillSelect blockSkill)
+            else if(_skillInfomation[i]._selectSkill is BlockSkillSelect blockSkill)
             {
                 blockSkill.BlockSkillLoad(skills.Data[i]);
             }
-            else if(skillsSelector[i] is AttackMagicSelect attackMagic)
+            else if(_skillInfomation[i]._selectSkill is AttackMagicSelect attackMagic)
             {
                 attackMagic.AttackMagicLoad(skills.Data[i]);
             }
-            else if(skillsSelector[i] is BlockMagicSelect blockMagic)
+            else if(_skillInfomation[i]._selectSkill is BlockMagicSelect blockMagic)
             {
                 blockMagic.BlockMagicLoad(skills.Data[i]);
             }
@@ -33,28 +38,30 @@ public class SelectorSkillObjects : ScriptableObject
     }
 
 }
+[Serializable]
+public struct SkillInfomation
+{
+    [Header("スキルのID"), SerializeField]
+    public int _skillID;
+
+    [Header("スキルの名前"), SerializeField]
+    public string _skillName;
+
+    public string _tmpSkillName;
+
+    [Header("スキルの種類"), Tooltip("Skillの種類")]
+    public SkillType _type;
+
+    [TextArea(10, 10)]
+    public string _description;
+
+    [SerializeReference, SubclassSelector] public IAttributeSkill _selectSkill;
+}
 
 public interface IAttributeSkill { };
 
 public class AttackSkillSelect : IAttributeSkill
 {
-    [Header("スキルのID"), SerializeField]
-    int _skillID;
-
-    public int SkillID => _skillID;
-
-    [Header("スキルの名前"), SerializeField]
-    string _skillName;
-    public string SkillName => _skillName;
-
-    [Header("スキルの種類"), Tooltip("Skillの種類")]
-    SkillType _type;
-    public SkillType Type => _type;
-
-    [TextArea(10, 10)]
-    public string _description;
-    public string Description => _description;
-
     [SerializeField] float _attackValue = 1;
     public float AttackValue => _attackValue;
     [SerializeField] int _requireAttack = 1;
@@ -62,10 +69,6 @@ public class AttackSkillSelect : IAttributeSkill
 
     public void AttackSkillLoad(Skill skill)
     {
-        _skillID = skill.ID;
-        _skillName = skill.SkillName;
-        _type = skill.SkillType;
-        _description = skill.Description;
         _attackValue = skill.AttackValue;
         _requireAttack = skill.RequaireAttack;
     }
@@ -73,22 +76,6 @@ public class AttackSkillSelect : IAttributeSkill
 
 public class BlockSkillSelect : IAttributeSkill
 {
-    [Header("スキルのID"), SerializeField]
-    int _skillID;
-    public int SkillID => _skillID;
-
-    [Header("スキルの名前"), SerializeField]
-    string _skillName;
-    public string SkillName => _skillName;
-
-    [Header("スキルの種類"), Tooltip("Skillの種類")]
-    SkillType _type;
-    public SkillType Type => _type;
-
-    [TextArea(10, 10)]
-    public string _description;
-    public string Description => _description;
-
     [SerializeField] float _attackValue = 1;
     public float AttackValue => _attackValue;
 
@@ -99,10 +86,6 @@ public class BlockSkillSelect : IAttributeSkill
     public int EnemyOffencePower => _enemyOffencePower;
     public void BlockSkillLoad(Skill skill)
     {
-        _skillID = skill.ID;
-        _skillName = skill.SkillName;
-        _type = skill.SkillType;
-        _description = skill.Description;
         _attackValue = skill.AttackValue;
         _enemyDiffencePower = skill.DiffencePower;
         _enemyOffencePower = skill.OffencePower;
@@ -111,22 +94,6 @@ public class BlockSkillSelect : IAttributeSkill
 
 public class AttackMagicSelect : IAttributeSkill
 {
-    [Header("スキルのID"), SerializeField]
-    int _skillID;
-    public int SkillID => _skillID;
-
-    [Header("スキルの名前"), SerializeField]
-    string _skillName;
-    public string SkillName => _skillName;
-
-    [Header("スキルの種類"), Tooltip("Skillの種類")]
-    SkillType _type;
-    public SkillType Type => _type;
-
-    [TextArea(10, 10)]
-    public string _description;
-    public string Description => _description;
-
     [SerializeField] float _attackValue;
     public float AttackValue => _attackValue;
     [SerializeField] int _skillPoint;
@@ -136,10 +103,6 @@ public class AttackMagicSelect : IAttributeSkill
     public int[] Adjacent => _adjacent;
     public void AttackMagicLoad(Skill skill)
     {
-        _skillID = skill.ID;
-        _skillName = skill.SkillName;
-        _type = skill.SkillType;
-        _description = skill.Description;
         _attackValue = skill.AttackValue;
         _skillPoint = skill.SkillPoint;
         if (skill.Adjacent != "null")
@@ -151,22 +114,6 @@ public class AttackMagicSelect : IAttributeSkill
 
 public class BlockMagicSelect : IAttributeSkill
 {
-    [Header("スキルのID"), SerializeField]
-    int _skillID;
-    public int SkillID => _skillID;
-
-    [Header("スキルの名前"), SerializeField]
-    string _skillName;
-    public string SkillName => _skillName;
-
-    [Header("スキルの種類"), Tooltip("Skillの種類")]
-    SkillType _type;
-    public SkillType Type => _type;
-
-    [TextArea(10, 10)]
-    public string _description;
-    public string Description => _description;
-
     [SerializeField] int _plusDiffencePower = 1;
     public int PlusDiffencePower => _plusDiffencePower;
     [SerializeField] int _plusAttackPower = 1;
@@ -178,10 +125,6 @@ public class BlockMagicSelect : IAttributeSkill
 
     public void BlockMagicLoad(Skill skill)
     {
-        _skillID = skill.ID;
-        _skillName = skill.SkillName;
-        _type = skill.SkillType;
-        _description = skill.Description;
         _plusAttackPower = skill.OffencePower;
         _plusDiffencePower = skill.DiffencePower;
         _skillPoint = skill.SkillPoint;

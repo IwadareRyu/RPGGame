@@ -12,57 +12,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e50eab826bb3fc44b244fe3b90995fe, type: 3}
   m_Name: BlockSkills
   m_EditorClassIdentifier: 
-  skillsSelector:
-  - rid: 2471628661060534277
-  - rid: 2471628661060534278
-  - rid: 2471628661060534279
-  - rid: 2471628661060534280
-  - rid: 2471628661060534281
+  _skillInfomation:
+  - _skillID: 0
+    _skillName: "\u653B\u6483\u30C0\u30A6\u30F3\u306E\u653B\u6483"
+    _tmpSkillName: "\u6697\u9ED2\u306E\u30EC\u30BE\u30CA\u30F3\u30B9\u2606\u5F61"
+    _type: 0
+    _description: "\u6575\u306EDiffence\u309210\u6E1B\u3089\u3059\u653B\u6483"
+    _selectSkill:
+      rid: 2471629163554406444
+  - _skillID: 1
+    _skillName: "\u653B\u9632\u30C0\u30A6\u30F3\u306E\u653B\u6483"
+    _tmpSkillName: "\u30DF\u30BC\u30E9\u306E\u5486\u54EE"
+    _type: 0
+    _description: "\u6575\u306EDiffence\u309210\\nAttack\u309220\\n\u6E1B\u3089\u3059\u653B\u6483"
+    _selectSkill:
+      rid: 2471629163554406445
+  - _skillID: 2
+    _skillName: "\u653B\u9632\u30C0\u30A6\u30F3\u306E1.5\u500D"
+    _tmpSkillName: "\u30D6\u30EC\u30A4\u30AF\u30A2\u30ED\u30FC"
+    _type: 0
+    _description: "\u6575\u306EDiffence\u30925\\nAttack\u309210\\n\u6E1B\u3089\u30591.5\u500D\u306E\u653B\u6483"
+    _selectSkill:
+      rid: 2471629163554406446
+  - _skillID: 3
+    _skillName: "\u30D8\u30EA\u843D\u3068\u3057"
+    _tmpSkillName: "\u30D8\u30EA\u843D\u3068\u3057"
+    _type: 0
+    _description: "\u6575\u306EOffence\u309220\u6E1B\u3089\u3059\\n\uFF12\u500D\u306E\u653B\u6483"
+    _selectSkill:
+      rid: 2471629163554406447
+  - _skillID: 4
+    _skillName: "\u9632\u5FA1\u30C0\u30A6\u30F3\u306E2\u500D"
+    _tmpSkillName: "\u3042\u3093\u3053"
+    _type: 0
+    _description: "\u6575\u306EDiffence\u309220\u6E1B\u3089\u3059\\n\uFF12\u500D\u306E\u653B\u6483"
+    _selectSkill:
+      rid: 2471629163554406448
   references:
     version: 2
     RefIds:
-    - rid: 2471628661060534277
+    - rid: 2471629163554406444
       type: {class: BlockSkillSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 0
-        _skillName: "\u6697\u9ED2\u306E\u30EC\u30BE\u30CA\u30F3\u30B9\u2606\u5F61"
-        _description: "\u6575\u306EDiffence\u309210\u6E1B\u3089\u3059\u653B\u6483"
         _attackValue: 1
         _enemyDiffencePower: 0
         _enemyOffencePower: -10
-    - rid: 2471628661060534278
+    - rid: 2471629163554406445
       type: {class: BlockSkillSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 1
-        _skillName: "\u30DF\u30BC\u30E9\u306E\u5486\u54EE"
-        _description: "\u6575\u306EDiffence\u309210\nAttack\u309220\n\u6E1B\u3089\u3059\u653B\u6483"
         _attackValue: 1
         _enemyDiffencePower: -20
         _enemyOffencePower: -10
-    - rid: 2471628661060534279
+    - rid: 2471629163554406446
       type: {class: BlockSkillSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 2
-        _skillName: "\u30D6\u30EC\u30A4\u30AF\u30A2\u30ED\u30FC"
-        _description: "\u6575\u306EDiffence\u30925\nAttack\u309210\n\u6E1B\u3089\u30591.5\u500D\u306E\u653B\u6483"
         _attackValue: 1
         _enemyDiffencePower: -10
         _enemyOffencePower: -5
-    - rid: 2471628661060534280
+    - rid: 2471629163554406447
       type: {class: BlockSkillSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 3
-        _skillName: "\u30D8\u30EA\u843D\u3068\u3057"
-        _description: "\u6575\u306EDiffence\u309220\u6E1B\u3089\u3059\n2\u500D\u306E\u653B\u6483"
         _attackValue: 2
         _enemyDiffencePower: 0
         _enemyOffencePower: -20
-    - rid: 2471628661060534281
+    - rid: 2471629163554406448
       type: {class: BlockSkillSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 4
-        _skillName: "\u3042\u3093\u3053"
-        _description: "\u6575\u306EDiffence\u309220\u6E1B\u3089\u3059\n2\u500D\u306E\u653B\u6483"
         _attackValue: 2
-        _enemyDiffencePower: 0
-        _enemyOffencePower: -20
+        _enemyDiffencePower: -20
+        _enemyOffencePower: 0

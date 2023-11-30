@@ -207,17 +207,23 @@ public class BlockPlayer : StatusClass
         {
             if (_conditionState == BlockState.Attack)
             {
-                var set = DataBase.BlockSkills[DataBase._blockSkillSetNo[0]];
-                ShowText(set.SkillName);
+                var set = DataBase.BlockSkillSelectData.SkillInfomation[DataBase._blockSkillSetNo[0]];
+                ShowText(set._skillName);
                 _guageAttack += 1;
-                _enemy.AddDebuffDamage(Attack, set.AttackValue, set.OffencePower, set.DiffencePower);
+                if (set._selectSkill is BlockSkillSelect blockSkill)
+                {
+                    _enemy.AddDebuffDamage(Attack, blockSkill.AttackValue, blockSkill.EnemyOffencePower, blockSkill.EnemyDiffencePower);
+                }
             }
             else if(_conditionState == BlockState.ChageAttack)
             {
                 //チャージアタックをした後、ゲージを０にして、Attack状態に戻る。
-                var set = DataBase.BlockSkills[DataBase._blockSkillSetNo[1]];
-                Debug.Log(set.SkillName);
-                _enemy.AddDebuffDamage(Attack, set.AttackValue * 5, set.OffencePower * 5, set.DiffencePower * 5);
+                var set = DataBase.BlockSkillSelectData.SkillInfomation[DataBase._blockSkillSetNo[1]];
+                Debug.Log(set._skillName);
+                if (set._selectSkill is BlockSkillSelect blockSkill)
+                {
+                    _enemy.AddDebuffDamage(Attack, blockSkill.AttackValue, blockSkill.EnemyOffencePower, blockSkill.EnemyDiffencePower);
+                }
             }
         }
         _attackTime = false;

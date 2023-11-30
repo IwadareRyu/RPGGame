@@ -49,48 +49,47 @@ public class SkillSetScripts : MonoBehaviour
                 var text = _skillPanel[i].GetComponentInChildren<Text>();
                 if (_skilltype == SkillType.BlockSkill)
                 {
-                    text.text = DataBase.BlockSkills[_dataBase._blockSkillSetNo[i]].SkillName;
+                    text.text = DataBase.Instance.BlockSkillSelectData.SkillInfomation[i]._skillName;
                 }
                 else if (_skilltype == SkillType.AttackSkill)
                 {
-                    text.text = DataBase.AttackSkills[_dataBase._attackSkillSetNo[i]].SkillName;
+                    text.text = DataBase.Instance.AttackSkillSelectData.SkillInfomation[i]._skillName;
                 }
                 else if (_skilltype == SkillType.AttackMagic)
                 {
-                    text.text = DataBase.AttackMagics[_dataBase._attackMagicSetNo[i]].SkillName;
+                    text.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._skillName;
                 }
                 else
                 {
-                    text.text = DataBase.BlockMagics[_dataBase._blockMagicSetNo[i]].SkillName;
+                    text.text = DataBase.Instance.BlockMagicSelectData.SkillInfomation[i]._skillName;
+                }
+            }
+            foreach (Transform trans in _skillSetPoint.gameObject.transform)
+            {
+                Destroy(trans.gameObject);
+            }
+            if (_dataBase)
+            {
+                if (_skilltype == SkillType.BlockSkill)
+                {
+                    SkillSet(_dataBase._blockSkillbool, DataBase.Instance.BlockSkillSelectData);
+                }
+                else if (_skilltype == SkillType.AttackSkill)
+                {
+                    SkillSet(_dataBase._attackSkillbool, DataBase.Instance.AttackSkillSelectData);
+                }
+                else if (_skilltype == SkillType.AttackMagic)
+                {
+                    SkillSet(_dataBase._attackMagicbool, DataBase.Instance.AttackMagicSelectData);
+                }
+                else
+                {
+                    SkillSet(_dataBase._blockMagicbool, DataBase.Instance.BlockMagicSelectData);
                 }
             }
         }
-        foreach (Transform trans in _skillSetPoint.gameObject.transform)
-        {
-            Destroy(trans.gameObject);
-        }
-        if (_dataBase)
-        {
-            if (_skilltype == SkillType.BlockSkill)
-            {
-                SkillSet(_dataBase._blockSkillbool, DataBase.BlockSkills);
-            }
-            else if (_skilltype == SkillType.AttackSkill)
-            {
-                SkillSet(_dataBase._attackSkillbool, DataBase.AttackSkills);
-            }
-            else if (_skilltype == SkillType.AttackMagic)
-            {
-                SkillSet(_dataBase._attackMagicbool, DataBase.AttackMagics);
-            }
-            else
-            {
-                SkillSet(_dataBase._blockMagicbool, DataBase.BlockMagics);
-            }
-        }
     }
-
-    public void SkillSet(bool[] skillbool, MasterData.Skill[] skillObjs)
+    public void SkillSet(bool[] skillbool, SelectorSkillObjects skillObjs)
     {
         for (var i = 0; i < skillbool.Length; i++)
         {
@@ -104,7 +103,7 @@ public class SkillSetScripts : MonoBehaviour
                     button.transform.SetParent(_skillSetPoint.transform);
                     //ボタンのテキストにデータベースに登録されているスキルの名前を入力。
                     var text = button.GetComponentInChildren<Text>();
-                    if (text) text.text = skillObjs[i].SkillName;
+                    if (text) text.text = skillObjs.SkillInfomation[i]._skillName;
                     //ボタンにスキルの要素数を持っておく。
                     var click = button.GetComponent<Button>();
                     var num = i;
@@ -116,21 +115,22 @@ public class SkillSetScripts : MonoBehaviour
 
     public void SelectSkill(int i)
     {
+        _tmp = i;
         if (_skilltype == SkillType.BlockSkill)
         {
-            SkillDis(i, DataBase.BlockSkills);
+            SkillDis(DataBase.Instance.BlockSkillSelectData.SkillInfomation[i]);
         }
         else if (_skilltype == SkillType.AttackSkill)
         {
-            SkillDis(i, DataBase.AttackSkills);
+            SkillDis(DataBase.Instance.AttackSkillSelectData.SkillInfomation[i]);
         }
         else if (_skilltype == SkillType.AttackMagic)
         {
-            SkillDis(i, DataBase.AttackMagics);
+            SkillDis(DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]);
         }
         else
         {
-            SkillDis(i, DataBase.BlockMagics);
+            SkillDis(DataBase.Instance.BlockMagicSelectData.SkillInfomation[i]);
         }
     }
 
@@ -141,11 +141,10 @@ public class SkillSetScripts : MonoBehaviour
         _tmp = -1;
     }
 
-    void SkillDis(int i, MasterData.Skill[] skillobj)
+    void SkillDis(SkillInfomation skillobj)
     {
-        _tmp = i;
-        _tutorialText.text = skillobj[i].Description;
-        _skillText.text = $"{skillobj[i].SkillName} を選択中";
+        _tutorialText.text = skillobj._description;
+        _skillText.text = $"{skillobj._skillName} を選択中";
     }
 
     public void MoveSkillChoice(int i)
@@ -153,26 +152,26 @@ public class SkillSetScripts : MonoBehaviour
         if (_tmp == -1) { return; }
         if (_skilltype == SkillType.BlockSkill)
         {
-            MoveSkill(i, _dataBase._blockSkillSetNo, DataBase.BlockSkills[_tmp]);
+            MoveSkill(i, _dataBase._blockSkillSetNo, DataBase.Instance.BlockSkillSelectData.SkillInfomation);
         }
         else if (_skilltype == SkillType.AttackSkill)
         {
-            MoveSkill(i, _dataBase._attackSkillSetNo, DataBase.AttackSkills[_tmp]);
+            MoveSkill(i, _dataBase._attackSkillSetNo, DataBase.Instance.AttackSkillSelectData.SkillInfomation);
         }
         else if (_skilltype == SkillType.AttackMagic)
         {
-            MoveSkill(i, _dataBase._attackMagicSetNo, DataBase.AttackMagics[_tmp]);
+            MoveSkill(i, _dataBase._attackMagicSetNo, DataBase.Instance.AttackMagicSelectData.SkillInfomation);
         }
         else
         {
-            MoveSkill(i, _dataBase._blockMagicSetNo, DataBase.BlockMagics[_tmp]);
+            MoveSkill(i, _dataBase._blockMagicSetNo, DataBase.Instance.BlockMagicSelectData.SkillInfomation);
         }
     }
 
-    public void MoveSkill(int i,int[] SetNo,MasterData.Skill _skill)
+    public void MoveSkill(int i,int[] SetNo,SkillInfomation[] _skill)
     {
         var text = _skillPanel[i].GetComponentInChildren<Text>();
-        text.text = _skill.SkillName;
+        text.text = _skill[_tmp]._skillName;
         SetNo[i] = _tmp;
     }
 }

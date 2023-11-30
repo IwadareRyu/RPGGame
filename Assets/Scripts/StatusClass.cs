@@ -9,7 +9,7 @@ public abstract class StatusClass : MonoBehaviour
 {
     [SerializeField] int _defaultHP;
     public int DefaulrHP => _defaultHP;
-    public int _hp = 100;
+    int _hp = 100;
     public int HP => _hp;
 
     [SerializeField] int _defaultAttack;
@@ -42,17 +42,31 @@ public abstract class StatusClass : MonoBehaviour
 
     public bool _death;
 
-    [SerializeField] GameObject _swordUpPrehab;
-    [SerializeField] GameObject _swordDownPrehab;
-    [SerializeField] GameObject _sheldUpPrehab;
-    [SerializeField] GameObject _sheldDownPrehab;
-    [SerializeField] GameObject _conditionPanel;
+    //[SerializeField] Transform _swordUpPrehab;
+    //[SerializeField] Transform _swordDownPrehab;
+    //[SerializeField] Transform _sheldUpPrehab;
+    //[SerializeField] Transform _sheldDownPrehab;
+    [SerializeField] GameObject  _conditionPanel;
 
     public void Awake()
     {
         _dataBase = DataBase.Instance;
     }
 
+    private void OnEnable()
+    {
+        FightManager.OnEnterAction += ActionMode;
+        FightManager.OnEnterRPG += RPGMode;
+    }
+
+    private void OnDisable()
+    {
+        FightManager.OnEnterAction -= ActionMode;
+        FightManager.OnEnterRPG -= RPGMode;
+    }
+
+    public virtual void ActionMode() { }
+    public virtual void RPGMode() { }
     /// <summary>ÉoÉtÇÃå¯â éûä‘ÇÃèàóù</summary>
     public void TimeMethod()
     {
@@ -84,7 +98,7 @@ public abstract class StatusClass : MonoBehaviour
     /// <param name="skillParsent"></param>
     public void AddDamage(float damage,float skillParsent = 1)
     {
-        _hp = _hp - (int)(damage * skillParsent - _diffence);
+        _hp = Mathf.Max(0,_hp - (int)(damage * skillParsent - _diffence));
         ShowSlider();
     }
 

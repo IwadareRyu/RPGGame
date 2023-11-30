@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
-            FightManager.Instance.InBattle(other.gameObject);
+           StartCoroutine(FightManager.Instance.InBattle(other.gameObject));
         }
     }
 

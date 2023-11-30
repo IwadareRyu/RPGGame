@@ -12,61 +12,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e50eab826bb3fc44b244fe3b90995fe, type: 3}
   m_Name: AttackSkills
   m_EditorClassIdentifier: 
-  skillsSelector:
-  - rid: 2471628661060534272
-  - rid: 2471628661060534273
-  - rid: 2471628661060534274
-  - rid: 2471628661060534275
-  - rid: 2471628661060534276
-  - rid: 2471628774011830272
+  _skillInfomation:
+  - _skillID: 1
+    _skillName: "1.2\u500D\u306E\u653B\u6483"
+    _type: 1
+    _description: "1.2\u500D\u306E\u653B\u6483"
+    _selectSkill:
+      rid: 2471629163554406419
+  - _skillID: 2
+    _skillName: "1.5\u500D\u306E\u653B\u6483"
+    _type: 1
+    _description: "1.5\u500D\u306E\u653B\u6483"
+    _selectSkill:
+      rid: 2471629163554406421
+  - _skillID: 3
+    _skillName: "4\u500D\u306E\u653B\u6483"
+    _type: 1
+    _description: "4\u500D\u306E\u653B\u6483"
+    _selectSkill:
+      rid: 2471629163554406422
+  - _skillID: 4
+    _skillName: "2\u500D\u306E\u653B\u6483"
+    _type: 1
+    _description: "2\u500D\u306E\u653B\u6483"
+    _selectSkill:
+      rid: 2471629163554406423
+  - _skillID: 5
+    _skillName: "12\u500D\u306E\u653B\u6483"
+    _type: 1
+    _description: "1\u25C7\u3007\u306E\u25B3\u6483"
+    _selectSkill:
+      rid: 2471629163554406424
   references:
     version: 2
     RefIds:
-    - rid: 2471628661060534272
+    - rid: 2471629163554406419
       type: {class: AttackSkillSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 1
-        _skillName: "\u30C0\u30FC\u30AF\u30CD\u30B9\u30A8\u30F3\u30C9\u30EC\u30B9\u30AB\u30AA\u30B9"
-        _description: "1.2\u500D\u306E\u653B\u6483"
         _attackValue: 1
         _requireAttack: 1
-    - rid: 2471628661060534273
+    - rid: 2471629163554406421
       type: {class: AttackSkillSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 2
-        _skillName: "\u30E1\u30E9\u30F3\u30BD\u30FC\u30C9"
-        _description: "1.5\u500D\u306E\u653B\u6483"
         _attackValue: 1
         _requireAttack: 1
-    - rid: 2471628661060534274
+    - rid: 2471629163554406422
       type: {class: AttackSkillSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 3
-        _skillName: "\u7206\u88C2\u30A2\u30C3\u30D1\u30FC"
-        _description: "4\u500D\u306E\u653B\u6483"
         _attackValue: 4
         _requireAttack: 1
-    - rid: 2471628661060534275
+    - rid: 2471629163554406423
       type: {class: AttackSkillSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 4
-        _skillName: "\u53F3\u30B9\u30C8\u30EC\u30FC\u30C8\u3067\u3076\u3063\u98DB\u3070\u3059"
-        _description: "2\u500D\u306E\u653B\u6483"
         _attackValue: 2
         _requireAttack: 1
-    - rid: 2471628661060534276
+    - rid: 2471629163554406424
       type: {class: AttackSkillSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 5
-        _skillName: "\u30B2\u30FC\u30E0\u7BA1\u7406\u30D7\u30ED\u30B0\u30E9\u30E0\u76F4\u6483"
-        _description: "1\u25C7\u3007\u306E\u25B3\u6483"
         _attackValue: 12
-        _requireAttack: 1
-    - rid: 2471628774011830272
-      type: {class: AttackSkillSelect, ns: , asm: Assembly-CSharp}
-      data:
-        _skillID: 0
-        _skillName: 
-        _description: 
-        _attackValue: 1
         _requireAttack: 1

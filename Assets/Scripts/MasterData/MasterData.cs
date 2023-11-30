@@ -19,6 +19,7 @@ namespace MasterData
         public int DiffencePower;
         public int OffencePower;
         public string Adjacent;
+        public string TmpName;
         public SkillType SkillType;
     }
 

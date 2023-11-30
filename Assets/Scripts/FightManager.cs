@@ -35,12 +35,12 @@ public class FightManager : SingletonMonovihair<FightManager>
         _pointGetText?.gameObject.SetActive(false);
     }
 
-    public void InBattle(GameObject other)
+    public IEnumerator InBattle(GameObject other)
     {
         other.gameObject.SetActive(false);
         _tutorialText.enabled = false;
         _inFight = true;
-        _battleField = Instantiate(_battleFieldPrehab, _player.transform.position, _player.transform.localRotation);
+        yield return _battleField = Instantiate(_battleFieldPrehab, _player.transform.position, _player.transform.localRotation);
         _player.SetActive(false);
         StartCoroutine(EndFightCoroutine(other));
         //OnEnterBattle.Invoke();
@@ -51,6 +51,7 @@ public class FightManager : SingletonMonovihair<FightManager>
         else
         {
             _battleState = BattleState.ActionBattle;
+            OnEnterAction.Invoke();
         }
     }
 
@@ -81,6 +82,11 @@ public class FightManager : SingletonMonovihair<FightManager>
     public void RPGEnter()
     {
         OnEnterRPG.Invoke();
+        _battleState = BattleState.BattleStop;
+    }
+
+    public void StartRPG()
+    {
         _battleState = BattleState.RPGBattle;
     }
 
@@ -94,7 +100,7 @@ public class FightManager : SingletonMonovihair<FightManager>
     {
         yield return new WaitForSeconds(5f);
         _battleState = BattleState.BattleEnd;
-        OnExitBattle.Invoke();
+        //OnExitBattle.Invoke();
         _winlosetext?.gameObject.SetActive(false);
         _pointGetText?.gameObject.SetActive(false);
         _tutorialText.enabled = true;

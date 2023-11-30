@@ -12,50 +12,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e50eab826bb3fc44b244fe3b90995fe, type: 3}
   m_Name: BlockMagics
   m_EditorClassIdentifier: 
-  skillsSelector:
-  - rid: 2471628661060534294
-  - rid: 2471628661060534296
-  - rid: 2471628661060534297
-  - rid: 2471628661060534298
+  _skillInfomation:
+  - _skillID: 0
+    _skillName: "\u653B\u9632\u30A2\u30B2\u30A2\u30B2"
+    _type: 3
+    _description: "Attack\u304C5\\nDiffence\u304C5\u30A2\u30C3\u30D7"
+    _selectSkill:
+      rid: 2471629163554406434
+  - _skillID: 1
+    _skillName: "\u5168\u4F53\u56DE\u5FA9"
+    _type: 3
+    _description: "HP10\u56DE\u5FA9"
+    _selectSkill:
+      rid: 2471629163554406435
+  - _skillID: 2
+    _skillName: "\u9632\u5FA1\u30A2\u30B2\u30A2\u30B2"
+    _type: 3
+    _description: "Diffence\u304C10\u30A2\u30C3\u30D7"
+    _selectSkill:
+      rid: 2471629163554406436
+  - _skillID: 3
+    _skillName: "\u653B\u6483\u30A2\u30B2\u30A2\u30B2"
+    _type: 3
+    _description: "Attack\u304C20\u30A2\u30C3\u30D7"
+    _selectSkill:
+      rid: 2471629163554406437
   references:
     version: 2
     RefIds:
-    - rid: 2471628661060534294
+    - rid: 2471629163554406434
       type: {class: BlockMagicSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 0
-        _skillName: "\u6E3E\u6C8C\u306E\u53CC\u7FFC\u6B4C"
-        _description: "Attack\u304C5\nDiffence\u304C5\u30A2\u30C3\u30D7"
         _plusDiffencePower: 5
         _plusAttackPower: 5
         _skillPoint: 10
         _healingHP: 0
-    - rid: 2471628661060534296
+    - rid: 2471629163554406435
       type: {class: BlockMagicSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 1
-        _skillName: "\u5927\u5730\u306E\u6075\u307F"
-        _description: "HP10\u56DE\u5FA9"
         _plusDiffencePower: 0
         _plusAttackPower: 0
         _skillPoint: 5
-        _healingHP: 10
-    - rid: 2471628661060534297
+        _healingHP: 20
+    - rid: 2471629163554406436
       type: {class: BlockMagicSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 2
-        _skillName: "\u4E09\u65E5\u6708\u306E\u5149"
-        _description: "Diffence\u304C10\u30A2\u30C3\u30D7"
         _plusDiffencePower: 10
         _plusAttackPower: 0
         _skillPoint: 15
         _healingHP: 0
-    - rid: 2471628661060534298
+    - rid: 2471629163554406437
       type: {class: BlockMagicSelect, ns: , asm: Assembly-CSharp}
       data:
-        _skillID: 3
-        _skillName: "\u30EC\u30BE\u30CA\u30F3\u30B9\u30D6\u30EC\u30B9"
-        _description: "Attack\u304C20\u30A2\u30C3\u30D7"
         _plusDiffencePower: 0
         _plusAttackPower: 20
         _skillPoint: 20
