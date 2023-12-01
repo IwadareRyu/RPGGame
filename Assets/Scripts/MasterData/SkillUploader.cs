@@ -5,6 +5,7 @@ using MasterData;
 using UnityEngine.Networking;
 using System;
 using Unity.VisualScripting;
+using UnityEditor;
 
 public class SkillUploader : MonoBehaviour
 {
@@ -42,6 +43,8 @@ public class SkillUploader : MonoBehaviour
             Debug.Log(s);
             MasterDataClass<Skill> data = JsonUtility.FromJson<MasterDataClass<Skill>>(s);
             selectorSkill.AttributeSkillLoad(ref data);
+            EditorUtility.SetDirty(selectorSkill);
+            AssetDatabase.SaveAssets();
         }
     }
 }

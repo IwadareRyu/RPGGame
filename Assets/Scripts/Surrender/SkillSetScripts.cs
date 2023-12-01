@@ -49,19 +49,19 @@ public class SkillSetScripts : MonoBehaviour
                 var text = _skillPanel[i].GetComponentInChildren<Text>();
                 if (_skilltype == SkillType.BlockSkill)
                 {
-                    text.text = DataBase.Instance.BlockSkillSelectData.SkillInfomation[i]._skillName;
+                    text.text = DataBase.Instance.BlockSkillSelectData.SkillInfomation[DataBase.Instance._blockSkillSetNo[i]]._skillName;
                 }
                 else if (_skilltype == SkillType.AttackSkill)
                 {
-                    text.text = DataBase.Instance.AttackSkillSelectData.SkillInfomation[i]._skillName;
+                    text.text = DataBase.Instance.AttackSkillSelectData.SkillInfomation[DataBase.Instance._attackSkillSetNo[i]]._skillName;
                 }
                 else if (_skilltype == SkillType.AttackMagic)
                 {
-                    text.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._skillName;
+                    text.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[DataBase.Instance._attackMagicSetNo[i]]._skillName;
                 }
                 else
                 {
-                    text.text = DataBase.Instance.BlockMagicSelectData.SkillInfomation[i]._skillName;
+                    text.text = DataBase.Instance.BlockMagicSelectData.SkillInfomation[DataBase.Instance._blockMagicSetNo[i]]._skillName;
                 }
             }
             foreach (Transform trans in _skillSetPoint.gameObject.transform)

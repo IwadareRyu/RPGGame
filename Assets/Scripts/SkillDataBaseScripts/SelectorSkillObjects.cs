@@ -9,6 +9,7 @@ public class SelectorSkillObjects : ScriptableObject
 
     public SkillInfomation[] SkillInfomation => _skillInfomation;
 
+
     public void AttributeSkillLoad(ref MasterDataClass<Skill> skills)
     {
         for(var i = 0;i < _skillInfomation.Length && i < skills.Data.Length;i++)
@@ -56,6 +57,7 @@ public struct SkillInfomation
     public string _description;
 
     [SerializeReference, SubclassSelector] public IAttributeSkill _selectSkill;
+
 }
 
 public interface IAttributeSkill { };
@@ -98,17 +100,10 @@ public class AttackMagicSelect : IAttributeSkill
     public float AttackValue => _attackValue;
     [SerializeField] int _skillPoint;
     public int SkillPoint => _skillPoint;
-
-    [SerializeField] int[] _adjacent;
-    public int[] Adjacent => _adjacent;
     public void AttackMagicLoad(Skill skill)
     {
         _attackValue = skill.AttackValue;
         _skillPoint = skill.SkillPoint;
-        if (skill.Adjacent != "null")
-        {
-            _adjacent = Array.ConvertAll(skill.Adjacent.Split(), int.Parse);
-        }
     }
 }
 
