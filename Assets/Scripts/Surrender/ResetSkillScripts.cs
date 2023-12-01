@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,8 @@ public class ResetSkillScripts : MonoBehaviour
     [SerializeField] Text _costText;
 
     [SerializeField] TreeScript _treeScript;
+
+    [SerializeField] SkillSetScripts _selectSkillSet;
 
     DataBase _dataBase;
 
@@ -49,6 +52,7 @@ public class ResetSkillScripts : MonoBehaviour
         _menuCostText.text = _cost.ToString();
     }
 
+    /// <summary>スキル習得状況をリセットするとき処理(現在AttackMagicのみの処理)</summary>
     public void YesReset()
     {
         _resetComfimation.SetActive(false);
@@ -56,11 +60,15 @@ public class ResetSkillScripts : MonoBehaviour
         for(var i = 0;i < _dataBase._attackMagicSetNo.Length;i++)
         {
             _dataBase._attackMagicSetNo[i] = 0;
+            _selectSkillSet.SelectSkill(0);
+            _selectSkillSet.MoveSkillChoice(i);
+            _selectSkillSet.SelectSkillReset();
         }
         for(var i = 1;i < _dataBase._attackMagicbool.Length;i++)
         {
             _dataBase._attackMagicbool[i] = false;
         }
+        _selectSkillSet.SkillSet(_dataBase._attackMagicbool, DataBase.Instance.AttackMagicSelectData);
         _treeScript.ResetButton();
         _costText.text = _dataBase.SkillPoint.ToString();
         CostReset();

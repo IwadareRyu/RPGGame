@@ -66,6 +66,8 @@ public class TreeScript : MonoBehaviour
 
     [SerializeField] bool _tmpNameBool = true;
 
+    [SerializeField] SkillSetScripts _skillSet;
+
     private void Awake()
     {
         _database = DataBase.Instance;
@@ -114,6 +116,7 @@ public class TreeScript : MonoBehaviour
         _no.onClick.AddListener(NoConfirmation);
         _confirmation.SetActive(false);
         _falseComfimation.SetActive(false);
+        _skillSet.SkillSet(DataBase.Instance._attackMagicbool, DataBase.Instance.AttackMagicSelectData);
     }
 
     /// <summary>スキルが選択されたときに呼ばれる処理。</summary>
@@ -262,6 +265,7 @@ public class TreeScript : MonoBehaviour
                 _database._attackMagicbool[i] = true;
                 _attackMagicTreeButtom[i].interactable = false;
             }
+            _skillSet.SkillSet(DataBase.Instance._attackMagicbool, DataBase.Instance.AttackMagicSelectData);
         }   //スキルポイントがあるなら、合計コスト分、ポイントを消費して、取得したスキルのボタンを押せなくする。
         AnswerReset();
     }

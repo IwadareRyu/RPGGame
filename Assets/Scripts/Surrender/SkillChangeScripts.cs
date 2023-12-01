@@ -6,18 +6,19 @@ using UnityEngine.UI;
 public class SkillChangeScripts : MonoBehaviour
 {
     [SerializeField] GameObject[] _skillChangeBottom;
-    [SerializeField] GameObject[] _skillChangeUI;
+    [SerializeField] Canvas[] _skillChangeCanvas;
+    [SerializeField] SkillSetScripts[] _skillSetScripts;
     [SerializeField] Text _selectText;
     int _setNo;
     [SerializeField] int _setChange = 0;
 
     private void Start()
     {
-        for(var i = 0;i < _skillChangeUI.Length;i++)
+        for(var i = 0;i < _skillChangeCanvas.Length;i++)
         {
             if(i != _setChange)
             {
-                _skillChangeUI[i].SetActive(false);
+               _skillChangeCanvas[i].enabled = false;
             }
             else
             {
@@ -31,11 +32,11 @@ public class SkillChangeScripts : MonoBehaviour
     public void ChangeSkill(int i)
     {
         _skillChangeBottom[_setNo].SetActive(true);
-        _skillChangeUI[_setNo].SetActive(false);
-        _skillChangeUI[i].SetActive(true);
+        _skillChangeCanvas[_setNo].enabled = false;
+        _skillChangeCanvas[i].enabled = true;
         _skillChangeBottom[i].SetActive(false);
         _selectText.text = ((SkillType)i).ToString();
-        GameObject.FindObjectOfType<SkillSetScripts>().SelectSkillReset();
+        _skillSetScripts[i].SelectSkillReset();
         _setNo = i;
     }
 
