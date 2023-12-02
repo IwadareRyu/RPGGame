@@ -27,12 +27,14 @@ public class GetOutScripts : MonoBehaviour
         _getOutAnim.enabled = false;
         _avatorGetInAnim.Play("GetIn");
         var tmp = getInPos.position;
-        tmp.y -= 1;
+        tmp.y -= 1.5f;
         transform.position = tmp;
         transform.rotation = getInPos.rotation;
-        _vec = (blockPos.position - transform.position).normalized;
+        var goalPos = blockPos.position;
+        goalPos.y -= 1.5f;
+        _vec = (goalPos - transform.position).normalized;
         _rb.velocity = _vec * _speed;
-        while (Vector3.Distance(transform.position,blockPos.position) > _dis)
+        while (Vector3.Distance(transform.position,goalPos) > _dis)
         {
             yield return null;
         }

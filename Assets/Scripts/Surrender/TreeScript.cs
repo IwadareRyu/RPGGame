@@ -112,13 +112,6 @@ public class TreeScript : MonoBehaviour
         _no.onClick.AddListener(NoConfirmation);
         _confirmation.SetActive(false);
         _falseComfimation.SetActive(false);
-        _skillSet.SkillSet(DataBase.Instance._attackMagicbool, DataBase.Instance.AttackMagicSelectData);
-        for (var i = 0; i < _skillPanel.Length; i++)
-        {
-            var num = i;
-            var button = _skillPanel[i].GetComponent<Button>();
-            button.onClick.AddListener(() => _skillSet.MoveSkillChoice(num));
-        }
     }
     /// <summary>‰Šú‰»—p•—Dæ’Tõ</summary>
     void InitialBFS()
