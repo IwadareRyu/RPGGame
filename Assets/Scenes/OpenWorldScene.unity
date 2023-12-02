@@ -499,7 +499,7 @@ PrefabInstance:
     - target: {fileID: 891256334593162828, guid: c00ccad79f3ee824b81cd665ead19592,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000030517578
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 891256334593162828, guid: c00ccad79f3ee824b81cd665ead19592,
         type: 3}
@@ -639,7 +639,7 @@ PrefabInstance:
     - target: {fileID: 3421913615959080656, guid: c00ccad79f3ee824b81cd665ead19592,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000061035156
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 3421913615959080656, guid: c00ccad79f3ee824b81cd665ead19592,
         type: 3}
@@ -724,7 +724,7 @@ PrefabInstance:
     - target: {fileID: 4065094223501075308, guid: c00ccad79f3ee824b81cd665ead19592,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000061035156
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 4065094223501075308, guid: c00ccad79f3ee824b81cd665ead19592,
         type: 3}
@@ -769,7 +769,7 @@ PrefabInstance:
     - target: {fileID: 5041218476138097830, guid: c00ccad79f3ee824b81cd665ead19592,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000061035156
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 5041218476138097830, guid: c00ccad79f3ee824b81cd665ead19592,
         type: 3}
@@ -7702,7 +7702,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 730481343}
-  m_LocalRotation: {x: 0.11309989, y: -0.19368026, z: 0.022483855, w: 0.97426426}
+  m_LocalRotation: {x: 0.1130999, y: -0.19368024, z: 0.022483854, w: 0.9742643}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -31674,7 +31674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9ef8e6ec5d4af4ea883a88f2e3c204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _battleFieldPrehab: {fileID: 5037981514924318211, guid: ae3ef407fb5e69941acac7f919df494a,
+  _battleFieldPrehab: {fileID: 3867917608953392896, guid: ae3ef407fb5e69941acac7f919df494a,
     type: 3}
   _player: {fileID: 1666733807}
   _winlosetext: {fileID: 993554617}
@@ -40523,7 +40523,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1964634219}
-  m_LocalRotation: {x: 0.077635154, y: -0.19436917, z: 0.01543359, w: 0.9777296}
+  m_LocalRotation: {x: 0.07763515, y: -0.19436915, z: 0.015433588, w: 0.9777296}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

@@ -7,7 +7,7 @@ public class TreeSetChangeScripts : MonoBehaviour
 {
     
     [SerializeField] 
-    GameObject _treePanel;
+    TreeScript _treePanel;
     [SerializeField] 
     GameObject _skillSetPanel;
     [SerializeField] 
@@ -24,14 +24,15 @@ public class TreeSetChangeScripts : MonoBehaviour
     void Start()
     {
         _skillSetPanel.SetActive(true);
-        _treePanel.SetActive(false);
+        _treePanel.gameObject.SetActive(false);
     }
 
     /// <summary>スキルセットメニューからスキルツリーメニューに変えるときの処理。</summary>
     public void TreeChange()
     {
         _skillSetPanel.SetActive(false);
-        _treePanel.SetActive(true);
+        _treePanel.DisplaySkillPoint();
+        _treePanel.gameObject.SetActive(true);
         _selectText.text = _treeText;
     }
 
@@ -39,7 +40,7 @@ public class TreeSetChangeScripts : MonoBehaviour
     public void SkillSetChange()
     {
         _skillSetPanel.SetActive(true);
-        _treePanel.SetActive(false);
+        _treePanel.gameObject.SetActive(false);
         _skillSetScript = GameObject.FindAnyObjectByType<SkillSetScripts>();
         if (_setbool == true)
         {

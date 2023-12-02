@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class TreeScript : MonoBehaviour
 {
+    [SerializeField]
+    Button[] _skillPanel;
 
     [Header("スキルツリーのボタン(0から順に)"),Tooltip("スキルツリーのボタン"),SerializeField] 
     Button[] _attackMagicTreeButtom;
@@ -68,20 +70,14 @@ public class TreeScript : MonoBehaviour
 
     [SerializeField] SkillSetScripts _skillSet;
 
-    private void Awake()
-    {
-        _database = DataBase.Instance;
-    }
-
-    private void OnEnable()
-    {
-        //スキルポイントの表示(ゲーム中に値が変わる可能性があるのでOnEnable)
-        _menuSkillPtText.text = _database.SkillPoint.ToString();
-    }
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        _database = DataBase.Instance;
+        //スキルポイントの表示
+        DisplaySkillPoint();
         //遡りリストの配列の数を宣言する。(スキルツリーのボタンの数と一緒)
         _backList = new List<int>[_attackMagicTreeButtom.Length];
         for(var i = 0;i < _attackMagicTreeButtom.Length;i++)
@@ -117,69 +113,13 @@ public class TreeScript : MonoBehaviour
         _confirmation.SetActive(false);
         _falseComfimation.SetActive(false);
         _skillSet.SkillSet(DataBase.Instance._attackMagicbool, DataBase.Instance.AttackMagicSelectData);
-    }
-
-    /// <summary>スキルが選択されたときに呼ばれる処理。</summary>
-    /// <param name="end"></param>
-    void DFSSkillTree(int end)
-    {
-        Debug.Log($"{end}が選択されました。");
-        _ansList.Add(0);
-        //リストに最初の頂点を追加した後、深さ優先探索の開始。
-        DFS(0, end);
-        Debug.Log($"経路は{string.Join("→", _ansList)}です。");
-
-        foreach (var i in _ansList)
+        for (var i = 0; i < _skillPanel.Length; i++)
         {
-            if (!_database._attackMagicbool[i])
-            {
-                if(DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._selectSkill is AttackMagicSelect attackMagic)
-                _cost += attackMagic.SkillPoint;
-            }
-        }   //データの要素数からスキルデータを取ってきて、スキルデータのスキルポイントを合計コストに加算。
-
-        //スキルの説明、何のスキルを選択しているかを表示して、確認画面を出す。
-        _tutorialText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[end]._description;
-        _skillText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[end]._skillName} を選択中";
-        _confirmation.SetActive(true);
-        _skillNameText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[_ansList[_ansList.Count - 1]]._skillName;
-        _skillPointText.text = _cost.ToString();
+            var num = i;
+            var button = _skillPanel[i].GetComponent<Button>();
+            button.onClick.AddListener(() => _skillSet.MoveSkillChoice(num));
+        }
     }
-
-    /// <summary>深さ優先探索</summary>
-    /// <param name="start">現在の頂点</param>
-    /// <param name="end">最終地点</param>
-    void DFS(int start, int end)
-    {
-        if (start == end)
-        {
-            return;
-        }   //すでに現在の頂点が最終地点なら探索終了。
-        else
-        {
-            //現在の頂点に隣接している頂点を順番に見ていく。
-            foreach (int i in _adjacentList[start])
-            {
-                //隣接頂点がリストに含んでいなければリストに追加。
-                if (!_ansList.Contains(i))
-                {
-                    _ansList.Add(i);
-                    if (i == end)
-                    {
-                        _answerbool = true;
-                        return;
-                    }   //隣接頂点が最終地点の場合、探索を終了させる。
-                    else
-                    {
-                        DFS(i, end);
-                        if (_answerbool) { return; }
-                    }   //条件を満たしていない場合、隣接頂点を現在の頂点として再帰する。
-                }
-            }
-            _ansList.RemoveAt(_ansList.Count - 1);
-        }   //現在の頂点の探索が終わったらリストから削除する。
-    }
-
     /// <summary>初期化用幅優先探索</summary>
     void InitialBFS()
     {
@@ -202,7 +142,11 @@ public class TreeScript : MonoBehaviour
             }
         }
     }
-
+    /// <summary>スキルポイントを表示するメソッド</summary>
+    public void DisplaySkillPoint()
+    {
+        _menuSkillPtText.text = DataBase.Instance.SkillPoint.ToString();
+    }
     /// <summary>スキルが選択されたときに呼ばれる処理</summary>
     /// <param name="num"></param>
     void BFSSkillTree(int choiceNumber)
@@ -294,4 +238,67 @@ public class TreeScript : MonoBehaviour
         _ansList.Clear();
         _cost = 0;
     }
+
+    /// DFS用スキルツリー
+    /// <summary>スキルが選択されたときに呼ばれる処理。</summary>
+    /// <param name="end"></param>
+    void DFSSkillTree(int end)
+    {
+        Debug.Log($"{end}が選択されました。");
+        _ansList.Add(0);
+        //リストに最初の頂点を追加した後、深さ優先探索の開始。
+        DFS(0, end);
+        Debug.Log($"経路は{string.Join("→", _ansList)}です。");
+
+        foreach (var i in _ansList)
+        {
+            if (!_database._attackMagicbool[i])
+            {
+                if (DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._selectSkill is AttackMagicSelect attackMagic)
+                    _cost += attackMagic.SkillPoint;
+            }
+        }   //データの要素数からスキルデータを取ってきて、スキルデータのスキルポイントを合計コストに加算。
+
+        //スキルの説明、何のスキルを選択しているかを表示して、確認画面を出す。
+        _tutorialText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[end]._description;
+        _skillText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[end]._skillName} を選択中";
+        _confirmation.SetActive(true);
+        _skillNameText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[_ansList[_ansList.Count - 1]]._skillName;
+        _skillPointText.text = _cost.ToString();
+    }
+
+    /// <summary>深さ優先探索</summary>
+    /// <param name="start">現在の頂点</param>
+    /// <param name="end">最終地点</param>
+    void DFS(int start, int end)
+    {
+        if (start == end)
+        {
+            return;
+        }   //すでに現在の頂点が最終地点なら探索終了。
+        else
+        {
+            //現在の頂点に隣接している頂点を順番に見ていく。
+            foreach (int i in _adjacentList[start])
+            {
+                //隣接頂点がリストに含んでいなければリストに追加。
+                if (!_ansList.Contains(i))
+                {
+                    _ansList.Add(i);
+                    if (i == end)
+                    {
+                        _answerbool = true;
+                        return;
+                    }   //隣接頂点が最終地点の場合、探索を終了させる。
+                    else
+                    {
+                        DFS(i, end);
+                        if (_answerbool) { return; }
+                    }   //条件を満たしていない場合、隣接頂点を現在の頂点として再帰する。
+                }
+            }
+            _ansList.RemoveAt(_ansList.Count - 1);
+        }   //現在の頂点の探索が終わったらリストから削除する。
+    }
+
 }

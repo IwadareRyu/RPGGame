@@ -31,7 +31,6 @@ public class SkillSetScripts : MonoBehaviour
 
     private void Awake()
     {
-        _dataBase = DataBase.Instance;
         for (var i = 0; i < _skillPanel.Length; i++)
         {
             var num = i;
@@ -92,6 +91,7 @@ public class SkillSetScripts : MonoBehaviour
 
     private void Start()
     {
+        _dataBase = DataBase.Instance;
         if (_skillPanel.Length != 0)
         {
             for (var i = 0; i < _skillPanel.Length; i++)
