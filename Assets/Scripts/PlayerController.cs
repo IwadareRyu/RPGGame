@@ -74,8 +74,16 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
-           StartCoroutine(FightManager.Instance.InBattle(other.gameObject));
+            Debug.Log("接敵！");
+            StartCoroutine(StandEncount(other));
         }
+    }
+
+    IEnumerator StandEncount(Collider other)
+    {
+        yield return new WaitUntil(() => !_menu);
+        Debug.Log("戦闘開始！");
+        StartCoroutine(FightManager.Instance.InBattle(other.gameObject));
     }
 
     enum State
