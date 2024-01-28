@@ -37,10 +37,10 @@ public class FightManager : SingletonMonovihair<FightManager>
 
     public IEnumerator InBattle(GameObject other)
     {
-        other.gameObject.SetActive(false);
         _tutorialText.enabled = false;
         _inFight = true;
-        yield return _battleField = Instantiate(_battleFieldPrehab, _player.transform.position, _player.transform.localRotation);
+        yield return _battleField = Instantiate(_battleFieldPrehab, other.transform.position, _player.transform.localRotation);
+        other.gameObject.SetActive(false);
         _player.SetActive(false);
         StartCoroutine(EndFightCoroutine(other));
         //OnEnterBattle.Invoke();

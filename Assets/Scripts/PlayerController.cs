@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("プレイヤーの動きの速さ")]
     [SerializeField]float _speed = 2f;
     [SerializeField] float _dashPower = 5f;
+    [SerializeField] float _gravityPower = 3f;
     [Tooltip("操作切り替えのbool型")]
     bool _airShipFly;
     [SerializeField] State _state = State.NomalMode;
@@ -48,19 +49,19 @@ public class PlayerController : MonoBehaviour
             //水平方向の速度の計算。
             dir = dir.normalized * _speed;
 
+            //垂直方向の設定(重力の設定)
             dir.y = _rb.velocity.y;
 
             Vector3 dash = new Vector3(0, 0, 0);
 
-            //飛行中、前に移動する処理。
+            //ダッシュ
             if (Input.GetButton("Fire2"))
             {
                 dash += Vector3.forward * _dashPower;
-                dash = Camera.main.transform.TransformDirection(dash);
                 dash.y = 0;
             }
 
-            //飛行機の動きの計算
+            //人の移動設定
             _rb.velocity = dir + dash;
             _robotAni.SetFloat("Speed",hAndV);
         }
