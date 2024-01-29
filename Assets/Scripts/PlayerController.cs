@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] State _state = State.NomalMode;
     public bool _menu;
     [SerializeField] Animator _robotAni;
+    bool _waitAction = false;
+    bool _action = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_menu)
+        if (!_menu && !_action)
         {
             float h = 0;
             float v = 0;
@@ -59,6 +61,12 @@ public class PlayerController : MonoBehaviour
             {
                 dash += Vector3.forward * _dashPower;
                 dash.y = 0;
+            }
+
+            if(Input.GetButtonDown("ActionAttack1") && !_action)
+            {
+                _waitAction = true;
+
             }
 
             //人の移動設定

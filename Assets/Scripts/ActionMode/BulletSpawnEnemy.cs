@@ -1,8 +1,11 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletSpawnEnemy : MonoBehaviour
 {
+    /*[SerializeField] */
+    PlayerController _player;
     [Header("íeÇÃê›íË")]
     [Tooltip("íeÇÃìÆÇ´ÇÃê›íË")]
     [SerializeField] BulletState _bulletMoveState;
@@ -22,6 +25,12 @@ public class BulletSpawnEnemy : MonoBehaviour
     [Header("íeÇÃÉvÅ[Éã")]
     [SerializeField] BulletPoolActive _bulletPool;
     float _coolTime;
+
+    private void Awake()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    }
+
     private void Start()
     {
         StartCoroutine(SpawnBullet());
@@ -30,7 +39,9 @@ public class BulletSpawnEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        var playerPos = _player.transform.position;
+        playerPos.y = transform.position.y;
+        transform.LookAt(_player.transform.position);
     }
 
     IEnumerator SpawnBullet()

@@ -53,13 +53,14 @@ public class BulletMoveScripts : MonoBehaviour
     /// <param name="speed"></param>
     public IEnumerator FlowerMove(float speed, float rota)
     {
-        var tmprota = 0;
+        float tmpRota = 0;
+        float nowRota = 0;
         for (float i = 0f; i <= _activeTime; i += Time.deltaTime)
         {
-            if (tmprota < tmprota + 270)
+            if (nowRota < tmpRota + 270)
             {
                 Rotation(rota);
-                tmprota++;
+                nowRota += rota;
             }
             Move(speed);
             if (ChackHit()) { break; };
