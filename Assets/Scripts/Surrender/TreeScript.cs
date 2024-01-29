@@ -100,8 +100,7 @@ public class TreeScript : MonoBehaviour
 
         while(reader.Peek() != -1)
         {
-            string line = reader.ReadLine();
-            _adjacentList.Add(Array.ConvertAll(line.Split(" "), int.Parse));
+            _adjacentList.Add(Array.ConvertAll(reader.ReadLine().Split(" "), int.Parse));
         }   //ファイルの内容を一行ずつリストに追加。
 
         //幅優先探索で遡りリストを作る。
@@ -232,7 +231,7 @@ public class TreeScript : MonoBehaviour
         _cost = 0;
     }
 
-    /// DFS用スキルツリー
+    /// DFS用スキルツリー(現在使われておりません)
     /// <summary>スキルが選択されたときに呼ばれる処理。</summary>
     /// <param name="end"></param>
     void DFSSkillTree(int end)
