@@ -1,4 +1,4 @@
-﻿using Cinemachine;
+﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +6,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody _rb;
+    [SerializeField] PlayerActionMotion _playerAction;
+    [SerializeField] MeshRenderer _attackRangeMesh;
     [Tooltip("プレイヤーの動きの速さ")]
-    [SerializeField]float _speed = 2f;
+    [SerializeField] float _speed = 2f;
     [SerializeField] float _dashPower = 5f;
     [SerializeField] float _gravityPower = 3f;
     [Tooltip("操作切り替えのbool型")]
@@ -15,8 +17,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] State _state = State.NomalMode;
     public bool _menu;
     [SerializeField] Animator _robotAni;
-    bool _waitAction = false;
-    bool _action = false;
+    bool _waitMove = false;
+    bool _action1 = false;
+    bool _action2 = false;
+
+    private void Awake()
+    {
+        _attackRangeMesh.enabled = false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +35,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_menu && !_action)
+        if (!_menu && !_waitMove)
         {
+            ///移動
             float h = 0;
             float v = 0;
             h = Input.GetAxisRaw("Horizontal");
@@ -63,15 +72,35 @@ public class PlayerController : MonoBehaviour
                 dash.y = 0;
             }
 
-            if(Input.GetButtonDown("ActionAttack1") && !_action)
-            {
-                _waitAction = true;
-
-            }
-
             //人の移動設定
             _rb.velocity = dir + dash;
-            _robotAni.SetFloat("Speed",hAndV);
+            _robotAni.SetFloat("Speed", hAndV);
+            ///
+
+            ///アクション
+            if (!_action1 && !_action2)
+            {
+                if (Input.GetButtonDown("ActionAttack1"))
+                {
+                    _action1 = true;
+                    _attackRangeMesh.enabled = true;
+                }
+                if (Input.GetButtonDown("ActionAttack2"))
+                {
+                    _action2 = true;
+                    _attackRangeMesh.enabled = true;
+                }
+            }
+            else if (_attackRangeMesh.enabled)
+            {
+                if (Input.GetButtonUp("ActionDecition"))
+                {
+                    _attackRangeMesh.enabled = false;
+                    _waitMove = true;
+                    StartCoroutine(Action());
+                }
+            }
+            ///
         }
         else
         {
@@ -79,9 +108,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    IEnumerator Action()
+    {
+        _robotAni.Play("SideAttack");
+        yield return StartCoroutine(_playerAction.ActionTime());
+        _waitMove = false;
+        _action1 = false;
+        _action2 = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy")
         {
             Debug.Log("接敵！");
             StartCoroutine(StandEncount(other));

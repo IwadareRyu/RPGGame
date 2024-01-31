@@ -14,84 +14,84 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skillInfomation:
   - _skillID: 0
-    _skillName: "1.1\u500D\u9B54\u6CD5"
+    _skillName: "1.1\u500D \u9B54\u6CD5\u653B\u6483"
     _tmpSkillName: "\u304A\u5C4A\u3051\u751F\u8336"
     _type: 2
     _description: "1.1\u500D\u306E\u9B54\u6CD5\u653B\u6483"
     _selectSkill:
       rid: 2471629163554406405
   - _skillID: 1
-    _skillName: "1.2\u500D\u9B54\u6CD5"
+    _skillName: "1.2\u500D \u9B54\u6CD5\u653B\u6483"
     _tmpSkillName: "\u30CB\u30F3\u30B8\u30F3\u306E\u529B"
     _type: 2
     _description: "1.2\u500D\u306E\u9B54\u6CD5\u653B\u6483"
     _selectSkill:
       rid: 2471629163554406406
   - _skillID: 2
-    _skillName: "1.3\u500D\u9B54\u6CD5"
+    _skillName: "1.3\u500D \u9B54\u6CD5\u653B\u6483"
     _tmpSkillName: "\u30B5\u30F3\u30D72"
     _type: 2
     _description: "1.3\u500D\u306E\u9B54\u6CD5\u653B\u6483"
     _selectSkill:
       rid: 2471629163554406407
   - _skillID: 3
-    _skillName: "1.4\u500D\u9B54\u6CD5"
+    _skillName: "1.4\u500D \u9B54\u6CD5\u653B\u6483"
     _tmpSkillName: "\u30D5\u30A1\u30A4\u30A2\u30C9\u30E9\u30B4\u30F3\u306E\u7948\u308A"
     _type: 2
     _description: "1.4\u500D\u306E\u9B54\u6CD5\u653B\u6483"
     _selectSkill:
       rid: 2471629163554406408
   - _skillID: 4
-    _skillName: "1.5\u500D\u9B54\u6CD5"
+    _skillName: "1.5\u500D \u9B54\u6CD5\u653B\u6483"
     _tmpSkillName: "\u7D42\u7109\u306E\u66B4\u98A8\u96E8"
     _type: 2
     _description: "1.5\u500D\u306E\u9B54\u6CD5\u653B\u6483"
     _selectSkill:
       rid: 2471629163554406411
   - _skillID: 5
-    _skillName: "1.7\u500D\u9B54\u6CD5"
+    _skillName: "1.7\u500D \u9B54\u6CD5\u653B\u6483"
     _tmpSkillName: "\u30C0\u30FC\u30D5\u30A3\u30E9\u30D4\u30B9"
     _type: 2
     _description: "1.7\u500D\u306E\u9B54\u6CD5\u653B\u6483"
     _selectSkill:
       rid: 2471629163554406412
   - _skillID: 6
-    _skillName: "1.9\u500D\u9B54\u6CD5"
+    _skillName: "1.9\u500D \u9B54\u6CD5\u653B\u6483"
     _tmpSkillName: "\u71C3\u3086\u308B\u708E"
     _type: 2
     _description: "1.9\u500D\u306E\u9B54\u6CD5\u653B\u6483"
     _selectSkill:
       rid: 2471629163554406413
   - _skillID: 7
-    _skillName: "2\u500D\u9B54\u6CD5"
+    _skillName: "2.0\u500D \u9B54\u6CD5\u653B\u6483"
     _tmpSkillName: "\u30E1\u30F3\u30C8\u30FB\u30EB\u30F3\u30AC"
     _type: 2
     _description: "2\u500D\u306E\u9B54\u6CD5\u653B\u6483"
     _selectSkill:
       rid: 2471629163554406414
   - _skillID: 8
-    _skillName: "2.5\u500D\u9B54\u6CD5"
+    _skillName: "2.5\u500D \u9B54\u6CD5\u653B\u6483"
     _tmpSkillName: "\u30BB\u30FC\u30BF\u30FC\u306F\u4EBA\u9593\u3092\u3082\u6BBA\u3059"
     _type: 2
     _description: "2.5\u500D\u306E\u9B54\u6CD5\u653B\u6483"
     _selectSkill:
       rid: 2471629163554406415
   - _skillID: 9
-    _skillName: "3\u500D\u9B54\u6CD5"
+    _skillName: "3.0\u500D \u9B54\u6CD5\u653B\u6483"
     _tmpSkillName: "\u751F\u30EC\u30D0\u30CB\u30E9\u751F\u9B5A\u751F\u7261\u8823"
     _type: 2
     _description: "3\u500D\u306E\u9B54\u6CD5\u653B\u6483"
     _selectSkill:
       rid: 2471629163554406416
   - _skillID: 10
-    _skillName: "SkillPoint\u6D88\u8CBB\u591A\u3081\u306E\u9B54\u6CD5"
+    _skillName: "SkillPoint\u6D88\u8CBB\u591A\u3081 \u9B54\u6CD5\u653B\u6483"
     _tmpSkillName: "\u7D76\u5BFE\u306B\u53D6\u308C\u306A\u3044\u30B9\u30AD\u30EB"
     _type: 2
     _description: "3.5\u500D\u306E\u9B54\u6CD5\u653B\u6483"
     _selectSkill:
       rid: 2471629163554406418
   - _skillID: 11
-    _skillName: "\u51C4\u3044\u9B54\u6CD5\uFF1F"
+    _skillName: "\u51C4\u3044 \u9B54\u6CD5\uFF1F"
     _tmpSkillName: "\u3042\u308A\u304C\u3068\u3046Unity"
     _type: 2
     _description: "1\u500D\u306E\u9B54\u6CD5\u653B\u6483"
