@@ -69,19 +69,19 @@ public class BulletSpawnEnemy : MonoBehaviour
             bullet.transform.position = new Vector3(transform.position.x, transform.position.y + _bulletYPos, transform.position.z);
             bullet.transform.Rotate(0, i, 0);
             var bulletScript = bullet.GetComponent<BulletMoveScripts>();
-
-            switch (_bulletMoveState)
-            {
-                case BulletState.ForwardMove:
-                    StartCoroutine(bulletScript.ForwardMove(_bulletSpeed));
-                    break;
-                case BulletState.RotationMove:
-                    StartCoroutine(bulletScript.RotationMove(_bulletSpeed, _bulletRota));
-                    break;
-                case BulletState.FlowerMove:
-                    StartCoroutine(bulletScript.FlowerMove(_bulletSpeed, _bulletRota));
-                    break;
-            }
+            bulletScript.BulletMoveStart(_bulletSpeed,_bulletRota, _bulletMoveState);
+            //switch (_bulletMoveState)
+            //{
+            //    case BulletState.ForwardMove:
+            //        StartCoroutine(bulletScript.ForwardMove(_bulletSpeed));
+            //        break;
+            //    case BulletState.RotationMove:
+            //        StartCoroutine(bulletScript.RotationMove(_bulletSpeed, _bulletRota));
+            //        break;
+            //    case BulletState.FlowerMove:
+            //        StartCoroutine(bulletScript.FlowerMove(_bulletSpeed, _bulletRota));
+            //        break;
+            //}
         }
         yield return null;
     }

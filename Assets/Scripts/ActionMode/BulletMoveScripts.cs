@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -19,7 +20,23 @@ public class BulletMoveScripts : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position,_bulletScale);
+        Gizmos.DrawWireSphere(transform.position,_bulletScale);
+    }
+
+    public void BulletMoveStart(float bulletSpeed,float bulletRota,BulletState bulletMoveState)
+    {
+        switch (bulletMoveState)
+        {
+            case BulletState.ForwardMove:
+                StartCoroutine(ForwardMove(bulletSpeed));
+                break;
+            case BulletState.RotationMove:
+                StartCoroutine(RotationMove(bulletSpeed,bulletRota));
+                break;
+            case BulletState.FlowerMove:
+                StartCoroutine(FlowerMove(bulletSpeed, bulletRota));
+                break;
+        }
     }
 
     /// <summary>Ç‹Ç¡Ç∑ÇÆîÚÇ‘ãÖÇÃèàóù</summary>
@@ -49,7 +66,7 @@ public class BulletMoveScripts : MonoBehaviour
         Reset();
     }
 
-    /// <summary>íeÇ™ìÆÇ≠</summary>
+    /// <summary>íeÇ™â‘èÛÇ…ìÆÇ≠</summary>
     /// <param name="speed"></param>
     public IEnumerator FlowerMove(float speed, float rota)
     {
@@ -74,6 +91,7 @@ public class BulletMoveScripts : MonoBehaviour
     private void Move(float speed)
     {
         transform.position += transform.forward * speed;
+        //transform.Translate(transform.forward * speed);
     }
     
     private void Rotation(float rota)
