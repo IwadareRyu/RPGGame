@@ -6,6 +6,7 @@ public class BulletSpawnEnemy : MonoBehaviour
 {
     /*[SerializeField] */
     PlayerController _player;
+    [SerializeField] Animator _anim;
     [Header("’e‚ÌÝ’è")]
     [Tooltip("’e‚Ì“®‚«‚ÌÝ’è")]
     [SerializeField] BulletState _bulletMoveState;
@@ -22,6 +23,7 @@ public class BulletSpawnEnemy : MonoBehaviour
     [Tooltip("UŒ‚ƒ^ƒCƒ€‚©‚Ç‚¤‚©")]
     //[NonSerialized]
     public bool _isAttackTime;
+    [SerializeField] StunEnemy _stunEnemy;
     [Header("’e‚Ìƒv[ƒ‹")]
     [SerializeField] BulletPoolActive _bulletPool;
     float _coolTime;
@@ -39,16 +41,19 @@ public class BulletSpawnEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var playerPos = _player.transform.position;
-        playerPos.y = transform.position.y;
-        transform.LookAt(_player.transform.position);
+        if (!_stunEnemy.Stun)
+        {
+            var playerPos = _player.transform.position;
+            playerPos.y = transform.position.y;
+            transform.LookAt(_player.transform.position);
+        }
     }
 
     IEnumerator SpawnBullet()
     {
         while (true)
         {
-            if (_isAttackTime)
+            if (_isAttackTime && !_stunEnemy.Stun)
             {
                 _coolTime += Time.deltaTime;
                 if (_coolTime > _spawnCoolTime)
@@ -63,6 +68,7 @@ public class BulletSpawnEnemy : MonoBehaviour
 
     IEnumerator CircleSpawn()
     {
+        _anim.SetTrigger("Attack");
         for (float i = 0; i < 360; i += _bulletRange)
         {
             var bullet = _bulletPool.GetBullet();
@@ -70,18 +76,6 @@ public class BulletSpawnEnemy : MonoBehaviour
             bullet.transform.Rotate(0, i, 0);
             var bulletScript = bullet.GetComponent<BulletMoveScripts>();
             bulletScript.BulletMoveStart(_bulletSpeed,_bulletRota, _bulletMoveState);
-            //switch (_bulletMoveState)
-            //{
-            //    case BulletState.ForwardMove:
-            //        StartCoroutine(bulletScript.ForwardMove(_bulletSpeed));
-            //        break;
-            //    case BulletState.RotationMove:
-            //        StartCoroutine(bulletScript.RotationMove(_bulletSpeed, _bulletRota));
-            //        break;
-            //    case BulletState.FlowerMove:
-            //        StartCoroutine(bulletScript.FlowerMove(_bulletSpeed, _bulletRota));
-            //        break;
-            //}
         }
         yield return null;
     }

@@ -97,7 +97,8 @@ public class PlayerController : MonoBehaviour
                 {
                     _attackRangeMesh.enabled = false;
                     _waitMove = true;
-                    StartCoroutine(Action());
+                    
+                    StartCoroutine(Action(_action1 ? 0 : 1));
                 }
             }
             ///
@@ -108,10 +109,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator Action()
+    IEnumerator Action(int numver)
     {
         _robotAni.Play("SideAttack");
-        yield return StartCoroutine(_playerAction.ActionTime());
+        var skillName = DataBase.Instance.AttackMagicSelectData.SkillInfomation[DataBase.Instance._attackMagicSetNo[numver]]._skillName.Split();
+        yield return StartCoroutine(_playerAction.ActionTime(skillName));
         _waitMove = false;
         _action1 = false;
         _action2 = false;
