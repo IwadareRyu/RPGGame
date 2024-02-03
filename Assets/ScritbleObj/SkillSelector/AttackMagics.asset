@@ -91,7 +91,7 @@ MonoBehaviour:
     _selectSkill:
       rid: 2471629163554406418
   - _skillID: 11
-    _skillName: "\u51C4\u3044 \u9B54\u6CD5\uFF1F"
+    _skillName: "\u51C4\u3044 \u9B54\u6CD5\u653B\u6483"
     _tmpSkillName: "\u3042\u308A\u304C\u3068\u3046Unity"
     _type: 2
     _description: "1\u500D\u306E\u9B54\u6CD5\u653B\u6483"

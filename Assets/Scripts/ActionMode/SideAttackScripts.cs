@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class SideAttackScripts : MonoBehaviour
 {
-    List<BulletSpawnEnemy> _enemy = new List<BulletSpawnEnemy>();
+    List<StunEnemy> _enemy = new List<StunEnemy>();
 
-    public List<BulletSpawnEnemy> ReturnEnemy()
+    public List<StunEnemy> ReturnEnemy()
     {
         return _enemy;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent<BulletSpawnEnemy>(out var enemy))
+        if(other.TryGetComponent<StunEnemy>(out var enemy))
         {
+            enemy.ChangeStun();
             _enemy.Add(enemy);
         }
     }

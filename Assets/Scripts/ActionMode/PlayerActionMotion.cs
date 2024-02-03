@@ -19,10 +19,16 @@ public class PlayerActionMotion : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
     }
-    public IEnumerator ActionTime()
+
+    /// <summary>プレイヤーの攻撃処理</summary>
+    /// <param name="skillName">スキルの名前(空白区切り)</param>
+    /// <returns></returns>
+    public IEnumerator ActionTime(string[] skillName)
     {
         var sideAttack = Instantiate(_sideAttackText, _spownPos.position, transform.rotation);
         sideAttack.transform.SetParent(transform);
+        sideAttack.text = skillName[skillName.Length - 1];
+
         yield return sideAttack.transform.DOLocalMoveX(100, _sideAttackTime).WaitForCompletion();
         var deathEnemy = sideAttack.GetComponent<SideAttackScripts>().ReturnEnemy();
         if (deathEnemy.Count != 0)
@@ -33,6 +39,7 @@ public class PlayerActionMotion : MonoBehaviour
                 var pos = deathEnemy[i].transform.position;
                 pos.y += 200;
                 var downAttack = Instantiate(_downAttackText, pos, Quaternion.identity);
+                downAttack.text = skillName[0] + "!!";
                 downAttackList.Add(downAttack.GetComponent<PlayShader>());
                 pos.y -= 180;
                 downAttack.transform.DOMove(pos, _downAttackTime);
@@ -43,6 +50,7 @@ public class PlayerActionMotion : MonoBehaviour
             {
                 var pos = deathEnemy[i].transform.position;
                 pos.y += 10;
+                deathEnemy[i].ResetStun();
                 deathEnemy[i].gameObject.SetActive(false);
                 downAttackList[i].PlayParticle();
                 var ragdollRbs = Instantiate(_ragdoll, pos, Quaternion.identity).GetComponents<Rigidbody>();
