@@ -4,3 +4,10 @@ public enum BulletState
     RotationMove,
     FlowerMove,
 }
+
+public enum SpawnState
+{
+    Forward,
+    Circle,
+    DelayCircle,
+}

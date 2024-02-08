@@ -30,7 +30,7 @@ public class MagicPlayer : StatusClass
 
     void Start()
     {
-        _enemy = GameObject.FindGameObjectWithTag("Enemy")?.GetComponent<EnemyController>();
+        _enemy = GameObject.FindGameObjectWithTag("RPGEnemy")?.GetComponent<EnemyController>();
         SetStatus();
         ShowSlider();
         Debug.Log($"MagicHP:{HP}");

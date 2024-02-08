@@ -11,134 +11,145 @@ public class PlayerController : MonoBehaviour
     [Tooltip("プレイヤーの動きの速さ")]
     [SerializeField] float _speed = 2f;
     [SerializeField] float _dashPower = 5f;
-    [SerializeField] float _gravityPower = 3f;
-    [Tooltip("操作切り替えのbool型")]
-    bool _airShipFly;
-    [SerializeField] State _state = State.NomalMode;
+    [SerializeField]ChangeGanreState _ganreState = ChangeGanreState.RPG;
+    public ChangeGanreState GanreState => _ganreState;
     public bool _menu;
     [SerializeField] Animator _robotAni;
     bool _waitMove = false;
-    bool _action1 = false;
-    bool _action2 = false;
+    bool _pause = false;
+    bool _leftAction = false;
+    bool _rightAction = false;
+
+    public void ChangeGanre(ChangeGanreState state) => _ganreState = state;
 
     private void Awake()
     {
         _attackRangeMesh.enabled = false;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
         _rb = GetComponent<Rigidbody>();
+        _ganreState = ChangeGanreState.RPG;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!_menu && !_waitMove)
+        if (!_menu && !_waitMove && !_pause)
         {
-            ///移動
-            float h = 0;
-            float v = 0;
-            h = Input.GetAxisRaw("Horizontal");
-            v = Input.GetAxisRaw("Vertical");
-            float hAndV = Mathf.Abs(h) + Mathf.Abs(v);
-            Vector3 dir = new Vector3(0, 0, 0);
+            //Playerの移動。
+            PlayerMove();
 
-            //飛行中かそうでないかで移動方法を変える。(力の加え方を変える。)
-            dir = Vector3.forward * v + Vector3.right * h;
-
-            //カメラの座標を基準にdirを代入。
-            dir = Camera.main.transform.TransformDirection(dir);
-
-            //カメラが斜め下を向いているときy方向に動いてしまうので、y軸は0にする。
-            dir.y = 0;
-
-            //入力がない場合は回転させず、ある時はその方向にキャラを向ける。
-            if (dir != Vector3.zero) transform.forward = dir;
-
-            //水平方向の速度の計算。
-            dir = dir.normalized * _speed;
-
-            //垂直方向の設定(重力の設定)
-            dir.y = _rb.velocity.y;
-
-            Vector3 dash = new Vector3(0, 0, 0);
-
-            //ダッシュ
-            if (Input.GetButton("Fire2"))
+            if (_ganreState == ChangeGanreState.Action)
             {
-                dash += Vector3.forward * _dashPower;
-                dash.y = 0;
+                ///アクション。
+                Action();
             }
-
-            //人の移動設定
-            _rb.velocity = dir + dash;
-            _robotAni.SetFloat("Speed", hAndV);
-            ///
-
-            ///アクション
-            if (!_action1 && !_action2)
-            {
-                if (Input.GetButtonDown("ActionAttack1"))
-                {
-                    _action1 = true;
-                    _attackRangeMesh.enabled = true;
-                }
-                if (Input.GetButtonDown("ActionAttack2"))
-                {
-                    _action2 = true;
-                    _attackRangeMesh.enabled = true;
-                }
-            }
-            else if (_attackRangeMesh.enabled)
-            {
-                if (Input.GetButtonUp("ActionDecition"))
-                {
-                    _attackRangeMesh.enabled = false;
-                    _waitMove = true;
-                    
-                    StartCoroutine(Action(_action1 ? 0 : 1));
-                }
-            }
-            ///
         }
         else
         {
-            _rb.velocity = Vector3.zero;
+            //ポーズ中y方向以外(重力の力以外)動かさない
+            _rb.velocity = new Vector3(0,_rb.velocity.y,0);
         }
     }
 
-    IEnumerator Action(int numver)
+    private void PlayerMove()
+    {
+        ///移動
+        float h = 0;
+        float v = 0;
+        h = Input.GetAxisRaw("Horizontal");
+        v = Input.GetAxisRaw("Vertical");
+        float hAndV = Mathf.Abs(h) + Mathf.Abs(v);
+        Vector3 dir = new Vector3(0, 0, 0);
+
+        //飛行中かそうでないかで移動方法を変える。(力の加え方を変える。)
+        dir = Vector3.forward * v + Vector3.right * h;
+
+        //カメラの座標を基準にdirを代入。
+        dir = Camera.main.transform.TransformDirection(dir);
+
+        //カメラが斜め下を向いているときy方向に動いてしまうので、y軸は0にする。
+        dir.y = 0;
+
+        //入力がない場合は回転させず、ある時はその方向にキャラを向ける。
+        if (dir != Vector3.zero) transform.forward = dir;
+
+        //水平方向の速度の計算。
+        dir = dir.normalized * _speed;
+
+        //垂直方向の設定(重力の設定)
+        dir.y = _rb.velocity.y;
+
+        Vector3 dash = new Vector3(0, 0, 0);
+
+        //ダッシュ
+        if (Input.GetButton("Fire2"))
+        {
+            dash += transform.forward.normalized * _dashPower;
+            dash.y = 0;
+        }
+
+        //Playerの移動設定
+        _rb.velocity = dir + dash;
+        _robotAni.SetFloat("Speed", hAndV);
+        ///
+    }
+
+    void Action()
+    {
+        if (!_leftAction && !_rightAction)
+        {
+            if (Input.GetButtonDown("ActionAttack1"))
+            {
+                _leftAction = true;
+                _attackRangeMesh.enabled = true;
+            }   //Qキーを押した時の処理
+            if (Input.GetButtonDown("ActionAttack2"))
+            {
+                _rightAction = true;
+                _attackRangeMesh.enabled = true;
+            }   //Eキーを押した時の処理
+        }
+        else if (_attackRangeMesh.enabled)
+        {
+            if (Input.GetButtonUp("ActionDecition"))
+            {
+                _attackRangeMesh.enabled = false;
+                _waitMove = true;
+                //攻撃の実行
+                StartCoroutine(ActionCoroutine(_leftAction ? 0 : 1));
+            }   //アクションを選択した後、決定(左クリック)を押した時の処理
+        }
+        
+    }
+
+    /// <summary>Playerの攻撃が動いている間、待機するコルーチン。</summary>
+    /// <param name="numver"></param>
+    /// <returns></returns>
+    IEnumerator ActionCoroutine(int numver)
     {
         _robotAni.Play("SideAttack");
+        //AttackMagicにセットしているスキルの名前を取ってくる。
         var skillName = DataBase.Instance.AttackMagicSelectData.SkillInfomation[DataBase.Instance._attackMagicSetNo[numver]]._skillName.Split();
+        //攻撃が動いている間、処理を待機する。
         yield return StartCoroutine(_playerAction.ActionTime(skillName));
+        //攻撃が終わった後、操作できるようになる。
         _waitMove = false;
-        _action1 = false;
-        _action2 = false;
+        _leftAction = false;
+        _rightAction = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             Debug.Log("接敵！");
-            StartCoroutine(StandEncount(other));
+            StartCoroutine(StandEncount(collision));
         }
     }
 
-    IEnumerator StandEncount(Collider other)
+    IEnumerator StandEncount(Collision other)
     {
         yield return new WaitUntil(() => !_menu);
         Debug.Log("戦闘開始！");
         StartCoroutine(FightManager.Instance.InBattle(other.gameObject));
-    }
-
-    enum State
-    {
-        FlyMode,
-        DestroyMode,
-        NomalMode,
     }
 }

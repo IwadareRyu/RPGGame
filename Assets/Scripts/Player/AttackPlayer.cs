@@ -15,7 +15,7 @@ public class AttackPlayer : StatusClass
     // Start is called before the first frame update
     void Start()
     {
-        _enemy = GameObject.FindGameObjectWithTag("Enemy")?.GetComponent<EnemyController>();
+        _enemy = GameObject.FindGameObjectWithTag("RPGEnemy")?.GetComponent<EnemyController>();
         if (_commandObj) _commandObj.SetActive(false);
         SetStatus();
         ShowSlider();
