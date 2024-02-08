@@ -12,6 +12,9 @@ TagManager:
   - Bakuhatu
   - FallPoint
   - EnemyBullet
+  - DeadEnemy
+  - RagDoll
+  - RPGEnemy
   layers:
   - Default
   - TransparentFX
