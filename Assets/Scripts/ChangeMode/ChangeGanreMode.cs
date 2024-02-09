@@ -28,11 +28,18 @@ public class ChangeGanreMode : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<PlayerController>(out var player) && player.GanreState != _changeGanreState)
+        if (other.TryGetComponent<PlayerController>(out var player))
         {
-            player.ChangeGanre(_changeGanreState);
-            StartCoroutine(StartMode());
-        }   // ジャンルを変える。
+            if (player.GanreState != _changeGanreState)
+            {
+                player.ChangeGanre(_changeGanreState);
+                StartCoroutine(StartMode());
+            }   // ジャンルを変える。
+            else
+            {
+                ChangeMode();
+            }
+        }   
     }
 
     private void OnTriggerExit(Collider other)

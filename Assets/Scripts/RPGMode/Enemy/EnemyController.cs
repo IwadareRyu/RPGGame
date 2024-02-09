@@ -28,6 +28,7 @@ public class EnemyController : StatusClass
         _blockPlayer = GameObject.FindGameObjectWithTag("BlockPlayer")?.GetComponent<BlockPlayer>();
         _magicPlayer = GameObject.FindGameObjectWithTag("MagicPlayer")?.GetComponent<MagicPlayer>();
         _attackPlayer = GameObject.FindGameObjectWithTag("AttackPlayer")?.GetComponent<AttackPlayer>();
+
         SetStatus();
         ShowSlider();
         Debug.Log($"EnemyHP:{HP}");

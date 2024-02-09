@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _dashPower = 5f;
     [SerializeField]ChangeGanreState _ganreState = ChangeGanreState.RPG;
     public ChangeGanreState GanreState => _ganreState;
+    Vector3 _respawnPos;
     public bool _menu;
     [SerializeField] Animator _robotAni;
     bool _waitMove = false;
@@ -20,6 +21,11 @@ public class PlayerController : MonoBehaviour
     bool _leftAction = false;
     bool _rightAction = false;
 
+    /// <summary>リスポーン地点の更新</summary>
+    /// <param name="trans"></param>
+    public void UpdateRespawnPos(Transform trans) => _respawnPos = trans.position;
+    /// <summary>ジャンル変更時に呼ばれるメソッド</summary>
+    /// <param name="state"></param>
     public void ChangeGanre(ChangeGanreState state) => _ganreState = state;
 
     private void Awake()
