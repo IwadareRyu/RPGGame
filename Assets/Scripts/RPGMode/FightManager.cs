@@ -12,7 +12,8 @@ public class FightManager : SingletonMonovihair<FightManager>
     [SerializeField] GameObject _player;
     [SerializeField] Text _winlosetext;
     [SerializeField] Text _pointGetText;
-    [SerializeField] Text _tutorialText;
+    [SerializeField] Canvas _tutorialCanvas;
+    [SerializeField] Canvas _changeGanreCanvas;
     [SerializeField] bool _inFight;
     [SerializeField] bool _actionbool;
     public bool InFight => _inFight;
@@ -37,7 +38,8 @@ public class FightManager : SingletonMonovihair<FightManager>
 
     public IEnumerator InBattle(GameObject other)
     {
-        _tutorialText.enabled = false;
+        _tutorialCanvas.enabled = false;
+        _changeGanreCanvas.enabled = false;
         _inFight = true;
         yield return _battleField = Instantiate(_battleFieldPrehab, other.transform.position, _player.transform.localRotation);
         other.gameObject.SetActive(false);
@@ -103,7 +105,8 @@ public class FightManager : SingletonMonovihair<FightManager>
         //OnExitBattle.Invoke();
         _winlosetext?.gameObject.SetActive(false);
         _pointGetText?.gameObject.SetActive(false);
-        _tutorialText.enabled = true;
+        _tutorialCanvas.enabled = true;
+        _changeGanreCanvas.enabled = true;
         _inFight = false;
         _player.SetActive(true);
         Destroy(_battleField);
