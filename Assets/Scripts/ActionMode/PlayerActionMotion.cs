@@ -44,7 +44,6 @@ public class PlayerActionMotion : MonoBehaviour
                 pos.y -= 180;
                 downAttack.transform.DOMove(pos, _downAttackTime);
             }
-            Destroy(sideAttack);
             yield return new WaitForSeconds(_downAttackTime);
             for (var i = 0; i < deathEnemy.Count; i++)
             {
@@ -64,5 +63,6 @@ public class PlayerActionMotion : MonoBehaviour
             yield return new WaitForSeconds(_sideAttackTime);
             foreach (var downAttack in downAttackList) { Destroy(downAttack.gameObject); }
         }
+        Destroy(sideAttack);
     }
 }
