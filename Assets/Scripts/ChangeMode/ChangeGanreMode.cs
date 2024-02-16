@@ -53,13 +53,13 @@ public class ChangeGanreMode : MonoBehaviour
     /// <summary>ジャンルを変える際の処理</summary>
     /// <returns></returns>
     IEnumerator StartMode()
-    { 
+    {
         //ポーズ開始
-
+        PauseManager.PauseResume();
         //UIを指定したジャンルにする
         yield return StartCoroutine(_changeUI.ChangeGenre((int)_changeGanreState));
         //ポーズ解除
-
+        PauseManager.PauseResume();
         //物理演算、弾幕をアクティブにする。
         ChangeMode();
     }

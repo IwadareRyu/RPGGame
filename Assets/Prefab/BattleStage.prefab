@@ -5051,7 +5051,7 @@ MonoBehaviour:
   _enemytext: {fileID: 1809191097785980319}
   _getSkillPoint: 50
   _anim: {fileID: 3106516883324574041}
-  _aliveAction: 1
+  _aliveAction: 0
   _timelineBullet: {fileID: 5618876665462153734}
   _debugActionModeBool: 0
 --- !u!1 &8616726203383042895
