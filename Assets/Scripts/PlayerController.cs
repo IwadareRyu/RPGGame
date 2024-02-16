@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPause
 {
     Rigidbody _rb;
     [SerializeField] PlayerActionMotion _playerAction;
@@ -35,6 +35,16 @@ public class PlayerController : MonoBehaviour
         _ganreState = ChangeGanreState.RPG;
     }
 
+    private void OnEnable()
+    {
+        PauseManager.OnPauseResume += Pause;
+    }
+
+    private void OnDisable()
+    {
+        PauseManager.OnPauseResume -= Pause;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -53,6 +63,7 @@ public class PlayerController : MonoBehaviour
         {
             //ポーズ中y方向以外(重力の力以外)動かさない
             _rb.velocity = new Vector3(0,_rb.velocity.y,0);
+            _robotAni.SetFloat("Speed", 0);
         }
     }
 
@@ -157,5 +168,10 @@ public class PlayerController : MonoBehaviour
         yield return new WaitUntil(() => !_menu);
         Debug.Log("戦闘開始！");
         StartCoroutine(FightManager.Instance.InBattle(other.gameObject));
+    }
+
+    public void Pause(bool pause)
+    {
+        _pause = pause;
     }
 }

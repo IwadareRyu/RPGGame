@@ -7,10 +7,7 @@ public class StunEnemy : MonoBehaviour
     bool _stun = false;
     public bool Stun => _stun;
     [SerializeField] Animator _anim;
-    void Update()
-    {
-        
-    }
+    [SerializeField] int _getSkillPoint = 10;
 
     public void ChangeStun()
     {
@@ -21,5 +18,11 @@ public class StunEnemy : MonoBehaviour
     {
         _anim.Play("Stand");
         _stun = false;
+    }
+
+    public int GetPoint()
+    {
+        DataBase.Instance.GetSkillPoint(_getSkillPoint);
+        return _getSkillPoint;
     }
 }

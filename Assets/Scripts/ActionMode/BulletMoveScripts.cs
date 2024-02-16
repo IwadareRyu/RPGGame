@@ -66,7 +66,7 @@ public class BulletMoveScripts : MonoBehaviour
         Reset();
     }
 
-    /// <summary>’e‚ª‰Ôó‚É“®‚­</summary>
+    /// <summary>’e‚ª‰Ôó‚É“®‚­ˆ—</summary>
     /// <param name="speed"></param>
     public IEnumerator FlowerMove(float speed, float rota)
     {
@@ -94,6 +94,8 @@ public class BulletMoveScripts : MonoBehaviour
         //transform.Translate(transform.forward * speed);
     }
     
+    /// <summary>‰ñ“]ˆ—</summary>
+    /// <param name="rota"></param>
     private void Rotation(float rota)
     {
         _time += Time.deltaTime;
@@ -104,7 +106,7 @@ public class BulletMoveScripts : MonoBehaviour
         }
     }
 
-    /// <summary>“–‚½‚è”»’è</summary>
+    /// <summary>“–‚½‚è”»’èˆ—</summary>
     private bool ChackHit()
     {
         Collider[] cols = Physics.OverlapSphere(transform.position, _bulletScale);

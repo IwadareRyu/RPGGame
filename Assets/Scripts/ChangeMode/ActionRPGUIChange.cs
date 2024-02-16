@@ -45,11 +45,6 @@ public class ActionRPGUIChange : MonoBehaviour
         _nowGanre = _ganreUI[(int)ChangeGanreState.RPG];
     }
 
-    private void OnEnable()
-    {
-
-    }
-
     /// <summary>UIを指定されたジャンルに変える処理</summary>
     /// <param name="ganre">変えるジャンルのindex</param>
     /// <returns></returns>
@@ -106,9 +101,9 @@ public class ActionRPGUIChange : MonoBehaviour
             .OnComplete(() =>
             {
                 ganreText.transform.localScale = tmpscale;
-            }).WaitForCompletion();
+            });
         //sequenceが終わるまで待機。
-        yield return seq.Play().SetLink(gameObject);
+        yield return seq.Play().SetLink(gameObject).WaitForCompletion();
 
     }
 
