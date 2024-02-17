@@ -16,6 +16,7 @@ public class FightManager : SingletonMonovihair<FightManager>
     [SerializeField] Canvas _changeGanreCanvas;
     [SerializeField] bool _inFight;
     [SerializeField] bool _actionbool;
+    [SerializeField] bool _isFalseCanvas;
     public bool InFight => _inFight;
 
     public static event UnityAction OnEnterAction;
@@ -34,6 +35,12 @@ public class FightManager : SingletonMonovihair<FightManager>
         _database = DataBase.Instance;
         _winlosetext?.gameObject.SetActive(false);
         _pointGetText?.gameObject.SetActive(false);
+    }
+
+    public void CanvasDisplay()
+    {
+        _changeGanreCanvas.enabled = !_changeGanreCanvas.enabled;
+        _tutorialCanvas.enabled = !_tutorialCanvas.enabled;
     }
 
     public IEnumerator InBattle(GameObject other)
