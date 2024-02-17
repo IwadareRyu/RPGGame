@@ -1,9 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
 
 public class ActionRPGUIChange : MonoBehaviour
@@ -25,10 +23,10 @@ public class ActionRPGUIChange : MonoBehaviour
     [Tooltip("今のジャンル")]
     GanreUI _nowGanre;
     [Header("真ん中に出てくる文字のアニメーション")]
-    [SerializeField]Animator _centerTextAnim;
+    [SerializeField] Animator _centerTextAnim;
     [SerializeField] bool _initialRPG;
     [SerializeField] bool _initialAction;
-    void Start()
+    void Awake()
     {
         for (var i = 0; i < _ganreUI.Length; i++)
         {
@@ -123,7 +121,6 @@ public class ActionRPGUIChange : MonoBehaviour
     /// <returns></returns>
     IEnumerator InitialRPG()
     {
-        var rpgIndex = (int)ChangeGanreState.RPG;
         _centerTextAnim.Play("NORPG");
         yield return null;
         //NORPGのアニメーション時間待つ処理
@@ -135,7 +132,7 @@ public class ActionRPGUIChange : MonoBehaviour
             {
                 break;
             }
-            yield return new WaitForFixedUpdate();
+            yield return null;
         }   //左クリックが押されるまで待機。
         _centerTextAnim.Play("NORPGEND");
         yield return null;
