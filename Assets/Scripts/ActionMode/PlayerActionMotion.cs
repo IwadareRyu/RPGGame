@@ -40,6 +40,8 @@ public class PlayerActionMotion : MonoBehaviour
         yield return sideAttack.transform.DOLocalMoveX(_sideAttackStopPoint, _sideAttackTime).WaitForCompletion();
         // サイドアタックに入った敵を取ってくる処理
         var deathEnemy = sideAttack.GetComponent<SideAttackScripts>().ReturnEnemy();
+        sideAttack.GetComponent<Collider>().enabled = false;
+        Destroy(sideAttack);
         /// 敵を攻撃する処理
         //敵を取ってこれなかったら何もしない。
         if (deathEnemy.Count != 0)
@@ -79,6 +81,5 @@ public class PlayerActionMotion : MonoBehaviour
             yield return new WaitForSeconds(_sideAttackTime);
             foreach (var downAttack in downAttackList) { Destroy(downAttack.gameObject); }
         }
-        Destroy(sideAttack);
     }
 }

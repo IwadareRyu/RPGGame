@@ -23,6 +23,7 @@ public class BulletMoveScripts : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position,_bulletScale);
     }
 
+    #region ’e‚Ìí—Ş
     public void BulletMoveStart(float bulletSpeed,float bulletRota,BulletState bulletMoveState)
     {
         switch (bulletMoveState)
@@ -33,7 +34,7 @@ public class BulletMoveScripts : MonoBehaviour
             case BulletState.RotationMove:
                 StartCoroutine(RotationMove(bulletSpeed,bulletRota));
                 break;
-            case BulletState.FlowerMove:
+            case BulletState.HalfRotationMove:
                 StartCoroutine(FlowerMove(bulletSpeed, bulletRota));
                 break;
         }
@@ -85,8 +86,10 @@ public class BulletMoveScripts : MonoBehaviour
         }
         Reset();
     }
+    #endregion
 
-    /// <summary>’e‚ª‰ñ‚é</summary>
+    #region ’e‚Ì“®‚«‚Ìˆ—
+    /// <summary>’e‚ªTransform‚Å“®‚­ˆ—</summary>
     /// <param name="speed"></param>
     private void Move(float speed)
     {
@@ -119,6 +122,7 @@ public class BulletMoveScripts : MonoBehaviour
         }
         return false;
     }
+    #endregion
 
     /// <summary>ƒŠƒZƒbƒg</summary>
     private void Reset()
