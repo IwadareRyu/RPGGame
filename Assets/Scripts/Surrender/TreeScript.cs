@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class TreeScript : MonoBehaviour
@@ -12,7 +9,7 @@ public class TreeScript : MonoBehaviour
     [SerializeField]
     Button[] _skillPanel;
 
-    [Header("スキルツリーのボタン(0から順に)"),Tooltip("スキルツリーのボタン"),SerializeField] 
+    [Header("スキルツリーのボタン(0から順に)"), Tooltip("スキルツリーのボタン"), SerializeField]
     Button[] _attackMagicTreeButtom;
 
     [Tooltip("隣接リスト")]
@@ -24,7 +21,7 @@ public class TreeScript : MonoBehaviour
     [Tooltip("経路リスト")]
     List<int> _ansList = new List<int>();
 
-    [Header("隣接する頂点が書いてあるtxtテキスト"),Tooltip("隣接頂点のtxt"),SerializeField]
+    [Header("隣接する頂点が書いてあるtxtテキスト"), Tooltip("隣接頂点のtxt"), SerializeField]
     TextAsset _textFile;
 
     [Header("選択したスキルの名前を表示するテキスト"), Tooltip("選択したスキルの名前を表示するテキスト"), SerializeField]
@@ -42,16 +39,16 @@ public class TreeScript : MonoBehaviour
     [Header("スキルポイントを表示するテキスト"), Tooltip("スキルポイントを表示するテキスト"), SerializeField]
     Text _menuSkillPtText;
 
-    [Header("スキル取得の確認画面を表示するウィンドウ"), Tooltip("スキル取得の確認画面を表示するウィンドウ"), SerializeField] 
+    [Header("スキル取得の確認画面を表示するウィンドウ"), Tooltip("スキル取得の確認画面を表示するウィンドウ"), SerializeField]
     GameObject _confirmation;
 
-    [Header("スキルが取得できないときに表示するウィンドウ"), Tooltip("スキルが取得できないときに表示するウィンドウ"), SerializeField] 
+    [Header("スキルが取得できないときに表示するウィンドウ"), Tooltip("スキルが取得できないときに表示するウィンドウ"), SerializeField]
     GameObject _falseComfimation;
 
-    [Header("選択の確認を受け入れるボタン"), Tooltip("選択の確認を受け入れるボタン"), SerializeField] 
+    [Header("選択の確認を受け入れるボタン"), Tooltip("選択の確認を受け入れるボタン"), SerializeField]
     Button _yes;
 
-    [Header("選択の確認を受け入れないボタン"), Tooltip("選択の確認を受け入れないボタン"), SerializeField] 
+    [Header("選択の確認を受け入れないボタン"), Tooltip("選択の確認を受け入れないボタン"), SerializeField]
     Button _no;
 
     [Tooltip("データベース")]
@@ -70,7 +67,7 @@ public class TreeScript : MonoBehaviour
 
     [SerializeField] SkillSetScripts _skillSet;
 
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -80,7 +77,7 @@ public class TreeScript : MonoBehaviour
         DisplaySkillPoint();
         //遡りリストの配列の数を宣言する。(スキルツリーのボタンの数と一緒)
         _backList = new List<int>[_attackMagicTreeButtom.Length];
-        for(var i = 0;i < _attackMagicTreeButtom.Length;i++)
+        for (var i = 0; i < _attackMagicTreeButtom.Length; i++)
         {
             //遡りリストの配列の初期化を済ませておく。
             _backList[i] = new List<int>();
@@ -88,8 +85,8 @@ public class TreeScript : MonoBehaviour
             _attackMagicTreeButtom[i].onClick.AddListener(() => BFSSkillTree(num));
             var text = _attackMagicTreeButtom[i].GetComponentInChildren<Text>();
             var skillName = DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._skillName;
-            text.text = skillName.Substring(0,4);
-            if(_database._attackMagicbool[i])
+            text.text = skillName.Substring(0, 4);
+            if (_database._attackMagicbool[i])
             {
                 _attackMagicTreeButtom[i].interactable = false;
             }
@@ -98,7 +95,7 @@ public class TreeScript : MonoBehaviour
         //txtファイルの内容を読み込む。
         StringReader reader = new StringReader(_textFile.text);
 
-        while(reader.Peek() != -1)
+        while (reader.Peek() != -1)
         {
             _adjacentList.Add(Array.ConvertAll(reader.ReadLine().Split(" "), int.Parse));
         }   //ファイルの内容を一行ずつリストに追加。
@@ -112,7 +109,8 @@ public class TreeScript : MonoBehaviour
         _confirmation.SetActive(false);
         _falseComfimation.SetActive(false);
     }
-    /// <summary>初期化用幅優先探索</summary>
+
+    /// <summary>最初に幅優先全探索して遡りリストを作成する</summary>
     void InitialBFS()
     {
         Queue<int> queue = new Queue<int>();
@@ -152,8 +150,8 @@ public class TreeScript : MonoBehaviour
 
         foreach (var i in _ansList)
         {
-            if(DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._selectSkill is AttackMagicSelect attackMagic)
-            _cost += attackMagic.SkillPoint;
+            if (DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._selectSkill is AttackMagicSelect attackMagic)
+                _cost += attackMagic.SkillPoint;
         }   //データの要素数からスキルデータを取ってきて、スキルデータのスキルポイントを合計コストに加算。
 
         //スキルの説明、何のスキルを選択しているかを表示して、確認画面を出す。
@@ -164,6 +162,8 @@ public class TreeScript : MonoBehaviour
         _skillPointText.text = _cost.ToString();
     }
 
+    /// <summary>幅優先探索で遡りリストを使い、根幹まで遡る。</summary>
+    /// <param name="choiceNumber"></param>
     void BFS(int choiceNumber)
     {
         Queue<int> queue = new Queue<int>();
@@ -178,7 +178,7 @@ public class TreeScript : MonoBehaviour
                 {
                     _ansList.Add(backSkillNumber);
                     queue.Enqueue(backSkillNumber);
-                }
+                }   //既にスキルを習得していたらリストに追加しない。
             }
         }
     }

@@ -8,6 +8,7 @@ public class SideAttackScripts : MonoBehaviour
 
     public List<StunEnemy> ReturnEnemy()
     {
+        Debug.Log(_enemy.Count);
         return _enemy;
     }
 
