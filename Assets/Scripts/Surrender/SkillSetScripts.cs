@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -148,16 +148,16 @@ public class SkillSetScripts : MonoBehaviour
         {
             if (skillbool[i])
             {
-                //ƒ{ƒ^ƒ“‚ğ¶¬‚µ‚Äƒ{ƒ^ƒ“‚Ì•Ï”‚ğéŒ¾
+                //ãƒœã‚¿ãƒ³ã‚’ç”Ÿæˆã—ã¦ãƒœã‚¿ãƒ³ã®å¤‰æ•°ã‚’å®£è¨€
                 var button = Instantiate(_skillbottom, transform.position, Quaternion.identity);
                 if (button)
                 {
-                    //ƒ{ƒ^ƒ“‚ğ_skillSetPoint(Scrollview/Viewport/Content)‚Ì’¼‰º‚É”z’u‚·‚éB
+                    //ãƒœã‚¿ãƒ³ã‚’_skillSetPoint(Scrollview/Viewport/Content)ã®ç›´ä¸‹ã«é…ç½®ã™ã‚‹ã€‚
                     button.transform.SetParent(_skillSetPoint.transform);
-                    //ƒ{ƒ^ƒ“‚ÌƒeƒLƒXƒg‚Éƒf[ƒ^ƒx[ƒX‚É“o˜^‚³‚ê‚Ä‚¢‚éƒXƒLƒ‹‚Ì–¼‘O‚ğ“ü—ÍB
+                    //ãƒœã‚¿ãƒ³ã®ãƒ†ã‚­ã‚¹ãƒˆã«ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‚¹ã‚­ãƒ«ã®åå‰ã‚’å…¥åŠ›ã€‚
                     var text = button.GetComponentInChildren<Text>();
                     if (text) text.text = skillObjs.SkillInfomation[i]._skillName;
-                    //ƒ{ƒ^ƒ“‚ÉƒXƒLƒ‹‚Ì—v‘f”‚ğ‚Á‚Ä‚¨‚­B
+                    //ãƒœã‚¿ãƒ³ã«ã‚¹ã‚­ãƒ«ã®è¦ç´ æ•°ã‚’æŒã£ã¦ãŠãã€‚
                     var click = button.GetComponent<Button>();
                     var num = i;
                     click.onClick.AddListener(() => SelectSkill(num));
@@ -197,7 +197,7 @@ public class SkillSetScripts : MonoBehaviour
     void SkillDis(SkillInfomation skillobj)
     {
         _tutorialText.text = skillobj._description;
-        _skillText.text = $"{skillobj._skillName} ‚ğ‘I‘ğ’†";
+        _skillText.text = $"{skillobj._skillName} ã‚’é¸æŠä¸­";
     }
 
     public void MoveSkillChoice(int i)

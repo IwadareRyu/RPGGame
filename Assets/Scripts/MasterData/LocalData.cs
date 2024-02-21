@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -8,7 +8,7 @@ public class LocalData
 {
     static public T Load<T>(string file)
     {
-        //ƒtƒ@ƒCƒ‹‚È‚©‚Á‚½‚çnull‚ğ•Ô‚·B
+        //ãƒ•ã‚¡ã‚¤ãƒ«ãªã‹ã£ãŸã‚‰nullã‚’è¿”ã™ã€‚
         if(!File.Exists(Application.persistentDataPath + "/" + file))
         {
             return default(T);

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -67,17 +67,17 @@ public abstract class StatusClass : MonoBehaviour
 
     public virtual void ActionMode() { }
     public virtual void RPGMode() { }
-    /// <summary>ƒoƒt‚ÌŒø‰ÊŠÔ‚Ìˆ—</summary>
+    /// <summary>ãƒãƒ•ã®åŠ¹æœæ™‚é–“ã®å‡¦ç†</summary>
     public void TimeMethod()
     {
-        //time‚Ì•Ï”‚ª0‚æ‚è‚‚¢A•b”‚ğ‚Í‚©‚éB0‚É‚È‚Á‚½‚çbool‚ğtrue‚É‚µ‚ÄƒRƒ‹[ƒ`ƒ“‚Ì‘Ò‹@ˆ—‚ğ”²‚¯‚éB
+        //timeã®å¤‰æ•°ãŒ0ã‚ˆã‚Šé«˜ã„æ™‚ã€ç§’æ•°ã‚’ã¯ã‹ã‚‹ã€‚0ã«ãªã£ãŸã‚‰boolã‚’trueã«ã—ã¦ã‚³ãƒ«ãƒ¼ãƒãƒ³ã®å¾…æ©Ÿå‡¦ç†ã‚’æŠœã‘ã‚‹ã€‚
         if(_attackBuffTime > 0) { _attackBuffTime = DeltaTime(_attackBuffTime); }
         else if (!_buffAttack) { _buffAttack = true; }
         if(_diffenceBuffTime > 0) { _diffenceBuffTime = DeltaTime(_diffenceBuffTime); }
         else if (!_buffDiffence) { _buffDiffence = true; }
     }
 
-    /// <summary>ŠÔ‚ğŒ¸‚ç‚µ‚Ä‚¢‚­ˆ—</summary>
+    /// <summary>æ™‚é–“ã‚’æ¸›ã‚‰ã—ã¦ã„ãå‡¦ç†</summary>
     /// <param name="time"></param>
     /// <returns></returns>
     public float DeltaTime(float time)
@@ -85,7 +85,7 @@ public abstract class StatusClass : MonoBehaviour
         return time - Time.deltaTime;
     }
 
-    /// <summary>ƒLƒƒƒ‰‚Ìí“¬ƒXƒe[ƒ^ƒX‚ğİ’è‚·‚éˆ—</summary>
+    /// <summary>ã‚­ãƒ£ãƒ©ã®æˆ¦é—˜ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’è¨­å®šã™ã‚‹å‡¦ç†</summary>
     public void SetStatus()
     {
         _hp = _defaultHP;
@@ -93,7 +93,7 @@ public abstract class StatusClass : MonoBehaviour
         _diffence = _defaultDiffence;
     }
 
-    /// <summary>•’Ê‚Éƒ_ƒ[ƒW‚ğó‚¯‚½‚Ìˆ—</summary>
+    /// <summary>æ™®é€šã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸæ™‚ã®å‡¦ç†</summary>
     /// <param name="damage"></param>
     /// <param name="skillParsent"></param>
     public void AddDamage(float damage,float skillParsent = 1)
@@ -102,7 +102,7 @@ public abstract class StatusClass : MonoBehaviour
         ShowSlider();
     }
 
-    /// <summary>“Áê‚Èƒ_ƒ[ƒW‚ğó‚¯‚½‚Ìˆ—(–hŒäŠÑ’Ê)</summary>
+    /// <summary>ç‰¹æ®Šãªãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸæ™‚ã®å‡¦ç†(é˜²å¾¡è²«é€š)</summary>
     /// <param name="damage"></param>
     /// <param name="skillParsent"></param>
     public void AddMagicDamage(float damage, float skillParsent = 1)
@@ -111,7 +111,7 @@ public abstract class StatusClass : MonoBehaviour
         ShowSlider();
     }
 
-    /// <summary>ƒfƒoƒt‚Æƒ_ƒ[ƒW‚ğó‚¯‚½‚Ìˆ—</summary>
+    /// <summary>ãƒ‡ãƒãƒ•ã¨ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸæ™‚ã®å‡¦ç†</summary>
     /// <param name="damage"></param>
     /// <param name="skillParsent"></param>
     /// <param name="attackDebuff"></param>
@@ -130,7 +130,7 @@ public abstract class StatusClass : MonoBehaviour
         }
     }
 
-    /// <summary>ƒoƒt‚ğó‚¯‚½‚Ìˆ—</summary>
+    /// <summary>ãƒãƒ•ã‚’å—ã‘ãŸæ™‚ã®å‡¦ç†</summary>
     /// <param name="attackBuff"></param>
     /// <param name="diffenceBuff"></param>
     /// <param name="heal"></param>
@@ -151,13 +151,13 @@ public abstract class StatusClass : MonoBehaviour
         }
     }
 
-    /// <summary>HP‚ÌƒQ[ƒW‚ğXV‚·‚éˆ—</summary>
+    /// <summary>HPã®ã‚²ãƒ¼ã‚¸ã‚’æ›´æ–°ã™ã‚‹å‡¦ç†</summary>
     public void ShowSlider()
     {
         _hpSlider.value = (float)_hp / (float)_defaultHP;
     }
 
-    /// <summary>UŒ‚‚ÌƒoƒtAƒfƒoƒt‚ğó‚¯‚½‚ÌƒRƒ‹[ƒ`ƒ“</summary>
+    /// <summary>æ”»æ’ƒã®ãƒãƒ•ã€ãƒ‡ãƒãƒ•ã‚’å—ã‘ãŸæ™‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³</summary>
     /// <param name="attackBuff"></param>
     /// <returns></returns>
     IEnumerator AttackBuffTIme(int attackBuff)
@@ -168,13 +168,13 @@ public abstract class StatusClass : MonoBehaviour
         Debug.Log(_attack);
         _attackBuffTime = 30f;
         _buffAttack = false;
-        //‚±‚±‚Å30•bŒo‚Â‚©AƒXƒe[ƒ^ƒXXV(ƒfƒoƒt‚È‚çƒoƒtAƒoƒt‚È‚çƒfƒoƒt‚ğó‚¯‚½)‚Ü‚Å‘Ò‹@ˆ—
+        //ã“ã“ã§30ç§’çµŒã¤ã‹ã€ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æ›´æ–°(ãƒ‡ãƒãƒ•ãªã‚‰ãƒãƒ•ã€ãƒãƒ•ãªã‚‰ãƒ‡ãƒãƒ•ã‚’å—ã‘ãŸæ™‚)ã¾ã§å¾…æ©Ÿå‡¦ç†
         yield return new WaitUntil(() => _buffAttack == true);
         _attack = _defaultAttack;
-        Debug.Log("UŒ‚ó‘Ô•Ï‰»‰ğœ");
+        Debug.Log("æ”»æ’ƒçŠ¶æ…‹å¤‰åŒ–è§£é™¤");
     }
 
-    /// <summary>–hŒä‚ÌƒoƒtAƒfƒoƒt‚ğó‚¯‚½‚ÌƒRƒ‹[ƒ`ƒ“</summary>
+    /// <summary>é˜²å¾¡ã®ãƒãƒ•ã€ãƒ‡ãƒãƒ•ã‚’å—ã‘ãŸæ™‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³</summary>
     /// <param name="diffenceDebuff"></param>
     /// <returns></returns>
     IEnumerator DiffenceBuffTIme(int diffenceDebuff)
@@ -185,13 +185,13 @@ public abstract class StatusClass : MonoBehaviour
         Debug.Log(_diffence);
         _diffenceBuffTime = 30f;
         _buffDiffence = false;
-        //‚±‚±‚Å30•bŒo‚Â‚©AƒXƒe[ƒ^ƒXXV(ƒfƒoƒt‚È‚çƒoƒtAƒoƒt‚È‚çƒfƒoƒt‚ğó‚¯‚½)‚Ü‚Å‘Ò‹@ˆ—
+        //ã“ã“ã§30ç§’çµŒã¤ã‹ã€ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æ›´æ–°(ãƒ‡ãƒãƒ•ãªã‚‰ãƒãƒ•ã€ãƒãƒ•ãªã‚‰ãƒ‡ãƒãƒ•ã‚’å—ã‘ãŸæ™‚)ã¾ã§å¾…æ©Ÿå‡¦ç†
         yield return new WaitUntil(() => _buffDiffence == true);
         _diffence = _defaultDiffence;
-        Debug.Log("–hŒäó‘Ô•Ï‰»‰ğœ");
+        Debug.Log("é˜²å¾¡çŠ¶æ…‹å¤‰åŒ–è§£é™¤");
     }
 
-    /// <summary>¶‚«‚Ä‚¢‚é‚©€‚ñ‚Å‚¢‚é‚©‚Ìstate</summary>
+    /// <summary>ç”Ÿãã¦ã„ã‚‹ã‹æ­»ã‚“ã§ã„ã‚‹ã‹ã®state</summary>
     public enum Survive
     {
         Survive,

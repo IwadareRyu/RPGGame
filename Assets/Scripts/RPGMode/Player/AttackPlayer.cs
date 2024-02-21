@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public class AttackPlayer : StatusClass
@@ -47,7 +47,7 @@ public class AttackPlayer : StatusClass
                     {
                         if (_commandObj) _commandObj.SetActive(true);
                         _commandbool = true;
-                        ShowText("ƒRƒ}ƒ“ƒhH");
+                        ShowText("ã‚³ãƒãƒ³ãƒ‰ï¼Ÿ");
                     }
 
                     if (Input.GetButtonDown("Attack"))
@@ -108,24 +108,24 @@ public class AttackPlayer : StatusClass
         {
             _attackSkillCount += DataBase._attackSkillbool[i] ? 1 : 0;
         }
-        ShowText("RightShift‚ÅAttackI");
+        ShowText("RightShiftã§Attackï¼");
         CommandReset();
     }
 
-    /// <summary>•’Ê‚ÌUŒ‚‚Ìˆ—</summary>
+    /// <summary>æ™®é€šã®æ”»æ’ƒã®å‡¦ç†</summary>
     void Attacker()
     {
-        ShowText("UŒ‚I");
+        ShowText("æ”»æ’ƒï¼");
         _enemy.AddDamage(Attack);
         CommandReset();
     }
 
-    /// <summary>ƒXƒLƒ‹‚ÅUŒ‚‚µ‚½‚Æ‚«‚Ìˆ—</summary>
+    /// <summary>ã‚¹ã‚­ãƒ«ã§æ”»æ’ƒã—ãŸã¨ãã®å‡¦ç†</summary>
     /// <param name="i"></param>
     void SkillAttack(int i)
     {
         var set = DataBase.AttackSkillSelectData.SkillInfomation[DataBase._attackSkillSetNo[i]];
-        ShowText($"{set._skillName}I");
+        ShowText($"{set._skillName}ï¼");
         _attackAnim.SetTrigger("NormalAttack");
         if(set._selectSkill is AttackSkillSelect attackSkill)
         _enemy.AddDamage(Attack, attackSkill.AttackValue);
@@ -148,10 +148,10 @@ public class AttackPlayer : StatusClass
 
     public override void RPGMode()
     {
-        ShowText("–ß‚Á‚Ä‚«‚½‚©I");
+        ShowText("æˆ»ã£ã¦ããŸã‹ï¼");
     }
 
-    /// <summary>ƒRƒ}ƒ“ƒh‚Ì‘Ò‹@ŠÔ‚È‚Ç‚ğƒŠƒZƒbƒg‚·‚éˆ—</summary>
+    /// <summary>ã‚³ãƒãƒ³ãƒ‰ã®å¾…æ©Ÿæ™‚é–“ãªã©ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹å‡¦ç†</summary>
     void CommandReset()
     {
         _time = 0;
@@ -159,18 +159,18 @@ public class AttackPlayer : StatusClass
         _commandbool = false;
     }
 
-    /// <summary>ƒeƒLƒXƒg‚ğXV‚·‚é‚Æ‚«‚Ìˆ—</summary>
+    /// <summary>ãƒ†ã‚­ã‚¹ãƒˆã‚’æ›´æ–°ã™ã‚‹ã¨ãã®å‡¦ç†</summary>
     /// <param name="str"></param>
     void ShowText(string str)
     {
         _enumtext.text = str;
     }
 
-    /// <summary>€‚ñ‚¾‚Æ‚«‚Ìˆ—</summary>
+    /// <summary>æ­»ã‚“ã ã¨ãã®å‡¦ç†</summary>
     void Death()
     {
         _attackObj.transform.Rotate(90f, 0f, 0f);
-        ShowText("‰´‚Í€‚ñ‚¾‚º™");
+        ShowText("ä¿ºã¯æ­»ã‚“ã ãœâ˜†");
     }
 
     private void OnTriggerEnter(Collider other)

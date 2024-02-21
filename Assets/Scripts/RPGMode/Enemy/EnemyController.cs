@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,7 +15,7 @@ public class EnemyController : StatusClass
     bool _enemyAttackbool;
     [SerializeField] Animator _anim;
     bool _fight;
-    [Header("ÉAÉNÉVÉáÉìÉÇÅ[Éhê›íË")]
+    [Header("„Ç¢„ÇØ„Ç∑„Éß„É≥„É¢„Éº„ÉâË®≠ÂÆö")]
     [SerializeField] bool _aliveAction;
     [SerializeField] TimelineBullet _timelineBullet;
     [SerializeField]
@@ -65,7 +65,7 @@ public class EnemyController : StatusClass
                 _fight = true;
                 _anim.SetBool("Death", true);
                 _survive = Survive.Death;
-                _enemytext.text = "Ç ÇÌÇ†Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†Ç†";
+                _enemytext.text = "„Å¨„Çè„ÅÇ„ÅÇ„ÅÇ„ÅÇ„ÅÇ„ÅÇ„ÅÇ„ÅÇ„ÅÇ„ÅÇ„ÅÇ„ÅÇ";
                 FightManager.Instance.Win(_getSkillPoint);
             }
 
@@ -96,12 +96,12 @@ public class EnemyController : StatusClass
             _anim.SetBool("Attack", true);
             if (ram < 50 && _magicPlayer.HP > 0 || _attackPlayer.HP <= 0)
             {
-                _enemytext.text = "MagicÇ…çUåÇ";
+                _enemytext.text = "Magic„Å´ÊîªÊíÉ";
                 yield return EnemyAttack(true);
             }
             else
             {
-                _enemytext.text = "AttackerÇ…çUåÇ";
+                _enemytext.text = "Attacker„Å´ÊîªÊíÉ";
                 yield return EnemyAttack(false);
             }
         }
@@ -127,7 +127,7 @@ public class EnemyController : StatusClass
                 }
                 else
                 {
-                    _enemytext.text = "MagicÇ…É_ÉÅÅ[ÉWÅI";
+                    _enemytext.text = "Magic„Å´„ÉÄ„É°„Éº„Ç∏ÔºÅ";
                     _magicPlayer.AddDamage(Attack);
                 }
             }
@@ -143,7 +143,7 @@ public class EnemyController : StatusClass
                 }
                 else
                 {
-                    _enemytext.text = "AttackerÇ…É_ÉÅÅ[ÉWÅI";
+                    _enemytext.text = "Attacker„Å´„ÉÄ„É°„Éº„Ç∏ÔºÅ";
                     _attackPlayer.AddDamage(Attack);
                 }
             }
@@ -153,24 +153,24 @@ public class EnemyController : StatusClass
     public override void ActionMode()
     {
         _anim.Play("LoopAttack");
-        _enemytext.text = "ÉAÉNÉVÉáÉìÉÇÅ[ÉhÅI";
+        _enemytext.text = "„Ç¢„ÇØ„Ç∑„Éß„É≥„É¢„Éº„ÉâÔºÅ";
     }
 
     public override void RPGMode()
     {
         _anim.Play("Stand");
-        _enemytext.text = "RPGÉÇÅ[ÉhÅI";
+        _enemytext.text = "RPG„É¢„Éº„ÉâÔºÅ";
     }
 
     void Guard()
     {
-        _enemytext.text = "ÉKÅ[ÉhÇ≥ÇÍÇΩÅI";
+        _enemytext.text = "„Ç¨„Éº„Éâ„Åï„Çå„ÅüÔºÅ";
         _blockPlayer.AddDamage(Attack);
     }
 
     void Counter()
     {
-        _enemytext.text = "ÉJÉEÉìÉ^Å[Ç≥ÇÍÇΩÅI";
+        _enemytext.text = "„Ç´„Ç¶„É≥„Çø„Éº„Åï„Çå„ÅüÔºÅ";
         _blockPlayer.TrueCounter();
         _blockPlayer.AddDamage(Attack);
     }

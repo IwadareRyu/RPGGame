@@ -1,52 +1,52 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 using UnityEngine;
 
 public class BulletPoolActive : MonoBehaviour
 {
-    [Tooltip("ѓvЃ[ѓ‹‚·‚йѓIѓuѓWѓFѓNѓgЃB")]
+    [Tooltip("гѓ—гѓјгѓ«гЃ™г‚‹г‚Єгѓ–г‚ёг‚§г‚Їгѓ€гЂ‚")]
     [SerializeField] GameObject _poolObj;
-    [Tooltip("ђ¶ђ¬‚µ‚Ѕ‹…‚р“ь‚к‚йѓЉѓXѓg")]
+    [Tooltip("з”џж€ђгЃ—гЃџзђѓг‚’е…Ґг‚Њг‚‹гѓЄг‚№гѓ€")]
     List<GameObject> _poolObjects = new List<GameObject>();
-    [Tooltip("ЌЕЏ‰(AwakeЋћ)‚Йђ¶ђ¬‚·‚й‹…‚Мђ”")]
+    [Tooltip("жњЂе€ќ(Awakeж™‚)гЃ«з”џж€ђгЃ™г‚‹зђѓгЃ®ж•°")]
     [SerializeField] int _maxCount = 20;
-    [Tooltip("ђ¶ђ¬‚µ‚Ѕ‹…‚р‚Ь‚Ж‚Я‚йЏкЏЉ")]
+    [Tooltip("з”џж€ђгЃ—гЃџзђѓг‚’гЃѕгЃЁг‚Ѓг‚‹е ґж‰Ђ")]
     [SerializeField] GameObject Parent;
 
     private void Awake()
     {
-        //Awake‚ЕѓvЃ[ѓ‹‚рЌм‚йЃB
+        //AwakeгЃ§гѓ—гѓјгѓ«г‚’дЅњг‚‹гЂ‚
         Pool();
     }
 
-    /// <summary>ЌЕЏ‰‚Й‹…‚р•Ўђ”ЊВђ¶ђ¬‚µ‚ДЃAѓvЃ[ѓ‹‚µ‚Д‚Ё‚­ѓЃѓ\ѓbѓh</summary>
+    /// <summary>жњЂе€ќгЃ«зђѓг‚’и¤‡ж•°еЂ‹з”џж€ђгЃ—гЃ¦гЂЃгѓ—гѓјгѓ«гЃ—гЃ¦гЃЉгЃЏгѓЎг‚Ѕгѓѓгѓ‰</summary>
     private void Pool()
     {
-        //_maxCount‰сЃAfor•¶‚р‰с‚·ЃB
+        //_maxCountе›ћгЂЃforж–‡г‚’е›ћгЃ™гЂ‚
         for (int i = 0; i < _maxCount; i++)
         {
-            var newObj = CreateNewBullet(); //ђV‚µ‚ў‹…‚рЌм‚йЃB
+            var newObj = CreateNewBullet(); //ж–°гЃ—гЃ„зђѓг‚’дЅњг‚‹гЂ‚
             newObj.SetActive(false);
-            if (Parent) newObj.transform.parent = Parent.transform; //Hielarcey‚ргY—н‚Й‚µ‚Ѕ‚ў‚М‚Е€к“x‹…‚р‹у‚МђeѓIѓuѓWѓFѓNѓg‚МЋq‚Й‚µ‚ЅЃB
-            _poolObjects.Add(newObj); //‹…‚рѓЉѓXѓg‚Й’З‰БЃB
+            if (Parent) newObj.transform.parent = Parent.transform; //Hielarceyг‚’з¶єйє—гЃ«гЃ—гЃџгЃ„гЃ®гЃ§дёЂеє¦зђѓг‚’з©єгЃ®и¦Єг‚Єгѓ–г‚ёг‚§г‚Їгѓ€гЃ®е­ђгЃ«гЃ—гЃџгЂ‚
+            _poolObjects.Add(newObj); //зђѓг‚’гѓЄг‚№гѓ€гЃ«иїЅеЉ гЂ‚
         }
     }
 
-    /// <summary>ђV‚µ‚ў‹…‚рђ¶ђ¬‚·‚йѓЃѓ\ѓbѓh</summary>
-    /// <returns>ђ¶ђ¬‚µ‚Ѕ‹…‚р•Ф‚·ЃB</returns>
+    /// <summary>ж–°гЃ—гЃ„зђѓг‚’з”џж€ђгЃ™г‚‹гѓЎг‚Ѕгѓѓгѓ‰</summary>
+    /// <returns>з”џж€ђгЃ—гЃџзђѓг‚’иї”гЃ™гЂ‚</returns>
     private GameObject CreateNewBullet()
     {
         var posistion = new Vector2(100, -100);
-        var newObj = Instantiate(_poolObj, posistion, Quaternion.identity); //Ћw’и‚Мѓ|ѓWѓVѓ‡ѓ“‚ЙѓIѓuѓWѓFѓNѓg‚рђ¶ђ¬ЃB
-        newObj.name = _poolObj.name + (_poolObjects.Count + 1); // –ј‘O‚Є”н‚з‚И‚ў‚ж‚¤‚Й––”ц‚Мђ”Ћљ‚р•П‚¦‚йЃB
+        var newObj = Instantiate(_poolObj, posistion, Quaternion.identity); //жЊ‡е®љгЃ®гѓќг‚ёг‚·гѓ§гѓігЃ«г‚Єгѓ–г‚ёг‚§г‚Їгѓ€г‚’з”џж€ђгЂ‚
+        newObj.name = _poolObj.name + (_poolObjects.Count + 1); // еђЌе‰ЌгЃЊиў«г‚‰гЃЄгЃ„г‚€гЃ†гЃ«жњ«е°ѕгЃ®ж•°е­—г‚’е¤‰гЃ€г‚‹гЂ‚
 
         return newObj;
     }
 
-    /// <summary>–ўЋg—p‚М‹…‚М•Ё—ќ‰‰ЋZ‚рtrue‚Й‚µ‚Д•Ф‚·ѓЃѓ\ѓbѓh‹…‚р‘S‚ДЋg‚Б‚Д‚ў‚Ѕ‚зђV‚µ‚­Ќм‚Б‚Д•Ф‚·</summary>
-    /// <returns>–ўЋg—p‚М‹…orђV‚µ‚­Ќм‚Б‚Ѕ‹…</returns>
+    /// <summary>жњЄдЅїз”ЁгЃ®зђѓгЃ®з‰©зђ†жј”з®—г‚’trueгЃ«гЃ—гЃ¦иї”гЃ™гѓЎг‚Ѕгѓѓгѓ‰зђѓг‚’е…ЁгЃ¦дЅїгЃЈгЃ¦гЃ„гЃџг‚‰ж–°гЃ—гЃЏдЅњгЃЈгЃ¦иї”гЃ™</summary>
+    /// <returns>жњЄдЅїз”ЁгЃ®зђѓorж–°гЃ—гЃЏдЅњгЃЈгЃџзђѓ</returns>
     public GameObject GetBullet()
     {
-        //Ћg—p’†‚Е‚И‚ў‚а‚М‚р’T‚µ‚Д•Ф‚·ЃB
+        //дЅїз”Ёдё­гЃ§гЃЄгЃ„г‚‚гЃ®г‚’жЋўгЃ—гЃ¦иї”гЃ™гЂ‚
         foreach (var go in _poolObjects)
         {
             if (go.activeSelf == false)
@@ -55,11 +55,11 @@ public class BulletPoolActive : MonoBehaviour
                 return go;
             }
         }
-        //‘S‚ДЋg—p’†‚ѕ‚Б‚Ѕ‚зђV‚µ‚­Ќм‚иЃAѓЉѓXѓg‚Й’З‰Б‚µ‚Д‚©‚з•Ф‚·ЃB
+        //е…ЁгЃ¦дЅїз”Ёдё­гЃ гЃЈгЃџг‚‰ж–°гЃ—гЃЏдЅњг‚ЉгЂЃгѓЄг‚№гѓ€гЃ«иїЅеЉ гЃ—гЃ¦гЃ‹г‚‰иї”гЃ™гЂ‚
         var newObj = CreateNewBullet();
-        Debug.Log("ђ¶ђ¬‚µ‚Ь‚µ‚ЅЃB");
+        Debug.Log("з”џж€ђгЃ—гЃѕгЃ—гЃџгЂ‚");
         _poolObjects.Add(newObj);
-        if (Parent) newObj.transform.parent = Parent.transform; //Hielarcey‚ргY—н‚Й‚µ‚Ѕ‚ў‚М‚Е€к“x‹…‚р‹у‚МђeѓIѓuѓWѓFѓNѓg‚МЋq‚Й‚µ‚ЅЃB
+        if (Parent) newObj.transform.parent = Parent.transform; //Hielarceyг‚’з¶єйє—гЃ«гЃ—гЃџгЃ„гЃ®гЃ§дёЂеє¦зђѓг‚’з©єгЃ®и¦Єг‚Єгѓ–г‚ёг‚§г‚Їгѓ€гЃ®е­ђгЃ«гЃ—гЃџгЂ‚
         newObj.SetActive(true);
         return newObj;
     }

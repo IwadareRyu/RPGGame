@@ -1,21 +1,21 @@
-using System.Collections;
+ï»¿using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MagicPlayer : StatusClass
 {
-    [Tooltip("ˆÚ“®‚·‚éêŠ")]
+    [Tooltip("ç§»å‹•ã™ã‚‹å ´æ‰€")]
     [SerializeField]
-    [Header("0,‘OA1,Œã‚ë‚Ìƒ|ƒWƒVƒ‡ƒ“")]
+    [Header("0,å‰ã€1,å¾Œã‚ã®ãƒã‚¸ã‚·ãƒ§ãƒ³")]
     Transform[] _trans;
-    [Tooltip("–‚–@E‚ÌˆÊ’u‚Ìó‘Ô")]
+    [Tooltip("é­”æ³•è·ã®ä½ç½®ã®çŠ¶æ…‹")]
     MagicPosition _magicpos;
-    [Tooltip("–‚–@E‚Ì–hŒä–‚–@")]
+    [Tooltip("é­”æ³•è·ã®é˜²å¾¡é­”æ³•")]
     BlockMagic _blockMagic;
-    [Tooltip("–‚–@E‚ÌUŒ‚–‚–@")]
+    [Tooltip("é­”æ³•è·ã®æ”»æ’ƒé­”æ³•")]
     AttackMagic _attackMagic;
-    [Tooltip("–‚–@”­“®‚ÌƒRƒ‹[ƒ`ƒ“‚ğ“®‚©‚·‚½‚ß‚Ìbool")]
+    [Tooltip("é­”æ³•ç™ºå‹•ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’å‹•ã‹ã™ãŸã‚ã®bool")]
     bool _magicTime;
 
     int _magicSkillCount = 0;
@@ -105,7 +105,7 @@ public class MagicPlayer : StatusClass
         {
             _magicSkillCount += DataBase._attackMagicbool[i] ? 1 : 0;
         }
-        ShowText("LeftShift‚ÅAttackI");
+        ShowText("LeftShiftã§Attackï¼");
     }
 
     void OnDrawGizmos()
@@ -144,7 +144,7 @@ public class MagicPlayer : StatusClass
         }
     }
 
-    /// <summary>RPGƒ‚[ƒh‚ÌUŒ‚ƒTƒ|[ƒg</summary>
+    /// <summary>RPGãƒ¢ãƒ¼ãƒ‰æ™‚ã®æ”»æ’ƒã‚µãƒãƒ¼ãƒˆ</summary>
     /// <returns></returns>
     IEnumerator MagicTime()
     {
@@ -154,7 +154,7 @@ public class MagicPlayer : StatusClass
             if (_magicpos == MagicPosition.AttackMagic)
             {
                 var set = DataBase.AttackMagicSelectData.SkillInfomation[DataBase._attackMagicSetNo[(int)_attackMagic]];
-                ShowText($"{set._skillName}I");
+                ShowText($"{set._skillName}ï¼");
                 if (set._selectSkill is AttackMagicSelect attackMagic)
                 {
                     switch (set._skillID)
@@ -176,7 +176,7 @@ public class MagicPlayer : StatusClass
             else
             {
                 var set = DataBase.BlockMagicSelectData.SkillInfomation[DataBase._blockMagicSetNo[(int)_blockMagic]];
-                ShowText($"{set._skillName}I");
+                ShowText($"{set._skillName}ï¼");
                 if (set._selectSkill is BlockMagicSelect blockMagic)
                 {
                     _attackPlayer.AddBuff(blockMagic.PlusAttackPower, blockMagic.PlusDiffencePower, blockMagic.HealingHP);
@@ -188,7 +188,7 @@ public class MagicPlayer : StatusClass
         _magicTime = false;
     }
 
-    /// <summary>ƒAƒNƒVƒ‡ƒ“ƒ‚[ƒh‚ÌUŒ‚</summary>
+    /// <summary>ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ¢ãƒ¼ãƒ‰æ™‚ã®æ”»æ’ƒ</summary>
     void ActionAttack()
     {
         Collider[] cols = Physics.OverlapSphere(transform.position + transform.forward * 2, _attackLange);
@@ -205,24 +205,24 @@ public class MagicPlayer : StatusClass
 
     public override void RPGMode()
     {
-        ShowText("–³–‚¾‚Á‚½‚©I");
+        ShowText("ç„¡äº‹ã ã£ãŸã‹ï¼");
     }
 
-    /// <summary>ƒeƒLƒXƒg•\¦</summary>
+    /// <summary>ãƒ†ã‚­ã‚¹ãƒˆè¡¨ç¤º</summary>
     /// <param name="str"></param>
     void ShowText(string str)
     {
         _enumtext.text = str;
     }
 
-    /// <summary>€–S”»’è</summary>
+    /// <summary>æ­»äº¡åˆ¤å®š</summary>
     void Death()
     {
         _magicObj.Rotate(90f, 0f, 0f);
-        ShowText("‰´‚Í€‚ñ‚¾‚º™");
+        ShowText("ä¿ºã¯æ­»ã‚“ã ãœâ˜†");
     }
 
-    /// <summary>“–‚½‚è”»’è</summary>
+    /// <summary>å½“ãŸã‚Šåˆ¤å®š</summary>
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {

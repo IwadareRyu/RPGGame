@@ -1,4 +1,4 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -23,7 +23,7 @@ public class BulletMoveScripts : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position,_bulletScale);
     }
 
-    #region ’e‚Ìí—Ş
+    #region å¼¾ã®ç¨®é¡
     public void BulletMoveStart(float bulletSpeed,float bulletRota,BulletState bulletMoveState)
     {
         switch (bulletMoveState)
@@ -40,7 +40,7 @@ public class BulletMoveScripts : MonoBehaviour
         }
     }
 
-    /// <summary>‚Ü‚Á‚·‚®”ò‚Ô‹…‚Ìˆ—</summary>
+    /// <summary>ã¾ã£ã™ãé£›ã¶çƒã®å‡¦ç†</summary>
     /// <param name="speed"></param>
     public IEnumerator ForwardMove(float speed)
     {
@@ -53,7 +53,7 @@ public class BulletMoveScripts : MonoBehaviour
         Reset();
     }
 
-    /// <summary>‹È‚ª‚é‹…‚Ìˆ—</summary>
+    /// <summary>æ›²ãŒã‚‹çƒã®å‡¦ç†</summary>
     /// <param name="speed"></param>
     public IEnumerator RotationMove(float speed,float rota)
     {
@@ -67,7 +67,7 @@ public class BulletMoveScripts : MonoBehaviour
         Reset();
     }
 
-    /// <summary>’e‚ª‰Ôó‚É“®‚­ˆ—</summary>
+    /// <summary>å¼¾ãŒèŠ±çŠ¶ã«å‹•ãå‡¦ç†</summary>
     /// <param name="speed"></param>
     public IEnumerator FlowerMove(float speed, float rota)
     {
@@ -88,8 +88,8 @@ public class BulletMoveScripts : MonoBehaviour
     }
     #endregion
 
-    #region ’e‚Ì“®‚«‚Ìˆ—
-    /// <summary>’e‚ªTransform‚Å“®‚­ˆ—</summary>
+    #region å¼¾ã®å‹•ãã®å‡¦ç†
+    /// <summary>å¼¾ãŒTransformã§å‹•ãå‡¦ç†</summary>
     /// <param name="speed"></param>
     private void Move(float speed)
     {
@@ -97,7 +97,7 @@ public class BulletMoveScripts : MonoBehaviour
         //transform.Translate(transform.forward * speed);
     }
     
-    /// <summary>‰ñ“]ˆ—</summary>
+    /// <summary>å›è»¢å‡¦ç†</summary>
     /// <param name="rota"></param>
     private void Rotation(float rota)
     {
@@ -109,7 +109,7 @@ public class BulletMoveScripts : MonoBehaviour
         }
     }
 
-    /// <summary>“–‚½‚è”»’èˆ—</summary>
+    /// <summary>å½“ãŸã‚Šåˆ¤å®šå‡¦ç†</summary>
     private bool ChackHit()
     {
         Collider[] cols = Physics.OverlapSphere(transform.position, _bulletScale);
@@ -124,7 +124,7 @@ public class BulletMoveScripts : MonoBehaviour
     }
     #endregion
 
-    /// <summary>ƒŠƒZƒbƒg</summary>
+    /// <summary>ãƒªã‚»ãƒƒãƒˆ</summary>
     private void Reset()
     {
         _time = 0;

@@ -1,4 +1,4 @@
-using MasterData;
+ï»¿using MasterData;
 using System;
 using UnityEngine;
 
@@ -42,15 +42,15 @@ public class SelectorSkillObjects : ScriptableObject
 [Serializable]
 public struct SkillInfomation
 {
-    [Header("ƒXƒLƒ‹‚ÌID"), SerializeField]
+    [Header("ã‚¹ã‚­ãƒ«ã®ID"), SerializeField]
     public int _skillID;
 
-    [Header("ƒXƒLƒ‹‚Ì–¼‘O"), SerializeField]
+    [Header("ã‚¹ã‚­ãƒ«ã®åå‰"), SerializeField]
     public string _skillName;
 
     public string _tmpSkillName;
 
-    [Header("ƒXƒLƒ‹‚Ìí—Ş"), Tooltip("Skill‚Ìí—Ş")]
+    [Header("ã‚¹ã‚­ãƒ«ã®ç¨®é¡"), Tooltip("Skillã®ç¨®é¡")]
     public SkillType _type;
 
     [TextArea(10, 10)]

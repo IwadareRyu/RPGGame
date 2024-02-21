@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +6,13 @@ using MasterData;
 [Serializable]
 public class SkillObjects : ScriptableObject
 {
-    [Header("ƒXƒLƒ‹‚ÌID"),SerializeField]
+    [Header("ã‚¹ã‚­ãƒ«ã®ID"),SerializeField]
     int _skillID;
     public int SkillID => _skillID;
-    [Header("ƒXƒLƒ‹‚Ì–¼‘O"), SerializeField]
+    [Header("ã‚¹ã‚­ãƒ«ã®åå‰"), SerializeField]
     string _skillName;
     public string SkillName => _skillName;
-    [Header("ƒXƒLƒ‹‚ÌŽí—Þ"), Tooltip("Skill‚ÌŽí—Þ")]
+    [Header("ã‚¹ã‚­ãƒ«ã®ç¨®é¡ž"), Tooltip("Skillã®ç¨®é¡ž")]
     SkillType _type;
     public SkillType Type => _type;
     [TextArea(10, 10)]

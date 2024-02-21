@@ -1,4 +1,4 @@
-using MasterData;
+ï»¿using MasterData;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,19 +11,19 @@ public class DataBase : MonoBehaviour
     private const string _attackSkillFileName = "AttackSkill";
     public SelectorSkillObjects AttackSkillSelectData;
 
-    [Header("ƒuƒƒbƒNƒXƒLƒ‹")]
+    [Header("ãƒ–ãƒ­ãƒƒã‚¯ã‚¹ã‚­ãƒ«")]
     public bool[] _blockSkillbool;
     public int[] _blockSkillSetNo = new int[1] {0};
     private const string _blockSkillFileName = "BlockSkill";
     public SelectorSkillObjects BlockSkillSelectData;
 
-    [Header("UŒ‚–‚–@")]
+    [Header("æ”»æ’ƒé­”æ³•")]
     public bool[] _attackMagicbool;
     public int[] _attackMagicSetNo = new int[2] {0,0};
     private const string _attackMagicFileName = "AttackMagic";
     public SelectorSkillObjects AttackMagicSelectData;
 
-    [Header("–hŒä–‚–@")]
+    [Header("é˜²å¾¡é­”æ³•")]
     public bool[] _blockMagicbool;
     public int[] _blockMagicSetNo = new int[2] {0,0};
     private const string _blockMagicFileName = "BlockMagic";
@@ -61,7 +61,7 @@ public class DataBase : MonoBehaviour
     int LoadingCount = 0;
     int IsInit = 0;
     
-    [Header("¡‚Á‚Ä‚¢‚éƒXƒLƒ‹ƒ|ƒCƒ“ƒg"),Tooltip("¡‚Á‚Ä‚¢‚éƒXƒLƒ‹ƒ|ƒCƒ“ƒg"),SerializeField]
+    [Header("ä»ŠæŒã£ã¦ã„ã‚‹ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆ"),Tooltip("ä»ŠæŒã£ã¦ã„ã‚‹ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆ"),SerializeField]
     int _skillPoint = 5;
     public int SkillPoint => _skillPoint;
     private const string _skillPointFile = "SkillPoint";
@@ -80,7 +80,7 @@ public class DataBase : MonoBehaviour
     }
     private void OnEnable()
     {
-        //ƒZ[ƒuƒf[ƒ^ƒ[ƒhˆ—
+        //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãƒ­ãƒ¼ãƒ‰å‡¦ç†
         if (!_resetLoadData && _dataSaveBool)
         {
             _attackMagicSkillData = SkillDataLoad(_attackMagicFileName);
@@ -99,7 +99,7 @@ public class DataBase : MonoBehaviour
 
     private void OnDisable()
     {
-        //ƒZ[ƒuƒf[ƒ^ƒZ[ƒuˆ—
+        //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚»ãƒ¼ãƒ–å‡¦ç†
         SkillDataSave(_attackMagicSetNo, _attackMagicbool, _attackMagicFileName);
         SkillDataSave(_attackSkillSetNo, _attackSkillbool, _attackSkillFileName);
         SkillDataSave(_blockSkillSetNo, _blockSkillbool, _blockSkillFileName);

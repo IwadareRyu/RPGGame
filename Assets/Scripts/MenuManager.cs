@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ///—]—T‚ª‚ ‚Á‚½‚çFightManager‚ÌUnityAction‚ÅƒXƒNƒŠƒvƒg‚Ìenable‚ğØ‚è‘Ö‚¦‚Ä‚à—Ç‚¢‚©‚àH
+        ///ä½™è£•ãŒã‚ã£ãŸã‚‰FightManagerã®UnityActionã§ã‚¹ã‚¯ãƒªãƒ—ãƒˆã®enableã‚’åˆ‡ã‚Šæ›¿ãˆã¦ã‚‚è‰¯ã„ã‹ã‚‚ï¼Ÿ
         if(Input.GetButtonDown("Menu") && !FightManager.Instance.InFight)
         {
             if (_skillMenu.active)

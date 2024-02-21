@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class BulletSpawnEnemy : MonoBehaviour
@@ -6,26 +6,26 @@ public class BulletSpawnEnemy : MonoBehaviour
     PlayerController _player;
     Rigidbody _rb;
     [SerializeField] Animator _anim;
-    [Header("’e‚Ìİ’è")]
-    [Tooltip("’e‚Ì“®‚«‚Ìİ’è")]
+    [Header("å¼¾ã®è¨­å®š")]
+    [Tooltip("å¼¾ã®å‹•ãã®è¨­å®š")]
     [SerializeField] BulletState _bulletMoveState;
     [SerializeField] SpawnState _spawnBulletState = SpawnState.Circle;
-    [Tooltip("’e‚Ì‘¬‚³")]
+    [Tooltip("å¼¾ã®é€Ÿã•")]
     [SerializeField] float _bulletSpeed = 3f;
-    [Tooltip("’e‚Ì‰ñ‚é‘¬“x")]
+    [Tooltip("å¼¾ã®å›ã‚‹é€Ÿåº¦")]
     [SerializeField] float _bulletRota = 1f;
-    [Tooltip("’e‚Æ’e‚ÌŠÔŠu")]
+    [Tooltip("å¼¾ã¨å¼¾ã®é–“éš”")]
     [SerializeField] float _bulletRange = 30f;
-    [Header("’e‚ÌƒXƒ|[ƒ“ƒXƒpƒ“‚Ìİ’è")]
-    [Tooltip("’e‚ğo‚·ƒN[ƒ‹ƒ^ƒCƒ€")]
+    [Header("å¼¾ã®ã‚¹ãƒãƒ¼ãƒ³ã‚¹ãƒ‘ãƒ³ã®è¨­å®š")]
+    [Tooltip("å¼¾ã‚’å‡ºã™ã‚¯ãƒ¼ãƒ«ã‚¿ã‚¤ãƒ ")]
     [SerializeField] float _spawnCoolTime = 2f;
     [SerializeField] float _delaySpawnCoolTime = 0.2f;
     [SerializeField] float _bulletYPos = 10f;
-    [Tooltip("UŒ‚ƒ^ƒCƒ€‚©‚Ç‚¤‚©")]
+    [Tooltip("æ”»æ’ƒã‚¿ã‚¤ãƒ ã‹ã©ã†ã‹")]
     //[NonSerialized]
     public bool _isAttackTime;
     [SerializeField] StunEnemy _stunEnemy;
-    [Header("’e‚Ìƒv[ƒ‹")]
+    [Header("å¼¾ã®ãƒ—ãƒ¼ãƒ«")]
     [SerializeField] BulletPoolActive _bulletPool;
     float _coolTime;
 

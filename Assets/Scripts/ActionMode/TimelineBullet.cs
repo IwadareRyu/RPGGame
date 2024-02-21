@@ -1,16 +1,16 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TimelineBullet : MonoBehaviour
 {
-    [Header("ƒAƒNƒVƒ‡ƒ“ƒ‚[ƒh‚ÌŠÔ")]
+    [Header("ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ¢ãƒ¼ãƒ‰ã®æ™‚é–“")]
     [SerializeField] float _actionTime = 30f;
     float _time;
     [SerializeField] Transform[] _targetPos;
     [SerializeField] Transform _bullet;
-    [Header("duration:ƒXƒ^[ƒg‚©‚ç‰½•bŒã target:‚Ç‚¿‚ç‚ÉUŒ‚‚·‚é‚©")]
+    [Header("duration:ã‚¹ã‚¿ãƒ¼ãƒˆã‹ã‚‰ä½•ç§’å¾Œ target:ã©ã¡ã‚‰ã«æ”»æ’ƒã™ã‚‹ã‹")]
     [SerializeField] TimeBullet[] _timeBullet;
     int _timeBulletIndex = 0;
     bool _isPlaying;
