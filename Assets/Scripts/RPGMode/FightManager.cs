@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -77,7 +77,7 @@ public class FightManager : SingletonMonovihair<FightManager>
         _winlosetext?.gameObject.SetActive(true);
         _winlosetext.text = "Win!";
         _pointGetText?.gameObject.SetActive(true);
-        _pointGetText.text = $"SkillPoint‚ğ {getpoint} ptŠl“¾‚µ‚½";
+        _pointGetText.text = $"SkillPointã‚’ {getpoint} ptç²å¾—ã—ãŸ";
         StartCoroutine(FalseText());
     }
 

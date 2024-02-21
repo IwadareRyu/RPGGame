@@ -1,4 +1,4 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -6,23 +6,23 @@ using UnityEngine.UI;
 
 public class ActionRPGUIChange : MonoBehaviour
 {
-    [Header("OperationCanvas‚Ì’†‚É‚ ‚éUI‚Ìİ’è")]
+    [Header("OperationCanvasã®ä¸­ã«ã‚ã‚‹UIã®è¨­å®š")]
     [SerializeField] Transform _changeTrans;
     [SerializeField] Image _changeArrow;
-    [Header("”z—ñ0‚ªRPGA1‚ªAction")]
+    [Header("é…åˆ—0ãŒRPGã€1ãŒAction")]
 
     [SerializeField] GanreUI[] _ganreUI;
-    [Header("Fİ’è")]
+    [Header("è‰²è¨­å®š")]
     [SerializeField] Color _activeColor;
     [SerializeField] Color _inactiveColor;
     [SerializeField] Color _alphaColor;
     Color _tmpTextColor;
-    [Header("F•Ï‚¦‚é‚Æ‚«‚Ì•b”İ’è")]
+    [Header("è‰²å¤‰ãˆã‚‹ã¨ãã®ç§’æ•°è¨­å®š")]
     [SerializeField] float _activeActionTime;
     [SerializeField] float _ganreChangeTime;
-    [Tooltip("¡‚ÌƒWƒƒƒ“ƒ‹")]
+    [Tooltip("ä»Šã®ã‚¸ãƒ£ãƒ³ãƒ«")]
     GanreUI _nowGanre;
-    [Header("^‚ñ’†‚Éo‚Ä‚­‚é•¶š‚ÌƒAƒjƒ[ƒVƒ‡ƒ“")]
+    [Header("çœŸã‚“ä¸­ã«å‡ºã¦ãã‚‹æ–‡å­—ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³")]
     [SerializeField] Animator _centerTextAnim;
     [SerializeField] bool _initialRPG;
     [SerializeField] bool _initialAction;
@@ -32,9 +32,9 @@ public class ActionRPGUIChange : MonoBehaviour
         {
             _ganreUI[i].changeImageTexts = _ganreUI[i].changeImage.GetComponentInChildren<Text>();
         }
-        //ƒfƒoƒbƒO—p‚ÉNORPG‰‰o‚Ì‚È‚¢ê‡ƒAƒjƒ[ƒVƒ‡ƒ“‚Í—v‚ç‚È‚¢‚Ì‚Åfalse‚É‚·‚éB
+        //ãƒ‡ãƒãƒƒã‚°ç”¨ã«NORPGæ¼”å‡ºã®ãªã„å ´åˆã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã¯è¦ã‚‰ãªã„ã®ã§falseã«ã™ã‚‹ã€‚
         if (_initialRPG) { _centerTextAnim.enabled = false; }
-        //Start‚ÍAAction‚É•Ï‚í‚é‚±‚Æ‚Í‰B‚µ‚Ä‚¨‚­B
+        //Startæ™‚ã¯ã€Actionã«å¤‰ã‚ã‚‹ã“ã¨ã¯éš ã—ã¦ãŠãã€‚
         _nowGanre = _ganreUI[(int)ChangeGanreState.RPG];
         _ganreUI[(int)ChangeGanreState.Action].changeImage.color = _alphaColor;
         _ganreUI[(int)ChangeGanreState.Action].changeImageTexts.color = _alphaColor;
@@ -43,12 +43,12 @@ public class ActionRPGUIChange : MonoBehaviour
         _nowGanre = _ganreUI[(int)ChangeGanreState.RPG];
     }
 
-    /// <summary>UI‚ğw’è‚³‚ê‚½ƒWƒƒƒ“ƒ‹‚É•Ï‚¦‚éˆ—</summary>
-    /// <param name="ganre">•Ï‚¦‚éƒWƒƒƒ“ƒ‹‚Ìindex</param>
+    /// <summary>UIã‚’æŒ‡å®šã•ã‚ŒãŸã‚¸ãƒ£ãƒ³ãƒ«ã«å¤‰ãˆã‚‹å‡¦ç†</summary>
+    /// <param name="ganre">å¤‰ãˆã‚‹ã‚¸ãƒ£ãƒ³ãƒ«ã®index</param>
     /// <returns></returns>
     public IEnumerator ChangeGenre(int ganre)
     {
-        Debug.Log("ƒ`ƒF[ƒ“ƒWI");
+        Debug.Log("ãƒã‚§ãƒ¼ãƒ³ã‚¸ï¼");
         if (_nowGanre.ganreText != _ganreUI[ganre].ganreText)
         {
             if (_changeArrow.color == _alphaColor || _ganreUI[(int)ChangeGanreState.RPG].changeImage.color == _alphaColor)
@@ -56,7 +56,7 @@ public class ActionRPGUIChange : MonoBehaviour
                 _initialAction = true;
                 yield return StartCoroutine(InitialAction());
                 yield return _changeTrans.DORotate(_changeTrans.rotation.eulerAngles + new Vector3(0, 0, 180), 1f).WaitForCompletion();
-            }   //‰‰ñŒÄ‚Ño‚³‚ê‚½ÛAAction‚ªŒ»‚ê‚éB
+            }   //åˆå›å‘¼ã³å‡ºã•ã‚ŒãŸéš›ã€ActionãŒç¾ã‚Œã‚‹ã€‚
             else if (ganre == 0 && !_initialRPG && _initialAction)
             {
                 _initialRPG = true;
@@ -67,7 +67,7 @@ public class ActionRPGUIChange : MonoBehaviour
             {
                 yield return StartCoroutine(ChangeTime(ganre));
             }
-            //Ÿ‚ÌƒWƒƒƒ“ƒ‹‚ğƒAƒNƒeƒBƒuA–¾‚é‚­‚·‚éB
+            //æ¬¡ã®ã‚¸ãƒ£ãƒ³ãƒ«ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã€æ˜ã‚‹ãã™ã‚‹ã€‚
             _ganreUI[ganre].changeImage.color = _activeColor;
             _ganreUI[ganre].changeImageTexts.color = _ganreUI[ganre].textColor;
             _ganreUI[ganre].ganreText.gameObject.SetActive(true);
@@ -76,14 +76,14 @@ public class ActionRPGUIChange : MonoBehaviour
                 _nowGanre.changeImage.color = _inactiveColor;
                 _nowGanre.changeImageTexts.color = _inactiveColor;
                 _nowGanre.ganreText.gameObject.SetActive(false);
-            }   //Œ»İ‚ÌƒWƒƒƒ“ƒ‹‚ÌUI‚ğˆÃ‚­A”ñƒAƒNƒeƒBƒu‚É‚µ‚ÄAƒWƒƒƒ“ƒ‹‚ğ•Ï‚¦‚éB
-            //Ÿ‚ÌƒWƒƒƒ“ƒ‹‚ÉØ‚è‘Ö‚¦‚éB
+            }   //ç¾åœ¨ã®ã‚¸ãƒ£ãƒ³ãƒ«ã®UIã‚’æš—ãã€éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã—ã¦ã€ã‚¸ãƒ£ãƒ³ãƒ«ã‚’å¤‰ãˆã‚‹ã€‚
+            //æ¬¡ã®ã‚¸ãƒ£ãƒ³ãƒ«ã«åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚
             _nowGanre = _ganreUI[ganre];
         }
         yield return null;
     }
 
-    /// <summary>ƒWƒƒƒ“ƒ‹•ÏX‚ÌÛAŒÄ‚Î‚ê‚éˆ—</summary>
+    /// <summary>ã‚¸ãƒ£ãƒ³ãƒ«å¤‰æ›´ã®éš›ã€å‘¼ã°ã‚Œã‚‹å‡¦ç†</summary>
     /// <param name="ganre"></param>
     /// <returns></returns>
     IEnumerator ChangeTime(int ganre)
@@ -100,12 +100,12 @@ public class ActionRPGUIChange : MonoBehaviour
             {
                 ganreText.transform.localScale = tmpscale;
             });
-        //sequence‚ªI‚í‚é‚Ü‚Å‘Ò‹@B
+        //sequenceãŒçµ‚ã‚ã‚‹ã¾ã§å¾…æ©Ÿã€‚
         yield return seq.Play().SetLink(gameObject).WaitForCompletion();
 
     }
 
-    /// <summary>Action‚ÌUI‚ğ“oê‚³‚¹‚éƒƒ\ƒbƒh</summary>
+    /// <summary>Actionã®UIã‚’ç™»å ´ã•ã›ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰</summary>
     /// <returns></returns>
     IEnumerator InitialAction()
     {
@@ -117,13 +117,13 @@ public class ActionRPGUIChange : MonoBehaviour
         if (_centerTextAnim) { _centerTextAnim.Play("NOAction"); }
     }
 
-    /// <summary>‰‚ß‚Ä(Œµ–§‚É‚Í2‰ñ–Ú)RPGƒ‚[ƒh‚ÉØ‚è‘Ö‚í‚Á‚½ÛŒÄ‚Î‚ê‚éƒƒ\ƒbƒhB</summary>
+    /// <summary>åˆã‚ã¦(å³å¯†ã«ã¯2å›ç›®)RPGãƒ¢ãƒ¼ãƒ‰ã«åˆ‡ã‚Šæ›¿ã‚ã£ãŸéš›å‘¼ã°ã‚Œã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã€‚</summary>
     /// <returns></returns>
     IEnumerator InitialRPG()
     {
         _centerTextAnim.Play("NORPG");
         yield return null;
-        //NORPG‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ŠÔ‘Ò‚Âˆ—
+        //NORPGã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ™‚é–“å¾…ã¤å‡¦ç†
         var animTime = _centerTextAnim.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(animTime.length);
         while (true)
@@ -133,10 +133,10 @@ public class ActionRPGUIChange : MonoBehaviour
                 break;
             }
             yield return null;
-        }   //¶ƒNƒŠƒbƒN‚ª‰Ÿ‚³‚ê‚é‚Ü‚Å‘Ò‹@B
+        }   //å·¦ã‚¯ãƒªãƒƒã‚¯ãŒæŠ¼ã•ã‚Œã‚‹ã¾ã§å¾…æ©Ÿã€‚
         _centerTextAnim.Play("NORPGEND");
         yield return null;
-        //NORPGEND‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ŠÔ‘Ò‚Âˆ—
+        //NORPGENDã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ™‚é–“å¾…ã¤å‡¦ç†
         animTime = _centerTextAnim.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(animTime.length);
         _centerTextAnim.enabled = false;
@@ -144,7 +144,7 @@ public class ActionRPGUIChange : MonoBehaviour
     }
 
     [Serializable]
-    /// <summary>ƒWƒƒƒ“ƒ‹‚ª•Ï‚í‚éÛA‰e‹¿‚ğó‚¯‚é•Ï”‚Ì\‘¢‘Ì</summary>
+    /// <summary>ã‚¸ãƒ£ãƒ³ãƒ«ãŒå¤‰ã‚ã‚‹éš›ã€å½±éŸ¿ã‚’å—ã‘ã‚‹å¤‰æ•°ã®æ§‹é€ ä½“</summary>
     struct GanreUI
     {
         public Image changeImage;

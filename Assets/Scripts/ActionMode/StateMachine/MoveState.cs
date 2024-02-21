@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveState : MonoBehaviour,IState
 {
-    [Header("ƒvƒŒƒCƒ„[‚Ì“®‚«İ’è")]
-    [Tooltip("ƒvƒŒƒCƒ„[‚Ì“®‚«‚Ì‘¬‚³")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‹•ãè¨­å®š")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‹•ãã®é€Ÿã•")]
     [SerializeField] float _speed = 2f;
     [SerializeField] float _dashPower = 5f;
     [SerializeField] float _gravityPower = 3f;

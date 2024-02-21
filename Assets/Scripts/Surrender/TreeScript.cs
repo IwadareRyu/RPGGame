@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -9,58 +9,58 @@ public class TreeScript : MonoBehaviour
     [SerializeField]
     Button[] _skillPanel;
 
-    [Header("ƒXƒLƒ‹ƒcƒŠ[‚Ìƒ{ƒ^ƒ“(0‚©‚ç‡‚É)"), Tooltip("ƒXƒLƒ‹ƒcƒŠ[‚Ìƒ{ƒ^ƒ“"), SerializeField]
+    [Header("ã‚¹ã‚­ãƒ«ãƒ„ãƒªãƒ¼ã®ãƒœã‚¿ãƒ³(0ã‹ã‚‰é †ã«)"), Tooltip("ã‚¹ã‚­ãƒ«ãƒ„ãƒªãƒ¼ã®ãƒœã‚¿ãƒ³"), SerializeField]
     Button[] _attackMagicTreeButtom;
 
-    [Tooltip("—×ÚƒŠƒXƒg")]
+    [Tooltip("éš£æ¥ãƒªã‚¹ãƒˆ")]
     List<int[]> _adjacentList = new List<int[]>();
 
-    [Tooltip("‘k‚èƒŠƒXƒg‚Ì”z—ñ")]
+    [Tooltip("é¡ã‚Šãƒªã‚¹ãƒˆã®é…åˆ—")]
     List<int>[] _backList;
 
-    [Tooltip("Œo˜HƒŠƒXƒg")]
+    [Tooltip("çµŒè·¯ãƒªã‚¹ãƒˆ")]
     List<int> _ansList = new List<int>();
 
-    [Header("—×Ú‚·‚é’¸“_‚ª‘‚¢‚Ä‚ ‚étxtƒeƒLƒXƒg"), Tooltip("—×Ú’¸“_‚Ìtxt"), SerializeField]
+    [Header("éš£æ¥ã™ã‚‹é ‚ç‚¹ãŒæ›¸ã„ã¦ã‚ã‚‹txtãƒ†ã‚­ã‚¹ãƒˆ"), Tooltip("éš£æ¥é ‚ç‚¹ã®txt"), SerializeField]
     TextAsset _textFile;
 
-    [Header("‘I‘ğ‚µ‚½ƒXƒLƒ‹‚Ì–¼‘O‚ğ•\¦‚·‚éƒeƒLƒXƒg"), Tooltip("‘I‘ğ‚µ‚½ƒXƒLƒ‹‚Ì–¼‘O‚ğ•\¦‚·‚éƒeƒLƒXƒg"), SerializeField]
+    [Header("é¸æŠã—ãŸã‚¹ã‚­ãƒ«ã®åå‰ã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ"), Tooltip("é¸æŠã—ãŸã‚¹ã‚­ãƒ«ã®åå‰ã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ"), SerializeField]
     Text _skillNameText;
 
-    [Header("‘I‘ğ‚ÌŠm”F‚ÌÛƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚ğ‘‚­ƒeƒLƒXƒg"), Tooltip("‘I‘ğ‚ÌŠm”F‚ÌÛƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚ğ‘‚­ƒeƒLƒXƒg"), SerializeField]
+    [Header("é¸æŠã®ç¢ºèªã®éš›ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆã‚’æ›¸ããƒ†ã‚­ã‚¹ãƒˆ"), Tooltip("é¸æŠã®ç¢ºèªã®éš›ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆã‚’æ›¸ããƒ†ã‚­ã‚¹ãƒˆ"), SerializeField]
     Text _skillPointText;
 
-    [Header("‘I‘ğ‚ÌŠm”F‚ÌÛƒXƒLƒ‹‚Ìà–¾‚ğ‘‚­ƒeƒLƒXƒg"), Tooltip("‘I‘ğ‚ÌŠm”F‚ÌÛƒXƒLƒ‹‚Ìà–¾‚ğ‘‚­ƒeƒLƒXƒg"), SerializeField]
+    [Header("é¸æŠã®ç¢ºèªã®éš›ã‚¹ã‚­ãƒ«ã®èª¬æ˜ã‚’æ›¸ããƒ†ã‚­ã‚¹ãƒˆ"), Tooltip("é¸æŠã®ç¢ºèªã®éš›ã‚¹ã‚­ãƒ«ã®èª¬æ˜ã‚’æ›¸ããƒ†ã‚­ã‚¹ãƒˆ"), SerializeField]
     Text _tutorialText;
 
-    [Header("‰½‚ÌƒXƒLƒ‹‚ğ‘I‘ğ‚µ‚Ä‚¢‚é‚©‚ğ•\¦‚·‚éƒeƒLƒXƒg"), Tooltip("‰½‚ÌƒXƒLƒ‹‚ğ‘I‘ğ‚µ‚Ä‚¢‚é‚©‚ğ•\¦‚·‚éƒeƒLƒXƒg"), SerializeField]
+    [Header("ä½•ã®ã‚¹ã‚­ãƒ«ã‚’é¸æŠã—ã¦ã„ã‚‹ã‹ã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ"), Tooltip("ä½•ã®ã‚¹ã‚­ãƒ«ã‚’é¸æŠã—ã¦ã„ã‚‹ã‹ã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ"), SerializeField]
     Text _skillText;
 
-    [Header("ƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚ğ•\¦‚·‚éƒeƒLƒXƒg"), Tooltip("ƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚ğ•\¦‚·‚éƒeƒLƒXƒg"), SerializeField]
+    [Header("ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ"), Tooltip("ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ"), SerializeField]
     Text _menuSkillPtText;
 
-    [Header("ƒXƒLƒ‹æ“¾‚ÌŠm”F‰æ–Ê‚ğ•\¦‚·‚éƒEƒBƒ“ƒhƒE"), Tooltip("ƒXƒLƒ‹æ“¾‚ÌŠm”F‰æ–Ê‚ğ•\¦‚·‚éƒEƒBƒ“ƒhƒE"), SerializeField]
+    [Header("ã‚¹ã‚­ãƒ«å–å¾—ã®ç¢ºèªç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦"), Tooltip("ã‚¹ã‚­ãƒ«å–å¾—ã®ç¢ºèªç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦"), SerializeField]
     GameObject _confirmation;
 
-    [Header("ƒXƒLƒ‹‚ªæ“¾‚Å‚«‚È‚¢‚Æ‚«‚É•\¦‚·‚éƒEƒBƒ“ƒhƒE"), Tooltip("ƒXƒLƒ‹‚ªæ“¾‚Å‚«‚È‚¢‚Æ‚«‚É•\¦‚·‚éƒEƒBƒ“ƒhƒE"), SerializeField]
+    [Header("ã‚¹ã‚­ãƒ«ãŒå–å¾—ã§ããªã„ã¨ãã«è¡¨ç¤ºã™ã‚‹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦"), Tooltip("ã‚¹ã‚­ãƒ«ãŒå–å¾—ã§ããªã„ã¨ãã«è¡¨ç¤ºã™ã‚‹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦"), SerializeField]
     GameObject _falseComfimation;
 
-    [Header("‘I‘ğ‚ÌŠm”F‚ğó‚¯“ü‚ê‚éƒ{ƒ^ƒ“"), Tooltip("‘I‘ğ‚ÌŠm”F‚ğó‚¯“ü‚ê‚éƒ{ƒ^ƒ“"), SerializeField]
+    [Header("é¸æŠã®ç¢ºèªã‚’å—ã‘å…¥ã‚Œã‚‹ãƒœã‚¿ãƒ³"), Tooltip("é¸æŠã®ç¢ºèªã‚’å—ã‘å…¥ã‚Œã‚‹ãƒœã‚¿ãƒ³"), SerializeField]
     Button _yes;
 
-    [Header("‘I‘ğ‚ÌŠm”F‚ğó‚¯“ü‚ê‚È‚¢ƒ{ƒ^ƒ“"), Tooltip("‘I‘ğ‚ÌŠm”F‚ğó‚¯“ü‚ê‚È‚¢ƒ{ƒ^ƒ“"), SerializeField]
+    [Header("é¸æŠã®ç¢ºèªã‚’å—ã‘å…¥ã‚Œãªã„ãƒœã‚¿ãƒ³"), Tooltip("é¸æŠã®ç¢ºèªã‚’å—ã‘å…¥ã‚Œãªã„ãƒœã‚¿ãƒ³"), SerializeField]
     Button _no;
 
-    [Tooltip("ƒf[ƒ^ƒx[ƒX")]
+    [Tooltip("ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹")]
     private DataBase _database;
 
-    [Tooltip("æ“¾‚·‚éƒXƒLƒ‹‚Ì‡ŒvƒRƒXƒg")]
+    [Tooltip("å–å¾—ã™ã‚‹ã‚¹ã‚­ãƒ«ã®åˆè¨ˆã‚³ã‚¹ãƒˆ")]
     int _cost;
 
-    [Tooltip("Œo˜H‚ğŒ©‚Â‚¯‚½‚ÉA’Tõ‚ğ”²‚¯‚ébool")]
+    [Tooltip("çµŒè·¯ã‚’è¦‹ã¤ã‘ãŸæ™‚ã«ã€æ¢ç´¢ã‚’æŠœã‘ã‚‹bool")]
     bool _answerbool;
 
-    [Tooltip("K“¾‚·‚éƒXƒLƒ‹‚ÌŒÂ”")]
+    [Tooltip("ç¿’å¾—ã™ã‚‹ã‚¹ã‚­ãƒ«ã®å€‹æ•°")]
     int _skillCount;
 
     [SerializeField] bool _tmpNameBool = true;
@@ -73,13 +73,13 @@ public class TreeScript : MonoBehaviour
     void Start()
     {
         _database = DataBase.Instance;
-        //ƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚Ì•\¦
+        //ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆã®è¡¨ç¤º
         DisplaySkillPoint();
-        //‘k‚èƒŠƒXƒg‚Ì”z—ñ‚Ì”‚ğéŒ¾‚·‚éB(ƒXƒLƒ‹ƒcƒŠ[‚Ìƒ{ƒ^ƒ“‚Ì”‚Æˆê)
+        //é¡ã‚Šãƒªã‚¹ãƒˆã®é…åˆ—ã®æ•°ã‚’å®£è¨€ã™ã‚‹ã€‚(ã‚¹ã‚­ãƒ«ãƒ„ãƒªãƒ¼ã®ãƒœã‚¿ãƒ³ã®æ•°ã¨ä¸€ç·’)
         _backList = new List<int>[_attackMagicTreeButtom.Length];
         for (var i = 0; i < _attackMagicTreeButtom.Length; i++)
         {
-            //‘k‚èƒŠƒXƒg‚Ì”z—ñ‚Ì‰Šú‰»‚ğÏ‚Ü‚¹‚Ä‚¨‚­B
+            //é¡ã‚Šãƒªã‚¹ãƒˆã®é…åˆ—ã®åˆæœŸåŒ–ã‚’æ¸ˆã¾ã›ã¦ãŠãã€‚
             _backList[i] = new List<int>();
             var num = i;
             _attackMagicTreeButtom[i].onClick.AddListener(() => BFSSkillTree(num));
@@ -90,27 +90,27 @@ public class TreeScript : MonoBehaviour
             {
                 _attackMagicTreeButtom[i].interactable = false;
             }
-        }   //ƒ{ƒ^ƒ“‚ÉonClick‚ğ’Ç‰Á‚µAƒXƒLƒ‹‚Ì–¼‘O‚ğ‚S•¶šƒeƒLƒXƒg‚É‘‚¢‚½ŒãA‚·‚Å‚Éæ“¾‚µ‚Ä‚¢‚éƒXƒLƒ‹‚Ìƒ{ƒ^ƒ“‚ğ‚³‚í‚ê‚È‚¢‚æ‚¤‚É‚·‚éB
+        }   //ãƒœã‚¿ãƒ³ã«onClickã‚’è¿½åŠ ã—ã€ã‚¹ã‚­ãƒ«ã®åå‰ã‚’ï¼”æ–‡å­—ãƒ†ã‚­ã‚¹ãƒˆã«æ›¸ã„ãŸå¾Œã€ã™ã§ã«å–å¾—ã—ã¦ã„ã‚‹ã‚¹ã‚­ãƒ«ã®ãƒœã‚¿ãƒ³ã‚’ã•ã‚ã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹ã€‚
 
-        //txtƒtƒ@ƒCƒ‹‚Ì“à—e‚ğ“Ç‚İ‚ŞB
+        //txtãƒ•ã‚¡ã‚¤ãƒ«ã®å†…å®¹ã‚’èª­ã¿è¾¼ã‚€ã€‚
         StringReader reader = new StringReader(_textFile.text);
 
         while (reader.Peek() != -1)
         {
             _adjacentList.Add(Array.ConvertAll(reader.ReadLine().Split(" "), int.Parse));
-        }   //ƒtƒ@ƒCƒ‹‚Ì“à—e‚ğˆês‚¸‚ÂƒŠƒXƒg‚É’Ç‰ÁB
+        }   //ãƒ•ã‚¡ã‚¤ãƒ«ã®å†…å®¹ã‚’ä¸€è¡Œãšã¤ãƒªã‚¹ãƒˆã«è¿½åŠ ã€‚
 
-        //•—Dæ’Tõ‚Å‘k‚èƒŠƒXƒg‚ğì‚éB
+        //å¹…å„ªå…ˆæ¢ç´¢ã§é¡ã‚Šãƒªã‚¹ãƒˆã‚’ä½œã‚‹ã€‚
         InitialBFS();
 
-        //yes‚Æno‚ÉonClick‚ğ’Ç‰Á‚µ‚½ŒãAŠm”F‰æ–Ê‚ğfalse‚É‚·‚éB
+        //yesã¨noã«onClickã‚’è¿½åŠ ã—ãŸå¾Œã€ç¢ºèªç”»é¢ã‚’falseã«ã™ã‚‹ã€‚
         _yes.onClick.AddListener(YesConfirmation);
         _no.onClick.AddListener(NoConfirmation);
         _confirmation.SetActive(false);
         _falseComfimation.SetActive(false);
     }
 
-    /// <summary>Å‰‚É•—Dæ‘S’Tõ‚µ‚Ä‘k‚èƒŠƒXƒg‚ğì¬‚·‚é</summary>
+    /// <summary>æœ€åˆã«å¹…å„ªå…ˆå…¨æ¢ç´¢ã—ã¦é¡ã‚Šãƒªã‚¹ãƒˆã‚’ä½œæˆã™ã‚‹</summary>
     void InitialBFS()
     {
         Queue<int> queue = new Queue<int>();
@@ -132,37 +132,37 @@ public class TreeScript : MonoBehaviour
             }
         }
     }
-    /// <summary>ƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚ğ•\¦‚·‚éƒƒ\ƒbƒh</summary>
+    /// <summary>ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰</summary>
     public void DisplaySkillPoint()
     {
         _menuSkillPtText.text = DataBase.Instance.SkillPoint.ToString();
     }
-    /// <summary>ƒXƒLƒ‹‚ª‘I‘ğ‚³‚ê‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éˆ—</summary>
+    /// <summary>ã‚¹ã‚­ãƒ«ãŒé¸æŠã•ã‚ŒãŸã¨ãã«å‘¼ã°ã‚Œã‚‹å‡¦ç†</summary>
     /// <param name="num"></param>
     void BFSSkillTree(int choiceNumber)
     {
-        Debug.Log($"{choiceNumber}‚ª‘I‘ğ‚³‚ê‚Ü‚µ‚½B");
+        Debug.Log($"{choiceNumber}ãŒé¸æŠã•ã‚Œã¾ã—ãŸã€‚");
         _ansList.Add(choiceNumber);
-        //ƒŠƒXƒg‚É‘I‘ğ‚µ‚½”Ô†‚ğ’Ç‰Á‚µ‚½ŒãA•—Dæ’Tõ‚ÌŠJnB
+        //ãƒªã‚¹ãƒˆã«é¸æŠã—ãŸç•ªå·ã‚’è¿½åŠ ã—ãŸå¾Œã€å¹…å„ªå…ˆæ¢ç´¢ã®é–‹å§‹ã€‚
         BFS(choiceNumber);
 
-        Debug.Log($"K“¾‚·‚éƒXƒLƒ‹‚Í {string.Join(" ", _ansList)} ‚Ì {_ansList.Count} í‚Å‚·B");
+        Debug.Log($"ç¿’å¾—ã™ã‚‹ã‚¹ã‚­ãƒ«ã¯ {string.Join(" ", _ansList)} ã® {_ansList.Count} ç¨®ã§ã™ã€‚");
 
         foreach (var i in _ansList)
         {
             if (DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._selectSkill is AttackMagicSelect attackMagic)
                 _cost += attackMagic.SkillPoint;
-        }   //ƒf[ƒ^‚Ì—v‘f”‚©‚çƒXƒLƒ‹ƒf[ƒ^‚ğæ‚Á‚Ä‚«‚ÄAƒXƒLƒ‹ƒf[ƒ^‚ÌƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚ğ‡ŒvƒRƒXƒg‚É‰ÁZB
+        }   //ãƒ‡ãƒ¼ã‚¿ã®è¦ç´ æ•°ã‹ã‚‰ã‚¹ã‚­ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–ã£ã¦ãã¦ã€ã‚¹ã‚­ãƒ«ãƒ‡ãƒ¼ã‚¿ã®ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆã‚’åˆè¨ˆã‚³ã‚¹ãƒˆã«åŠ ç®—ã€‚
 
-        //ƒXƒLƒ‹‚Ìà–¾A‰½‚ÌƒXƒLƒ‹‚ğ‘I‘ğ‚µ‚Ä‚¢‚é‚©‚ğ•\¦‚µ‚ÄAŠm”F‰æ–Ê‚ğo‚·B
+        //ã‚¹ã‚­ãƒ«ã®èª¬æ˜ã€ä½•ã®ã‚¹ã‚­ãƒ«ã‚’é¸æŠã—ã¦ã„ã‚‹ã‹ã‚’è¡¨ç¤ºã—ã¦ã€ç¢ºèªç”»é¢ã‚’å‡ºã™ã€‚
         _tutorialText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[choiceNumber]._description;
-        _skillText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[choiceNumber]._skillName} ‚ğ‘I‘ğ’†";
+        _skillText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[choiceNumber]._skillName} ã‚’é¸æŠä¸­";
         _confirmation.SetActive(true);
-        _skillNameText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[_ansList[0]]._skillName}\n‚ğŠÜ‚Ş{_ansList.Count}í‚ÌƒXƒLƒ‹";
+        _skillNameText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[_ansList[0]]._skillName}\nã‚’å«ã‚€{_ansList.Count}ç¨®ã®ã‚¹ã‚­ãƒ«";
         _skillPointText.text = _cost.ToString();
     }
 
-    /// <summary>•—Dæ’Tõ‚Å‘k‚èƒŠƒXƒg‚ğg‚¢AªŠ²‚Ü‚Å‘k‚éB</summary>
+    /// <summary>å¹…å„ªå…ˆæ¢ç´¢ã§é¡ã‚Šãƒªã‚¹ãƒˆã‚’ä½¿ã„ã€æ ¹å¹¹ã¾ã§é¡ã‚‹ã€‚</summary>
     /// <param name="choiceNumber"></param>
     void BFS(int choiceNumber)
     {
@@ -178,20 +178,20 @@ public class TreeScript : MonoBehaviour
                 {
                     _ansList.Add(backSkillNumber);
                     queue.Enqueue(backSkillNumber);
-                }   //Šù‚ÉƒXƒLƒ‹‚ğK“¾‚µ‚Ä‚¢‚½‚çƒŠƒXƒg‚É’Ç‰Á‚µ‚È‚¢B
+                }   //æ—¢ã«ã‚¹ã‚­ãƒ«ã‚’ç¿’å¾—ã—ã¦ã„ãŸã‚‰ãƒªã‚¹ãƒˆã«è¿½åŠ ã—ãªã„ã€‚
             }
         }
     }
 
-    /// <summary>Šm”F‚ğó‚¯“ü‚ê‚½‚Ìˆ—B</summary>
+    /// <summary>ç¢ºèªã‚’å—ã‘å…¥ã‚ŒãŸæ™‚ã®å‡¦ç†ã€‚</summary>
     void YesConfirmation()
     {
         _confirmation.SetActive(false);
         if (_cost > _database.SkillPoint)
         {
-            Debug.Log("ƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚ª‘«‚è‚È‚¢‚Ì‚Åƒ|ƒCƒ“ƒg‚ğÁ”ï‚¹‚¸Aˆ—‚ğI—¹‚µ‚Ü‚·B");
+            Debug.Log("ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆãŒè¶³ã‚Šãªã„ã®ã§ãƒã‚¤ãƒ³ãƒˆã‚’æ¶ˆè²»ã›ãšã€å‡¦ç†ã‚’çµ‚äº†ã—ã¾ã™ã€‚");
             _falseComfimation.SetActive(true);
-        }   //ƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚ª‘«‚è‚È‚©‚Á‚½‚ç‘«‚è‚È‚¢‚Æ‚«‚ÌƒEƒBƒ“ƒhƒE‚ğo‚·B
+        }   //ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆãŒè¶³ã‚Šãªã‹ã£ãŸã‚‰è¶³ã‚Šãªã„ã¨ãã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’å‡ºã™ã€‚
         else
         {
             _database.GetSkillPoint(-_cost);
@@ -202,7 +202,7 @@ public class TreeScript : MonoBehaviour
                 _attackMagicTreeButtom[i].interactable = false;
             }
             _skillSet.SkillSet(DataBase.Instance._attackMagicbool, DataBase.Instance.AttackMagicSelectData);
-        }   //ƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚ª‚ ‚é‚È‚çA‡ŒvƒRƒXƒg•ªAƒ|ƒCƒ“ƒg‚ğÁ”ï‚µ‚ÄAæ“¾‚µ‚½ƒXƒLƒ‹‚Ìƒ{ƒ^ƒ“‚ğ‰Ÿ‚¹‚È‚­‚·‚éB
+        }   //ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆãŒã‚ã‚‹ãªã‚‰ã€åˆè¨ˆã‚³ã‚¹ãƒˆåˆ†ã€ãƒã‚¤ãƒ³ãƒˆã‚’æ¶ˆè²»ã—ã¦ã€å–å¾—ã—ãŸã‚¹ã‚­ãƒ«ã®ãƒœã‚¿ãƒ³ã‚’æŠ¼ã›ãªãã™ã‚‹ã€‚
         AnswerReset();
     }
 
@@ -216,14 +216,14 @@ public class TreeScript : MonoBehaviour
 
 
 
-    /// <summary>Šm”F‚ğó‚¯“ü‚ê‚È‚©‚Á‚½‚Ìˆ—</summary>
+    /// <summary>ç¢ºèªã‚’å—ã‘å…¥ã‚Œãªã‹ã£ãŸæ™‚ã®å‡¦ç†</summary>
     void NoConfirmation()
     {
         _confirmation.SetActive(false);
         AnswerReset();
     }
 
-    /// <summary>’Tõ‚µ‚½‚Ìˆ—‚ğ‰Šú‰»‚·‚éˆ—</summary>
+    /// <summary>æ¢ç´¢ã—ãŸæ™‚ã®å‡¦ç†ã‚’åˆæœŸåŒ–ã™ã‚‹å‡¦ç†</summary>
     void AnswerReset()
     {
         _answerbool = false;
@@ -231,16 +231,16 @@ public class TreeScript : MonoBehaviour
         _cost = 0;
     }
 
-    /// DFS—pƒXƒLƒ‹ƒcƒŠ[(Œ»İg‚í‚ê‚Ä‚¨‚è‚Ü‚¹‚ñ)
-    /// <summary>ƒXƒLƒ‹‚ª‘I‘ğ‚³‚ê‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éˆ—B</summary>
+    /// DFSç”¨ã‚¹ã‚­ãƒ«ãƒ„ãƒªãƒ¼(ç¾åœ¨ä½¿ã‚ã‚Œã¦ãŠã‚Šã¾ã›ã‚“)
+    /// <summary>ã‚¹ã‚­ãƒ«ãŒé¸æŠã•ã‚ŒãŸã¨ãã«å‘¼ã°ã‚Œã‚‹å‡¦ç†ã€‚</summary>
     /// <param name="end"></param>
     void DFSSkillTree(int end)
     {
-        Debug.Log($"{end}‚ª‘I‘ğ‚³‚ê‚Ü‚µ‚½B");
+        Debug.Log($"{end}ãŒé¸æŠã•ã‚Œã¾ã—ãŸã€‚");
         _ansList.Add(0);
-        //ƒŠƒXƒg‚ÉÅ‰‚Ì’¸“_‚ğ’Ç‰Á‚µ‚½ŒãA[‚³—Dæ’Tõ‚ÌŠJnB
+        //ãƒªã‚¹ãƒˆã«æœ€åˆã®é ‚ç‚¹ã‚’è¿½åŠ ã—ãŸå¾Œã€æ·±ã•å„ªå…ˆæ¢ç´¢ã®é–‹å§‹ã€‚
         DFS(0, end);
-        Debug.Log($"Œo˜H‚Í{string.Join("¨", _ansList)}‚Å‚·B");
+        Debug.Log($"çµŒè·¯ã¯{string.Join("â†’", _ansList)}ã§ã™ã€‚");
 
         foreach (var i in _ansList)
         {
@@ -249,31 +249,31 @@ public class TreeScript : MonoBehaviour
                 if (DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._selectSkill is AttackMagicSelect attackMagic)
                     _cost += attackMagic.SkillPoint;
             }
-        }   //ƒf[ƒ^‚Ì—v‘f”‚©‚çƒXƒLƒ‹ƒf[ƒ^‚ğæ‚Á‚Ä‚«‚ÄAƒXƒLƒ‹ƒf[ƒ^‚ÌƒXƒLƒ‹ƒ|ƒCƒ“ƒg‚ğ‡ŒvƒRƒXƒg‚É‰ÁZB
+        }   //ãƒ‡ãƒ¼ã‚¿ã®è¦ç´ æ•°ã‹ã‚‰ã‚¹ã‚­ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–ã£ã¦ãã¦ã€ã‚¹ã‚­ãƒ«ãƒ‡ãƒ¼ã‚¿ã®ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆã‚’åˆè¨ˆã‚³ã‚¹ãƒˆã«åŠ ç®—ã€‚
 
-        //ƒXƒLƒ‹‚Ìà–¾A‰½‚ÌƒXƒLƒ‹‚ğ‘I‘ğ‚µ‚Ä‚¢‚é‚©‚ğ•\¦‚µ‚ÄAŠm”F‰æ–Ê‚ğo‚·B
+        //ã‚¹ã‚­ãƒ«ã®èª¬æ˜ã€ä½•ã®ã‚¹ã‚­ãƒ«ã‚’é¸æŠã—ã¦ã„ã‚‹ã‹ã‚’è¡¨ç¤ºã—ã¦ã€ç¢ºèªç”»é¢ã‚’å‡ºã™ã€‚
         _tutorialText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[end]._description;
-        _skillText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[end]._skillName} ‚ğ‘I‘ğ’†";
+        _skillText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[end]._skillName} ã‚’é¸æŠä¸­";
         _confirmation.SetActive(true);
         _skillNameText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[_ansList[_ansList.Count - 1]]._skillName;
         _skillPointText.text = _cost.ToString();
     }
 
-    /// <summary>[‚³—Dæ’Tõ</summary>
-    /// <param name="start">Œ»İ‚Ì’¸“_</param>
-    /// <param name="end">ÅI’n“_</param>
+    /// <summary>æ·±ã•å„ªå…ˆæ¢ç´¢</summary>
+    /// <param name="start">ç¾åœ¨ã®é ‚ç‚¹</param>
+    /// <param name="end">æœ€çµ‚åœ°ç‚¹</param>
     void DFS(int start, int end)
     {
         if (start == end)
         {
             return;
-        }   //‚·‚Å‚ÉŒ»İ‚Ì’¸“_‚ªÅI’n“_‚È‚ç’TõI—¹B
+        }   //ã™ã§ã«ç¾åœ¨ã®é ‚ç‚¹ãŒæœ€çµ‚åœ°ç‚¹ãªã‚‰æ¢ç´¢çµ‚äº†ã€‚
         else
         {
-            //Œ»İ‚Ì’¸“_‚É—×Ú‚µ‚Ä‚¢‚é’¸“_‚ğ‡”Ô‚ÉŒ©‚Ä‚¢‚­B
+            //ç¾åœ¨ã®é ‚ç‚¹ã«éš£æ¥ã—ã¦ã„ã‚‹é ‚ç‚¹ã‚’é †ç•ªã«è¦‹ã¦ã„ãã€‚
             foreach (int i in _adjacentList[start])
             {
-                //—×Ú’¸“_‚ªƒŠƒXƒg‚ÉŠÜ‚ñ‚Å‚¢‚È‚¯‚ê‚ÎƒŠƒXƒg‚É’Ç‰ÁB
+                //éš£æ¥é ‚ç‚¹ãŒãƒªã‚¹ãƒˆã«å«ã‚“ã§ã„ãªã‘ã‚Œã°ãƒªã‚¹ãƒˆã«è¿½åŠ ã€‚
                 if (!_ansList.Contains(i))
                 {
                     _ansList.Add(i);
@@ -281,16 +281,16 @@ public class TreeScript : MonoBehaviour
                     {
                         _answerbool = true;
                         return;
-                    }   //—×Ú’¸“_‚ªÅI’n“_‚Ìê‡A’Tõ‚ğI—¹‚³‚¹‚éB
+                    }   //éš£æ¥é ‚ç‚¹ãŒæœ€çµ‚åœ°ç‚¹ã®å ´åˆã€æ¢ç´¢ã‚’çµ‚äº†ã•ã›ã‚‹ã€‚
                     else
                     {
                         DFS(i, end);
                         if (_answerbool) { return; }
-                    }   //ğŒ‚ğ–‚½‚µ‚Ä‚¢‚È‚¢ê‡A—×Ú’¸“_‚ğŒ»İ‚Ì’¸“_‚Æ‚µ‚ÄÄ‹A‚·‚éB
+                    }   //æ¡ä»¶ã‚’æº€ãŸã—ã¦ã„ãªã„å ´åˆã€éš£æ¥é ‚ç‚¹ã‚’ç¾åœ¨ã®é ‚ç‚¹ã¨ã—ã¦å†å¸°ã™ã‚‹ã€‚
                 }
             }
             _ansList.RemoveAt(_ansList.Count - 1);
-        }   //Œ»İ‚Ì’¸“_‚Ì’Tõ‚ªI‚í‚Á‚½‚çƒŠƒXƒg‚©‚çíœ‚·‚éB
+        }   //ç¾åœ¨ã®é ‚ç‚¹ã®æ¢ç´¢ãŒçµ‚ã‚ã£ãŸã‚‰ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤ã™ã‚‹ã€‚
     }
 
 }

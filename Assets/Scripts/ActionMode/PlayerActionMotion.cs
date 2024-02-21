@@ -1,4 +1,4 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,18 +6,18 @@ using UnityEngine;
 public class PlayerActionMotion : MonoBehaviour
 {
     Rigidbody _rb;
-    [Header("•¶š‚ÌUŒ‚ŠÖ˜A")]
+    [Header("æ–‡å­—ã®æ”»æ’ƒé–¢é€£")]
     [SerializeField] TextMesh _sideAttackText;
     [SerializeField] TextMesh _downAttackText;
     [SerializeField] float _sideAttackStopPoint = 100f;
     [SerializeField] float _sideAttackTime = 1f;
     [SerializeField] float _downAttackTime = 1f;
-    [Header("“G‚Ö‚ÌUŒ‚ŠÖ˜A")]
+    [Header("æ•µã¸ã®æ”»æ’ƒé–¢é€£")]
     [SerializeField] Transform _spownPos;
     [SerializeField] Rigidbody _ragdoll;
     [SerializeField] float _expPower = 10;
     [SerializeField] float _expUpPower = 10;
-    [Header("SkillPt‚ğ¶¬‚·‚éƒXƒNƒŠƒvƒg")]
+    [Header("SkillPtã‚’ç”Ÿæˆã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ")]
     [SerializeField] GetPtTextSpawn _textSpawnScripts;
 
     // Start is called before the first frame update
@@ -26,24 +26,24 @@ public class PlayerActionMotion : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    /// <summary>ƒvƒŒƒCƒ„[‚ÌUŒ‚ˆ—</summary>
-    /// <param name="skillName">ƒXƒLƒ‹‚Ì–¼‘O(‹ó”’‹æØ‚è)</param>
+    /// <summary>ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒå‡¦ç†</summary>
+    /// <param name="skillName">ã‚¹ã‚­ãƒ«ã®åå‰(ç©ºç™½åŒºåˆ‡ã‚Š)</param>
     /// <returns></returns>
     public IEnumerator ActionTime(string[] skillName)
     {
-        /// ƒTƒCƒhƒAƒ^ƒbƒN
-        // ƒXƒ|[ƒ“ˆ—
+        /// ã‚µã‚¤ãƒ‰ã‚¢ã‚¿ãƒƒã‚¯
+        // ã‚¹ãƒãƒ¼ãƒ³å‡¦ç†
         var sideAttack = Instantiate(_sideAttackText, _spownPos.position, transform.rotation);
         sideAttack.transform.SetParent(transform);
         sideAttack.text = skillName[skillName.Length - 1];
-        // ˆÚ“®ˆ—
+        // ç§»å‹•å‡¦ç†
         yield return sideAttack.transform.DOLocalMoveX(_sideAttackStopPoint, _sideAttackTime).WaitForCompletion();
-        // ƒTƒCƒhƒAƒ^ƒbƒN‚É“ü‚Á‚½“G‚ğæ‚Á‚Ä‚­‚éˆ—
+        // ã‚µã‚¤ãƒ‰ã‚¢ã‚¿ãƒƒã‚¯ã«å…¥ã£ãŸæ•µã‚’å–ã£ã¦ãã‚‹å‡¦ç†
         var deathEnemy = sideAttack.GetComponent<SideAttackScripts>().ReturnEnemy();
         sideAttack.GetComponent<Collider>().enabled = false;
         Destroy(sideAttack);
-        /// “G‚ğUŒ‚‚·‚éˆ—
-        //“G‚ğæ‚Á‚Ä‚±‚ê‚È‚©‚Á‚½‚ç‰½‚à‚µ‚È‚¢B
+        /// æ•µã‚’æ”»æ’ƒã™ã‚‹å‡¦ç†
+        //æ•µã‚’å–ã£ã¦ã“ã‚Œãªã‹ã£ãŸã‚‰ä½•ã‚‚ã—ãªã„ã€‚
         if (deathEnemy.Count != 0)
         {
             var downAttackList = new List<PlayShader>();
@@ -52,14 +52,14 @@ public class PlayerActionMotion : MonoBehaviour
                 var pos = deathEnemy[i].transform.position;
                 pos.y += 200;
                 var downAttack = Instantiate(_downAttackText, pos, Quaternion.identity);
-                //ƒXƒLƒ‹‚Ì–¼‘O‚Ìæ“ª‚ğ”½‰f
+                //ã‚¹ã‚­ãƒ«ã®åå‰ã®å…ˆé ­ã‚’åæ˜ 
                 downAttack.text = skillName[0] + "!!";
-                //ŒãXƒ_ƒEƒ“ƒAƒ^ƒbƒN‚ğ‚Ü‚Æ‚ß‚ÄDestroy‚·‚é‚½‚ß‚ÉAƒŠƒXƒg‚É’Ç‰Á‚µ‚Ä‚¨‚­B
+                //å¾Œã€…ãƒ€ã‚¦ãƒ³ã‚¢ã‚¿ãƒƒã‚¯ã‚’ã¾ã¨ã‚ã¦Destroyã™ã‚‹ãŸã‚ã«ã€ãƒªã‚¹ãƒˆã«è¿½åŠ ã—ã¦ãŠãã€‚
                 downAttackList.Add(downAttack.GetComponent<PlayShader>());
                 pos.y -= 180;
                 downAttack.transform.DOMove(pos, _downAttackTime);
-            }   // “G‚Ì“ªã‚ÉUŒ‚•¶š‚ğoŒ»‚³‚¹‚éB
-            //‘Ò‚Â
+            }   // æ•µã®é ­ä¸Šã«æ”»æ’ƒæ–‡å­—ã‚’å‡ºç¾ã•ã›ã‚‹ã€‚
+            //å¾…ã¤
             yield return new WaitForSeconds(_downAttackTime);
             for (var i = 0; i < deathEnemy.Count; i++)
             {
@@ -74,10 +74,10 @@ public class PlayerActionMotion : MonoBehaviour
                 {
                     ragdoll.AddExplosionForce(_expPower, pos, 10,
                         _expUpPower, ForceMode.Impulse);
-                }   //ƒ‰ƒOƒh[ƒ‹‚Ì‚Á”ò‚Î‚µ(¡‰ñ‚Í‚ ‚Ü‚è‰e‹¿‚È‚µ)
-                // SkillPtŠl“¾‚ÆText‚Ì•\¦
+                }   //ãƒ©ã‚°ãƒ‰ãƒ¼ãƒ«ã®å¹ã£é£›ã°ã—(ä»Šå›ã¯ã‚ã¾ã‚Šå½±éŸ¿ãªã—)
+                // SkillPtç²å¾—ã¨Textã®è¡¨ç¤º
                 _textSpawnScripts.GetPtText(deathEnemy[i].GetPoint(), transform.position);
-            }   //UŒ‚‚Ì•¶š‚Å“G‚ğ“|‚·(‚æ‚¤‚ÉŒ©‚¹‚é)B
+            }   //æ”»æ’ƒã®æ–‡å­—ã§æ•µã‚’å€’ã™(ã‚ˆã†ã«è¦‹ã›ã‚‹)ã€‚
             yield return new WaitForSeconds(_sideAttackTime);
             foreach (var downAttack in downAttackList) { Destroy(downAttack.gameObject); }
         }

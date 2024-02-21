@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,28 +6,28 @@ using UnityEngine.UI;
 
 public class BlockPlayer : StatusClass
 {
-    [Tooltip("BlockPlayer‚ÌˆÚ“®êŠ")]
+    [Tooltip("BlockPlayerã®ç§»å‹•å ´æ‰€")]
     [SerializeField]
     Transform[] _trans;
-    [Tooltip("ƒQ[ƒWƒAƒ^ƒbƒN‚Ì’l")]
+    [Tooltip("ã‚²ãƒ¼ã‚¸ã‚¢ã‚¿ãƒƒã‚¯ã®å€¤")]
     [SerializeField]
     float _guageAttack = 0;
-    [Tooltip("ƒfƒBƒtƒFƒ“ƒXE‚Ìó‘Ô"),SerializeField]
+    [Tooltip("ãƒ‡ã‚£ãƒ•ã‚§ãƒ³ã‚¹è·ã®çŠ¶æ…‹"),SerializeField]
     BlockState _conditionState = BlockState.Attack;
     public BlockState Condition => _conditionState;
-    [Tooltip("ˆÚ“®‚ÌÛ~‚Ü‚é—Í")]
+    [Tooltip("ç§»å‹•ã®éš›æ­¢ã¾ã‚‹åŠ›")]
     float _stopdis = 0.1f;
-    [Tooltip("ˆÚ“®ƒXƒs[ƒh")]
+    [Tooltip("ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰")]
     float _speed = 6f;
-    [Tooltip("Block‚ÌÛAƒRƒ‹[ƒ`ƒ“‚ğ“KØ‚É“®‚©‚·‚½‚ß‚Ìbool")]
+    [Tooltip("Blockã®éš›ã€ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’é©åˆ‡ã«å‹•ã‹ã™ãŸã‚ã®bool")]
     bool _blockTime;
-    [Tooltip("Attack‚ÌÛAƒRƒ‹[ƒ`ƒ“‚ğ“KØ‚É“®‚©‚·‚½‚ß‚Ìbool")]
+    [Tooltip("Attackã®éš›ã€ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’é©åˆ‡ã«å‹•ã‹ã™ãŸã‚ã®bool")]
     bool _attackTime;
-    [Tooltip("Counter‚ÌÛAƒRƒ‹[ƒ`ƒ“‚ğ“KØ‚É“®‚©‚·‚½‚ß‚Ìbool")]
+    [Tooltip("Counterã®éš›ã€ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’é©åˆ‡ã«å‹•ã‹ã™ãŸã‚ã®bool")]
     bool _counterTime;
-    [Tooltip("CoolTime‚ÌÛAƒRƒ‹[ƒ`ƒ“‚ğ“KØ‚É“®‚©‚·‚½‚ß‚Ìbool")]
+    [Tooltip("CoolTimeã®éš›ã€ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’é©åˆ‡ã«å‹•ã‹ã™ãŸã‚ã®bool")]
     bool _coolTimebool;
-    [Tooltip("ó‘Ô‚ÌƒeƒLƒXƒg")]
+    [Tooltip("çŠ¶æ…‹ã®ãƒ†ã‚­ã‚¹ãƒˆ")]
     [SerializeField] Text _enumtext;
     [SerializeField] GameObject _blockObj;
     [SerializeField] GetOutScripts _getOutPrefab;
@@ -53,7 +53,7 @@ public class BlockPlayer : StatusClass
         {
             if (FightManager.Instance.BattleState == BattleState.RPGBattle)
             {
-                //Qƒ{ƒ^ƒ“‚Å¶‚ÉˆÚ“®‚µ‚Ä¶‚ÌƒLƒƒƒ‰‚Ö‚ÌUŒ‚‚ğç‚éó‘Ô‚É‚È‚éB
+                //Qãƒœã‚¿ãƒ³ã§å·¦ã«ç§»å‹•ã—ã¦å·¦ã®ã‚­ãƒ£ãƒ©ã¸ã®æ”»æ’ƒã‚’å®ˆã‚‹çŠ¶æ…‹ã«ãªã‚‹ã€‚
                 if (Input.GetButton("BlockLeft") &&
                     (_conditionState == BlockState.Attack ||
                     _conditionState == BlockState.CoolLeftCounter ||
@@ -61,7 +61,7 @@ public class BlockPlayer : StatusClass
                 {
                     CoolCounter(1, BlockState.CoolLeftCounter);
                 }
-                //Eƒ{ƒ^ƒ“‚Å‰E‚ÉˆÚ“®‚µ‚Äó‘Ô‚ª¶‚ÌƒLƒƒƒ‰‚Ö‚ÌUŒ‚‚ğç‚éó‘Ô‚É‚È‚éB
+                //Eãƒœã‚¿ãƒ³ã§å³ã«ç§»å‹•ã—ã¦çŠ¶æ…‹ãŒå·¦ã®ã‚­ãƒ£ãƒ©ã¸ã®æ”»æ’ƒã‚’å®ˆã‚‹çŠ¶æ…‹ã«ãªã‚‹ã€‚
                 else if (Input.GetButton("BlockRight") &&
                     (_conditionState == BlockState.Attack ||
                     _conditionState == BlockState.CoolRightCounter ||
@@ -69,7 +69,7 @@ public class BlockPlayer : StatusClass
                 {
                     CoolCounter(2, BlockState.CoolRightCounter);
                 }
-                //ƒjƒ…[ƒgƒ‰ƒ‹‚ÅƒJƒEƒ“ƒ^[ó‘Ô‚¶‚á‚È‚¢ŒÀ‚èA^‚ñ’†‚ÉˆÚ“®‚µ‚Äó‘Ô‚ªAttack‚É‚È‚éB
+                //ãƒ‹ãƒ¥ãƒ¼ãƒˆãƒ©ãƒ«ã§ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼çŠ¶æ…‹ã˜ã‚ƒãªã„é™ã‚Šã€çœŸã‚“ä¸­ã«ç§»å‹•ã—ã¦çŠ¶æ…‹ãŒAttackã«ãªã‚‹ã€‚
                 else if (_conditionState == BlockState.LeftBlock ||
                     _conditionState == BlockState.RightBlock)
                 {
@@ -80,7 +80,7 @@ public class BlockPlayer : StatusClass
                     }
                 }
 
-                //CoolLeftCounter‚©CoolRightCounter‚ÉÀs
+                //CoolLeftCounterã‹CoolRightCounteræ™‚ã«å®Ÿè¡Œ
                 if (_conditionState == BlockState.CoolLeftCounter ||
                     _conditionState == BlockState.CoolRightCounter)
                 {
@@ -91,7 +91,7 @@ public class BlockPlayer : StatusClass
                     }
                 }
 
-                //LeftBlock‚©RightBlock‚Ì‚ÉÀs
+                //LeftBlockã‹RightBlockã®æ™‚ã«å®Ÿè¡Œ
                 if (_conditionState == BlockState.LeftBlock ||
                     _conditionState == BlockState.RightBlock)
                 {
@@ -102,14 +102,14 @@ public class BlockPlayer : StatusClass
                     }
                 }
 
-                //Attack‚Ì‚ÉÀs
+                //Attackã®æ™‚ã«å®Ÿè¡Œ
                 if (_conditionState == BlockState.Attack)
                 {
-                    //ƒ`ƒƒ[ƒW‚ª100ˆÈã‚É‚È‚Á‚½‚çó‘Ô‚ğƒ`ƒƒ[ƒWƒAƒ^ƒbƒN‚É•Ï‚¦‚éB
+                    //ãƒãƒ£ãƒ¼ã‚¸ãŒ100ä»¥ä¸Šã«ãªã£ãŸã‚‰çŠ¶æ…‹ã‚’ãƒãƒ£ãƒ¼ã‚¸ã‚¢ã‚¿ãƒƒã‚¯ã«å¤‰ãˆã‚‹ã€‚
                     if (_guageAttack >= 100)
                     {
                         _conditionState = BlockState.ChageAttack;
-                        ShowText("ƒ`ƒƒ[ƒWƒAƒ^ƒbƒN");
+                        ShowText("ãƒãƒ£ãƒ¼ã‚¸ã‚¢ã‚¿ãƒƒã‚¯");
                     }
                     else if (!_attackTime)
                     {
@@ -117,7 +117,7 @@ public class BlockPlayer : StatusClass
                         StartCoroutine(AttackTime());
                     }
                 }
-                //ChageAttack‚Ì‚ÉÀs
+                //ChageAttackã®æ™‚ã«å®Ÿè¡Œ
                 if (_conditionState == BlockState.ChageAttack)
                 {
                     StartCoroutine(AttackTime());
@@ -144,14 +144,14 @@ public class BlockPlayer : StatusClass
         }
     }
 
-    /// <summary>ƒeƒLƒXƒg‚ÌXV‚Ìˆ—</summary>
+    /// <summary>ãƒ†ã‚­ã‚¹ãƒˆã®æ›´æ–°ã®å‡¦ç†</summary>
     /// <param name="str"></param>
     void ShowText(string str)
     {
         _enumtext.text = str;
     }
 
-    /// <summary>ActionMode‚É‚È‚Á‚½ÛA—£’E‚·‚éˆ—</summary>
+    /// <summary>ActionModeã«ãªã£ãŸéš›ã€é›¢è„±ã™ã‚‹å‡¦ç†</summary>
     public override void ActionMode()
     {
         _getOutObj = Instantiate(_getOutPrefab, transform.position, transform.rotation);
@@ -174,10 +174,10 @@ public class BlockPlayer : StatusClass
         Destroy(_getOutObj.gameObject);
         FightManager.Instance.StartRPG();
         _statusCanvas.enabled = true;
-        ShowText("‘Ò‚½‚¹‚½‚ÈI");
+        ShowText("å¾…ãŸã›ãŸãªï¼");
     }
 
-    /// <summary>ƒuƒƒbƒN‚ğ‚µ‚Ä‚¢‚éÛ‚ÌƒRƒ‹[ƒ`ƒ“</summary>
+    /// <summary>ãƒ–ãƒ­ãƒƒã‚¯ã‚’ã—ã¦ã„ã‚‹éš›ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³</summary>
     /// <returns></returns>
     IEnumerator BlockTime()
     {
@@ -198,7 +198,7 @@ public class BlockPlayer : StatusClass
         _blockTime = false;
     }
 
-    /// <summary>ƒAƒ^ƒbƒN‚ğ‚µ‚Ä‚¢‚éÛ‚ÌƒRƒ‹[ƒ`ƒ“</summary>
+    /// <summary>ã‚¢ã‚¿ãƒƒã‚¯ã‚’ã—ã¦ã„ã‚‹éš›ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³</summary>
     /// <returns></returns>
     IEnumerator AttackTime()
     {
@@ -217,7 +217,7 @@ public class BlockPlayer : StatusClass
             }
             else if(_conditionState == BlockState.ChageAttack)
             {
-                //ƒ`ƒƒ[ƒWƒAƒ^ƒbƒN‚ğ‚µ‚½ŒãAƒQ[ƒW‚ğ‚O‚É‚µ‚ÄAAttackó‘Ô‚É–ß‚éB
+                //ãƒãƒ£ãƒ¼ã‚¸ã‚¢ã‚¿ãƒƒã‚¯ã‚’ã—ãŸå¾Œã€ã‚²ãƒ¼ã‚¸ã‚’ï¼ã«ã—ã¦ã€AttackçŠ¶æ…‹ã«æˆ»ã‚‹ã€‚
                 var set = DataBase.BlockSkillSelectData.SkillInfomation[DataBase._blockSkillSetNo[1]];
                 Debug.Log(set._skillName);
                 if (set._selectSkill is BlockSkillSelect blockSkill)
@@ -229,9 +229,9 @@ public class BlockPlayer : StatusClass
         _attackTime = false;
     }
 
-    /// <summary>ƒuƒƒbƒN‚©‚çƒAƒ^ƒbƒN‚ÉØ‚è‘Ö‚í‚é‚Æ‚«‚Ìó‘Ô•Ï‰»</summary>
-    /// <param name="i">”z—ñ‚Ì—v‘f”</param>
-    /// <param name="state">ó‘Ô•Ï‰»</param>
+    /// <summary>ãƒ–ãƒ­ãƒƒã‚¯ã‹ã‚‰ã‚¢ã‚¿ãƒƒã‚¯ã«åˆ‡ã‚Šæ›¿ã‚ã‚‹ã¨ãã®çŠ¶æ…‹å¤‰åŒ–</summary>
+    /// <param name="i">é…åˆ—ã®è¦ç´ æ•°</param>
+    /// <param name="state">çŠ¶æ…‹å¤‰åŒ–</param>
     void CoolTime(BlockState state = BlockState.LeftBlock)
     {
         if (_conditionState != BlockState.ChageAttack && FightManager.Instance.BattleState == BattleState.RPGBattle)
@@ -240,7 +240,7 @@ public class BlockPlayer : StatusClass
         }
     }
 
-    /// <summary>Block‚©‚çAttack‚ÉØ‚è‘Ö‚í‚é‚Ü‚Å‚ÌƒN[ƒ‹ƒ^ƒCƒ€‚ğ‘‚¢‚½ƒRƒ‹[ƒ`ƒ“</summary>
+    /// <summary>Blockã‹ã‚‰Attackã«åˆ‡ã‚Šæ›¿ã‚ã‚‹ã¾ã§ã®ã‚¯ãƒ¼ãƒ«ã‚¿ã‚¤ãƒ ã‚’æ›¸ã„ãŸã‚³ãƒ«ãƒ¼ãƒãƒ³</summary>
     /// <returns></returns>
     IEnumerator CoolTimeCoroutine()
     {
@@ -252,11 +252,11 @@ public class BlockPlayer : StatusClass
         {
             _conditionState = BlockState.Attack;
         }
-        ShowText("CoolTimeI—¹");
+        ShowText("CoolTimeçµ‚äº†");
         _coolTimebool = false;
     }
 
-    /// <summary>ƒJƒEƒ“ƒ^[‘Ò‹@‚É‚·‚é‚½‚ß‚Ìˆ—</summary>
+    /// <summary>ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼å¾…æ©Ÿã«ã™ã‚‹ãŸã‚ã®å‡¦ç†</summary>
     /// <param name="i"></param>
     /// <param name="counter"></param>
     void CoolCounter(int i = 1,BlockState counter = BlockState.CoolLeftCounter)
@@ -265,11 +265,11 @@ public class BlockPlayer : StatusClass
         {
             _conditionState = counter;
             transform.position = _trans[i].position;
-            ShowText("ƒJƒEƒ“ƒ^[€”õ");
+            ShowText("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼æº–å‚™");
         }
     }
 
-    /// <summary>ƒJƒEƒ“ƒ^[‚ª¬Œ÷‚µ‚½‚Æ‚«‚Ìˆ—</summary>
+    /// <summary>ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ãŒæˆåŠŸã—ãŸã¨ãã®å‡¦ç†</summary>
     public void TrueCounter()
     {
         if (_conditionState == BlockState.CoolLeftCounter || 
@@ -281,17 +281,17 @@ public class BlockPlayer : StatusClass
         }
     }
 
-    /// <summary>ƒJƒEƒ“ƒ^[‚ª¬Œ÷‚µ‚½‚Æ‚«‚Ìˆ—‚©‚çŒÄ‚Î‚ê‚éƒRƒ‹[ƒ`ƒ“</summary>
+    /// <summary>ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ãŒæˆåŠŸã—ãŸã¨ãã®å‡¦ç†ã‹ã‚‰å‘¼ã°ã‚Œã‚‹ã‚³ãƒ«ãƒ¼ãƒãƒ³</summary>
     /// <param name="tmp"></param>
     /// <returns></returns>
     IEnumerator TrueCounrerTime(BlockState tmp)
     {
-        //ƒJƒEƒ“ƒ^[‚Ìˆ—//
-        Debug.Log("ƒJƒEƒ“ƒ^[I");
-        _enumtext.text = "ƒJƒEƒ“ƒ^[I";
+        //ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã®å‡¦ç†//
+        Debug.Log("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ï¼");
+        _enumtext.text = "ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ï¼";
         _enemy.AddDamage(Attack,2);
         _guageAttack += 10;
-        //I‚í‚è//
+        //çµ‚ã‚ã‚Š//
         yield return new WaitForSeconds(2f);
         _blockTime = false;
         if (_survive != Survive.Death)
@@ -307,7 +307,7 @@ public class BlockPlayer : StatusClass
         }
     }
 
-    /// <summary>ƒJƒEƒ“ƒ^[‘Ò‹@ŠÔAƒJƒEƒ“ƒ^[¸”s‚µ‚½‚Æ‚«‚ÌƒRƒ‹[ƒ`ƒ“</summary>
+    /// <summary>ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼å¾…æ©Ÿæ™‚é–“ã€ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼å¤±æ•—ã—ãŸã¨ãã®ã‚³ãƒ«ãƒ¼ãƒãƒ³</summary>
     /// <returns></returns>
     IEnumerator CoolCounterTime()
     {
@@ -317,7 +317,7 @@ public class BlockPlayer : StatusClass
             if (_conditionState == BlockState.CoolLeftCounter ||
                 _conditionState == BlockState.CoolRightCounter)
             {
-                Debug.Log("ƒJƒEƒ“ƒ^[¸”sA–hŒä‘Ô¨‚ÖˆÚs");
+                Debug.Log("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼å¤±æ•—ã€é˜²å¾¡æ…‹å‹¢ã¸ç§»è¡Œ");
                 _blockTime = false;
                 if (_conditionState == BlockState.CoolLeftCounter)
                 {
@@ -334,31 +334,31 @@ public class BlockPlayer : StatusClass
         _counterTime = false;
     }
 
-    /// <summary>€‚ñ‚¾‚Æ‚«‚Ìˆ—</summary>
+    /// <summary>æ­»ã‚“ã ã¨ãã®å‡¦ç†</summary>
     void Death()
     {
         _blockObj.transform.Rotate(90f, 0f, 0f);
-        ShowText("‰´‚Í€‚ñ‚¾‚º™");
+        ShowText("ä¿ºã¯æ­»ã‚“ã ãœâ˜†");
     }
 
-    /// <summary>BlockPlayer‚Ìó‘Ô</summary>
+    /// <summary>BlockPlayerã®çŠ¶æ…‹</summary>
     public enum BlockState
     {
-        [Tooltip("ˆÚ“®‚µ‚Ä‚¢‚éŠÔ‚ÌCoolTime")]
+        [Tooltip("ç§»å‹•ã—ã¦ã„ã‚‹é–“ã®CoolTime")]
         CoolTime,
-        [Tooltip("¶•ûŒü‚ÌƒK[ƒh")]
+        [Tooltip("å·¦æ–¹å‘ã®ã‚¬ãƒ¼ãƒ‰")]
         LeftBlock,
-        [Tooltip("¶•ûŒü‚ÌƒJƒEƒ“ƒ^[‘Ò‹@")]
+        [Tooltip("å·¦æ–¹å‘ã®ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼å¾…æ©Ÿ")]
         CoolLeftCounter,
-        [Tooltip("‰E•ûŒü‚ÌƒK[ƒh")]
+        [Tooltip("å³æ–¹å‘ã®ã‚¬ãƒ¼ãƒ‰")]
         RightBlock,
-        [Tooltip("‰E•ûŒü‚ÌƒJƒEƒ“ƒ^[‘Ò‹@")]
+        [Tooltip("å³æ–¹å‘ã®ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼å¾…æ©Ÿ")]
         CoolRightCounter,
-        [Tooltip("ƒJƒEƒ“ƒ^[")]
+        [Tooltip("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼")]
         Counter,
-        [Tooltip("UŒ‚")]
+        [Tooltip("æ”»æ’ƒ")]
         Attack,
-        [Tooltip("ƒ`ƒƒ[ƒWUŒ‚")]
+        [Tooltip("ãƒãƒ£ãƒ¼ã‚¸æ”»æ’ƒ")]
         ChageAttack,
     }
 }

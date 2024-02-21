@@ -1,4 +1,4 @@
-using Cinemachine;
+ï»¿using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
@@ -16,10 +16,10 @@ public class ChangeGanreMode : MonoBehaviour
         foreach (var enemy in enemys)
         {
             enemy.Init();
-        }   //Init‚Åenemy‚Ì•¨—‰‰ZA’e–‹‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚éB
-        //RPGƒtƒƒA‚Ìê‡RPG‚Ìenemy‚Ì•¨—‰‰Z‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚éB
+        }   //Initã§enemyã®ç‰©ç†æ¼”ç®—ã€å¼¾å¹•ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
+        //RPGãƒ•ãƒ­ã‚¢ã®å ´åˆRPGã®enemyã®ç‰©ç†æ¼”ç®—ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
         if (_rpgEnemy != null) { _rpgEnemy.isKinematic = true; }
-        //‰ŠúƒtƒƒA‚Ìê‡AChangeMode()‚Å‘ÎÛ‚Ì“G‚ğ—LŒø‰»‚·‚éB
+        //åˆæœŸãƒ•ãƒ­ã‚¢ã®å ´åˆã€ChangeMode()ã§å¯¾è±¡ã®æ•µã‚’æœ‰åŠ¹åŒ–ã™ã‚‹ã€‚
         if (_initialStage) 
         {
             ChangeMode(); 
@@ -34,7 +34,7 @@ public class ChangeGanreMode : MonoBehaviour
             {
                 player.ChangeGanre(_changeGanreState);
                 StartCoroutine(StartMode());
-            }   // ƒWƒƒƒ“ƒ‹‚ğ•Ï‚¦‚éB
+            }   // ã‚¸ãƒ£ãƒ³ãƒ«ã‚’å¤‰ãˆã‚‹ã€‚
             else
             {
                 ChangeMode();
@@ -47,24 +47,24 @@ public class ChangeGanreMode : MonoBehaviour
         if (other.TryGetComponent<PlayerController>(out var player))
         {
             ChangeMode();
-        }   //ƒtƒƒA‚Ì”²‚¯‚½ÛA‘ÎÛ‚Ì“G‚Ì•¨—‰‰Z‚â’e–‹‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚éB
+        }   //ãƒ•ãƒ­ã‚¢ã®æŠœã‘ãŸéš›ã€å¯¾è±¡ã®æ•µã®ç‰©ç†æ¼”ç®—ã‚„å¼¾å¹•ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
     }
 
-    /// <summary>ƒWƒƒƒ“ƒ‹‚ğ•Ï‚¦‚éÛ‚Ìˆ—</summary>
+    /// <summary>ã‚¸ãƒ£ãƒ³ãƒ«ã‚’å¤‰ãˆã‚‹éš›ã®å‡¦ç†</summary>
     /// <returns></returns>
     IEnumerator StartMode()
     {
-        //ƒ|[ƒYŠJn
+        //ãƒãƒ¼ã‚ºé–‹å§‹
         PauseManager.PauseResume();
-        //UI‚ğw’è‚µ‚½ƒWƒƒƒ“ƒ‹‚É‚·‚é
+        //UIã‚’æŒ‡å®šã—ãŸã‚¸ãƒ£ãƒ³ãƒ«ã«ã™ã‚‹
         yield return StartCoroutine(_changeUI.ChangeGenre((int)_changeGanreState));
-        //ƒ|[ƒY‰ğœ
+        //ãƒãƒ¼ã‚ºè§£é™¤
         PauseManager.PauseResume();
-        //•¨—‰‰ZA’e–‹‚ğƒAƒNƒeƒBƒu‚É‚·‚éB
+        //ç‰©ç†æ¼”ç®—ã€å¼¾å¹•ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
         ChangeMode();
     }
 
-    /// <summary>•¨—‰‰ZA’e–‹‚ÌƒAƒNƒeƒBƒuA”ñƒAƒNƒeƒBƒu‚ğØ‚è‘Ö‚¦‚éƒƒ\ƒbƒh</summary>
+    /// <summary>ç‰©ç†æ¼”ç®—ã€å¼¾å¹•ã®ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã€éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ãƒ¡ã‚½ãƒƒãƒ‰</summary>
     void ChangeMode()
     {
         if (_changeGanreState == ChangeGanreState.Action)
@@ -74,11 +74,11 @@ public class ChangeGanreMode : MonoBehaviour
             {
                 enemy.ChangeAttackTime();
             }
-        }   //Action‚Ìê‡A•¨—‰‰ZA’e–‹‚ğƒAƒNƒeƒBƒuA”ñƒAƒNƒeƒBƒu‚É‚·‚éB
+        }   //Actionã®å ´åˆã€ç‰©ç†æ¼”ç®—ã€å¼¾å¹•ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã€éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
         else
         {
             _actionCinemachine.enabled = false;
             _rpgEnemy.isKinematic = !_rpgEnemy.isKinematic;
-        }   //RPG‚Ìê‡A•¨—‰‰Z‚ğƒAƒNƒeƒBƒuA”ñƒAƒNƒeƒBƒu‚É‚·‚éB
+        }   //RPGã®å ´åˆã€ç‰©ç†æ¼”ç®—ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã€éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
     }
 }

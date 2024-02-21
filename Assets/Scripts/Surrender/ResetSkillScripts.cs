@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+ï»¿using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,7 +52,7 @@ public class ResetSkillScripts : MonoBehaviour
         _menuCostText.text = _cost.ToString();
     }
 
-    /// <summary>ƒXƒLƒ‹K“¾ó‹µ‚ğƒŠƒZƒbƒg‚·‚é‚Æ‚«ˆ—(Œ»İAttackMagic‚Ì‚İ‚Ìˆ—)</summary>
+    /// <summary>ã‚¹ã‚­ãƒ«ç¿’å¾—çŠ¶æ³ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã¨ãå‡¦ç†(ç¾åœ¨AttackMagicã®ã¿ã®å‡¦ç†)</summary>
     public void YesReset()
     {
         _resetComfimation.SetActive(false);

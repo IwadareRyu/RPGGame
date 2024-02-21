@@ -1,25 +1,25 @@
-/// <summary>’e‚Ì“®‚«‚ÌState</summary>
+ï»¿/// <summary>å¼¾ã®å‹•ãã®State</summary>
 public enum BulletState
 {
-    //‚Ü‚Á‚·‚®”ò‚Ô’e
+    //ã¾ã£ã™ãé£›ã¶å¼¾
     ForwardMove,
 
-    //‰ñ“]‚·‚é‹…
+    //å›žè»¢ã™ã‚‹çƒ
     RotationMove,
 
-    //­‚µ‰ñ“]‚µ‚½ŒãA‚Ü‚Á‚·‚®”ò‚Ô’eB
+    //å°‘ã—å›žè»¢ã—ãŸå¾Œã€ã¾ã£ã™ãé£›ã¶å¼¾ã€‚
     HalfRotationMove,
 }
 
-/// <summary>’e‚Ì¶¬•û–@‚ÌState</summary>
+/// <summary>å¼¾ã®ç”Ÿæˆæ–¹æ³•ã®State</summary>
 public enum SpawnState
 {
-    //Œü‚¢‚Ä‚¢‚é•ûŒü‚Ì‚ÝB
+    //å‘ã„ã¦ã„ã‚‹æ–¹å‘ã®ã¿ã€‚
     Forward,
     
-    //ˆê“x‚É360“x’e‚ðo‚·B
+    //ä¸€åº¦ã«360åº¦å¼¾ã‚’å‡ºã™ã€‚
     Circle,
     
-    //ˆê‚Â‚¸‚Â360“x’e‚ðo‚·B
+    //ä¸€ã¤ãšã¤360åº¦å¼¾ã‚’å‡ºã™ã€‚
     DelayCircle,
 }

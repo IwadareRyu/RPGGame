@@ -1,4 +1,4 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,17 +6,17 @@ using UnityEngine.UI;
 
 public class GetPtTextSpawn : MonoBehaviour
 {
-    [Header("TextMeshPro‚ªq‚É‚¢‚éWorldCanvas")]
+    [Header("TextMeshProãŒå­ã«ã„ã‚‹WorldCanvas")]
     [SerializeField] Canvas _ptTextCanvasPrefab;
-    [Header("Instantiate‚µ‚½Û‚Ì•¨‚Ì‚‚³‚Ì·")]
+    [Header("Instantiateã—ãŸéš›ã®ç‰©ã®é«˜ã•ã®å·®")]
     [SerializeField] float _insDifference = 1f;
-    [Header("ƒeƒLƒXƒg‚Ìy•ûŒü‚Ö‚ÌˆÚ“®‚ÌI“_‚Æn“_‚Ì·")]
+    [Header("ãƒ†ã‚­ã‚¹ãƒˆã®yæ–¹å‘ã¸ã®ç§»å‹•ã®çµ‚ç‚¹ã¨å§‹ç‚¹ã®å·®")]
     [SerializeField] float _moveUpDifference = 0.5f;
     [SerializeField] float _fadeTime = 3f;
     [SerializeField] float _destroyTime = 5f;
     [SerializeField] bool _targetCamera = true;
 
-    /// <summary>ƒeƒLƒXƒg‚Ì¶¬A•\¦ˆ—</summary>
+    /// <summary>ãƒ†ã‚­ã‚¹ãƒˆã®ç”Ÿæˆã€è¡¨ç¤ºå‡¦ç†</summary>
     /// <param name="moneyCount"></param>
     /// <param name="enemyTransform"></param>
     public void GetPtText(int moneyCount, Vector3 enemyTransform)
@@ -39,16 +39,16 @@ public class GetPtTextSpawn : MonoBehaviour
                 rota.y += 180f;
                 textCanvas.transform.rotation = rota;
             }
-            //ƒ|ƒCƒ“ƒg+-ŠÔ‚Å‚ÌF•Ï‚¦ˆ—
+            //ãƒã‚¤ãƒ³ãƒˆ+-é–“ã§ã®è‰²å¤‰ãˆå‡¦ç†
             ColorChangeText(ptText, moneyCount);
-            //ƒeƒLƒXƒg‚ğã‚Éã¸‚³‚¹‚éˆ—
+            //ãƒ†ã‚­ã‚¹ãƒˆã‚’ä¸Šã«ä¸Šæ˜‡ã•ã›ã‚‹å‡¦ç†
             TextMove(ptText, moneyCount, enemyTransform);
-            //ƒeƒLƒXƒgÁ‚·ˆ—
+            //ãƒ†ã‚­ã‚¹ãƒˆæ¶ˆã™å‡¦ç†
             Destroy(textCanvas.gameObject, _destroyTime);
         }
     }
 
-    /// <summary>ƒ|ƒCƒ“ƒg+-ŠÔ‚É‰‚¶‚½ƒeƒLƒXƒg‚ÌF•Ï‚¦ˆ—</summary>
+    /// <summary>ãƒã‚¤ãƒ³ãƒˆ+-é–“ã«å¿œã˜ãŸãƒ†ã‚­ã‚¹ãƒˆã®è‰²å¤‰ãˆå‡¦ç†</summary>
     /// <param name="moneyText"></param>
     /// <param name="moneyCount"></param>
     void ColorChangeText(Text moneyText, int moneyCount)
@@ -56,13 +56,13 @@ public class GetPtTextSpawn : MonoBehaviour
         moneyText.color = moneyCount >= 0 ? Color.yellow : Color.red;
     }
 
-    /// <summary>ƒeƒLƒXƒgã¸ˆ—</summary>
+    /// <summary>ãƒ†ã‚­ã‚¹ãƒˆä¸Šæ˜‡å‡¦ç†</summary>
     /// <param name="moneyText"></param>
     /// <param name="moneyCount"></param>
     /// <param name="custmerTransform"></param>
     void TextMove(Text moneyText, int moneyCount, Vector3 custmerTransform)
     {
-        //+‚©-‚Å•\¦‚·‚éƒeƒLƒXƒg‚Ì“à—e‚ğ•Ï‚¦‚éO€‰‰ZqB
+        //+ã‹-ã§è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆã®å†…å®¹ã‚’å¤‰ãˆã‚‹ä¸‰é …æ¼”ç®—å­ã€‚
         moneyText.text = moneyCount >= 0 ? $"+{moneyCount}SPt" : $"-{Mathf.Abs(moneyCount)}SPt";
         var fadeSeq = DOTween.Sequence();
         fadeSeq.Append(moneyText.DOFade(0f,_fadeTime))

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MasterData;
@@ -38,7 +38,7 @@ public class SkillUploader : MonoBehaviour
         {
             UnityWebRequest request = UnityWebRequest.Get($"{url}?sheet=");
             yield return request.SendWebRequest();
-            Debug.Log("�󂯎�芮��");
+            Debug.Log("受け取り完了");
             string s = request.downloadHandler.text;
             Debug.Log(s);
             MasterDataClass<Skill> data = JsonUtility.FromJson<MasterDataClass<Skill>>(s);
