@@ -35,9 +35,11 @@ public class BlockPlayer : StatusClass
     [SerializeField] Transform _getInPos;
     [SerializeField] Animator _blockAnim;
     [SerializeField] Canvas _statusCanvas;
+    DataBase _dataBase;
 
     void Start()
     {
+        _dataBase = DataBase.Instance;
         _enemy = GameObject.FindGameObjectWithTag("RPGEnemy")?.GetComponent<EnemyController>();
         SetStatus();
         ShowSlider();
@@ -207,7 +209,7 @@ public class BlockPlayer : StatusClass
         {
             if (_conditionState == BlockState.Attack)
             {
-                var set = DataBase.BlockSkillSelectData.SkillInfomation[DataBase._blockSkillSetNo[0]];
+                var set = _dataBase.BlockSkillSelectData.SkillInfomation[_dataBase._blockSkillSetNo[0]];
                 ShowText(set._skillName);
                 _guageAttack += 1;
                 if (set._selectSkill is BlockSkillSelect blockSkill)
@@ -218,7 +220,7 @@ public class BlockPlayer : StatusClass
             else if(_conditionState == BlockState.ChageAttack)
             {
                 //チャージアタックをした後、ゲージを０にして、Attack状態に戻る。
-                var set = DataBase.BlockSkillSelectData.SkillInfomation[DataBase._blockSkillSetNo[1]];
+                var set = _dataBase.BlockSkillSelectData.SkillInfomation[_dataBase._blockSkillSetNo[1]];
                 Debug.Log(set._skillName);
                 if (set._selectSkill is BlockSkillSelect blockSkill)
                 {

@@ -46,8 +46,11 @@ public class BlockPlayerController : StatusClass
     public IRPGState CurrentState => _currentState;
     ///
 
+    public DataBase _dataBase;
+
     private void Start()
     {
+        _dataBase = DataBase.Instance;
         _enemy = GameObject.FindGameObjectWithTag("RPGEnemy")?.GetComponent<EnemyController>();
         SetStatus();
         ShowSlider();
