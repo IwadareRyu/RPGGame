@@ -137,6 +137,7 @@ public class TreeScript : MonoBehaviour
     {
         _menuSkillPtText.text = DataBase.Instance.SkillPoint.ToString();
     }
+
     /// <summary>スキルが選択されたときに呼ばれる処理</summary>
     /// <param name="num"></param>
     void BFSSkillTree(int choiceNumber)

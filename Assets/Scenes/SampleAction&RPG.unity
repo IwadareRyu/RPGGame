@@ -552,11 +552,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &40584488
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -688,11 +689,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &73464560
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -996,11 +998,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &118060815
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1877,11 +1880,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &230528122
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5350,11 +5354,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &309242212
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5474,11 +5479,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &320190220
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7250,11 +7256,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &368342331
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11061,11 +11068,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &479268987
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12988,11 +12996,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &598820512
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15334,16 +15343,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 1733285965}
   _bulletMoveState: 0
-  _spawnBulletState: 0
+  _spawnBulletState: 2
   _bulletSpeed: 3
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.1
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 678228886}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 0.1
 --- !u!54 &678228888
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21632,11 +21642,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &805702243
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -58689,11 +58700,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.1
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 1261439250}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &1261439252
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -60322,11 +60334,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!114 &1325505776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60410,11 +60423,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &1345992097
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -60876,11 +60890,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &1415963318
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -61117,11 +61132,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &1468975357
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -70681,11 +70697,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &1841461646
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -81327,11 +81344,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &1953255423
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -83637,11 +83655,12 @@ MonoBehaviour:
   _bulletRota: 2
   _bulletRange: 30
   _spawnCoolTime: 2
-  _delaySpawnCoolTime: 0.2
   _bulletYPos: 10
   _isAttackTime: 0
   _stunEnemy: {fileID: 479268990}
   _bulletPool: {fileID: 1358451288}
+  _circleSpawn:
+    _delaySpawnCoolTime: 30
 --- !u!54 &2072187597
 Rigidbody:
   m_ObjectHideFlags: 0

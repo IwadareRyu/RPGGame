@@ -33,10 +33,6 @@ public abstract class StatusClass : MonoBehaviour
     [SerializeField]
     Transform _insObjPoint;
     public Transform InsObjPoint => _insObjPoint;
-    
-
-    DataBase _dataBase;
-    public DataBase DataBase => _dataBase;
 
     public Survive _survive = Survive.Survive;
 
@@ -47,11 +43,6 @@ public abstract class StatusClass : MonoBehaviour
     //[SerializeField] Transform _sheldUpPrehab;
     //[SerializeField] Transform _sheldDownPrehab;
     [SerializeField] GameObject  _conditionPanel;
-
-    public void Awake()
-    {
-        _dataBase = DataBase.Instance;
-    }
 
     private void OnEnable()
     {

@@ -26,10 +26,11 @@ public class MagicPlayer : StatusClass
     [SerializeField] BlockPlayer _blockPlayer;
     [SerializeField] Transform _magicObj;
     [SerializeField] GameObject _ship;
-    
+    DataBase _dataBase;
 
     void Start()
     {
+        _dataBase = DataBase.Instance;
         _enemy = GameObject.FindGameObjectWithTag("RPGEnemy")?.GetComponent<EnemyController>();
         SetStatus();
         ShowSlider();
@@ -101,9 +102,9 @@ public class MagicPlayer : StatusClass
     public override void ActionMode()
     {
         ChangeCondition(0, MagicPosition.AttackMagic);
-        for(var i = 0;i < DataBase._attackMagicbool.Length;i++)
+        for(var i = 0;i < _dataBase._attackMagicbool.Length;i++)
         {
-            _magicSkillCount += DataBase._attackMagicbool[i] ? 1 : 0;
+            _magicSkillCount += _dataBase._attackMagicbool[i] ? 1 : 0;
         }
         ShowText("LeftShiftでAttack！");
     }
@@ -153,7 +154,7 @@ public class MagicPlayer : StatusClass
         {
             if (_magicpos == MagicPosition.AttackMagic)
             {
-                var set = DataBase.AttackMagicSelectData.SkillInfomation[DataBase._attackMagicSetNo[(int)_attackMagic]];
+                var set = _dataBase.AttackMagicSelectData.SkillInfomation[_dataBase._attackMagicSetNo[(int)_attackMagic]];
                 ShowText($"{set._skillName}！");
                 if (set._selectSkill is AttackMagicSelect attackMagic)
                 {
@@ -175,7 +176,7 @@ public class MagicPlayer : StatusClass
             }
             else
             {
-                var set = DataBase.BlockMagicSelectData.SkillInfomation[DataBase._blockMagicSetNo[(int)_blockMagic]];
+                var set = _dataBase.BlockMagicSelectData.SkillInfomation[_dataBase._blockMagicSetNo[(int)_blockMagic]];
                 ShowText($"{set._skillName}！");
                 if (set._selectSkill is BlockMagicSelect blockMagic)
                 {

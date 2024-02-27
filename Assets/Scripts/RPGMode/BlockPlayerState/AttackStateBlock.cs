@@ -50,7 +50,7 @@ public class AttackStateBlock : IRPGState
     /// <param name="player"></param>
     void Attack(BlockPlayerController player)
     {
-        var set = player.DataBase.BlockSkillSelectData.SkillInfomation[player.DataBase._blockSkillSetNo[0]];
+        var set = player._dataBase.BlockSkillSelectData.SkillInfomation[player._dataBase._blockSkillSetNo[0]];
         player.ShowText(set._skillName);
         player._guageAttack += 1;
         if (set._selectSkill is BlockSkillSelect blockSkill)

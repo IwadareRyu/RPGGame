@@ -11,10 +11,12 @@ public class AttackPlayer : StatusClass
     [SerializeField] GameObject _attackObj;
     [SerializeField] float _attackLange = 3;
     [SerializeField] Animator _attackAnim;
+    DataBase _dataBase;
     int _attackSkillCount;
     // Start is called before the first frame update
     void Start()
     {
+        _dataBase = DataBase.Instance;
         _enemy = GameObject.FindGameObjectWithTag("RPGEnemy")?.GetComponent<EnemyController>();
         if (_commandObj) _commandObj.SetActive(false);
         SetStatus();
@@ -24,8 +26,8 @@ public class AttackPlayer : StatusClass
         Debug.Log($"AttackerDiffence:{Diffence}");
         for (var i = 0; i < _commandText.Length; i++)
         {
-            var index = DataBase._attackSkillSetNo[i];
-            _commandText[i].text = DataBase.AttackSkillSelectData.SkillInfomation[index]._skillName.Substring(0, 4);
+            var index = _dataBase._attackSkillSetNo[i];
+            _commandText[i].text = _dataBase.AttackSkillSelectData.SkillInfomation[index]._skillName.Substring(0, 4);
         }
     }
 
@@ -104,9 +106,9 @@ public class AttackPlayer : StatusClass
 
     public override void ActionMode()
     {
-        for (var i = 0; i < DataBase._attackSkillbool.Length; i++)
+        for (var i = 0; i < _dataBase._attackSkillbool.Length; i++)
         {
-            _attackSkillCount += DataBase._attackSkillbool[i] ? 1 : 0;
+            _attackSkillCount += _dataBase._attackSkillbool[i] ? 1 : 0;
         }
         ShowText("RightShiftでAttack！");
         CommandReset();
@@ -124,7 +126,7 @@ public class AttackPlayer : StatusClass
     /// <param name="i"></param>
     void SkillAttack(int i)
     {
-        var set = DataBase.AttackSkillSelectData.SkillInfomation[DataBase._attackSkillSetNo[i]];
+        var set = _dataBase.AttackSkillSelectData.SkillInfomation[_dataBase._attackSkillSetNo[i]];
         ShowText($"{set._skillName}！");
         _attackAnim.SetTrigger("NormalAttack");
         if(set._selectSkill is AttackSkillSelect attackSkill)
