@@ -39,8 +39,11 @@ public class BlockPlayerController : StatusClass
     /// <summary>StateMachine用変数</summary>
     [Tooltip("State一覧")]
     IRPGState[] _states;
-    AttackStateBlock _attackState = new();
+    [SerializeField] AttackStateBlock _attackState;
+    [SerializeField] ChageAttackState _chageAttackState;
+
     public AttackStateBlock AttackState => _attackState;
+    public ChageAttackState ChageAttackState => _chageAttackState;
     [Tooltip("現在のState")]
     IRPGState _currentState;
     public IRPGState CurrentState => _currentState;
