@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,19 +36,29 @@ public class BlockPlayerController : StatusClass
     [Tooltip("BlockPlayerの移動場所")]
     [SerializeField]
     Transform[] _trans;
+    bool _isCounter;
+    public bool IsCounter => _isCounter;
 
     /// <summary>StateMachine用変数</summary>
     [Tooltip("State一覧")]
     IRPGState[] _states;
     [SerializeField] AttackStateBlock _attackState;
     [SerializeField] ChageAttackState _chageAttackState;
-
+    [SerializeField] CoolCounterState _coolCounterState = new();
+    [SerializeField] GuardState _guardState = new();
+    [SerializeField] CounterAttackState _counterAttackState = new();
     public AttackStateBlock AttackState => _attackState;
     public ChageAttackState ChageAttackState => _chageAttackState;
+    public CoolCounterState CoolCounterState => _coolCounterState;
+    public GuardState GuardState => _guardState;
+    public CounterAttackState CounterAttackState => _counterAttackState;
+
     [Tooltip("現在のState")]
     IRPGState _currentState;
     public IRPGState CurrentState => _currentState;
     ///
+
+    public TargetGuard _targetGuard = TargetGuard.None;
 
     public DataBase _dataBase;
 
@@ -92,23 +103,14 @@ public class BlockPlayerController : StatusClass
         _enumtext.text = str;
     }
 
-    public enum BlockState
+    /// <summary>カウンター成功時に呼ばれるメソッド</summary>
+    public void TrueCounter()
     {
-        [Tooltip("移動している間のCoolTime")]
-        CoolTime,
-        [Tooltip("左方向のガード")]
-        LeftBlock,
-        [Tooltip("左方向のカウンター待機")]
-        CoolLeftCounter,
-        [Tooltip("右方向のガード")]
-        RightBlock,
-        [Tooltip("右方向のカウンター待機")]
-        CoolRightCounter,
-        [Tooltip("カウンター")]
-        Counter,
-        [Tooltip("攻撃")]
-        Attack,
-        [Tooltip("チャージ攻撃")]
-        ChageAttack,
+        if (_currentState ==  CoolCounterState)
+        {
+            _isCounter = true;
+            OnChangeState(CounterAttackState);
+        }
     }
+
 }

@@ -23,6 +23,7 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
     {
         _isAttackTime = false;
         Debug.Log("攻撃開始:Block");
+        player.ShowText("攻撃開始");
     }
 
     public void UpdateState(BlockPlayerController player)
@@ -30,11 +31,13 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
         if (Input.GetButtonDown("BlockLeft"))
         {
             // LeftCounterに移行。
+            player._targetGuard = TargetGuard.Magician;
             //player.OnChangeState(player.LeftCounterActiveTime);
         }
         else if (Input.GetButtonDown("BlockRight"))
         {
             // RightCounterに移行。
+            player._targetGuard = TargetGuard.Attacker;
             //player.OnChangeState(player.RightCounterActiveTime);
         }
 
