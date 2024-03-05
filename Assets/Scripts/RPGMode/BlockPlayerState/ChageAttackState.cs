@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChageAttackState : MonoBehaviour,IRPGState
 {
     SkillInfomation _chageSkill;
+
     public void Init(BlockPlayerController player)
     {
         var set = player._dataBase.BlockSkillSelectData.SkillInfomation[player._dataBase._blockSkillSetNo[1]];
@@ -34,6 +35,7 @@ public class ChageAttackState : MonoBehaviour,IRPGState
     {
         //チャージアタックをした後、ゲージを０にして、Attack状態に戻る。
         Debug.Log(_chageSkill._skillName);
+        player.ShowText(_chageSkill._skillName);
         ///Animationプレイ
 
         ///
