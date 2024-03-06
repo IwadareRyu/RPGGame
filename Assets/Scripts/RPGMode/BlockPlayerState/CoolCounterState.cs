@@ -1,8 +1,9 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã®ã‚¯ãƒ¼ãƒ«ã‚¿ã‚¤ãƒ ã®State</summary>
 [Serializable]
 public class CoolCounterState : IRPGState
 {
@@ -16,8 +17,8 @@ public class CoolCounterState : IRPGState
     public void StartState(BlockPlayerController player)
     {
         _currentTime = 0f;
-        Debug.Log("ƒJƒEƒ“ƒ^[€”õ");
-        player.ShowText("ƒJƒEƒ“ƒ^[‚ğ‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚é...");
+        Debug.Log("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼æº–å‚™");
+        player.ShowText("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã‚’ã—ã‚ˆã†ã¨ã—ã¦ã„ã‚‹...");
     }
 
     public void UpdateState(BlockPlayerController player)
@@ -35,6 +36,6 @@ public class CoolCounterState : IRPGState
 
     public void EndState(BlockPlayerController player)
     {
-        Debug.Log("ƒJƒEƒ“ƒ^[€”õI‚í‚è");
+        Debug.Log("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼æº–å‚™çµ‚ã‚ã‚Š");
     }
 }

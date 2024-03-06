@@ -1,26 +1,27 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼æ”»æ’ƒã‚’ã™ã‚‹State</summary>
 [Serializable]
 public class CounterAttackState : IRPGState
 {
     string _animationName;
     float _animationTime = 0f;
     float _currentTime;
-    [SerializeField] float mag;
+    [SerializeField] float mag = 2f;
     public void Init(BlockPlayerController player)
     {
-        //ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì–¼‘O“ü—Í
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®åå‰å…¥åŠ›
         _animationName = "aa";
     }
 
     public void StartState(BlockPlayerController player)
     {
-        Debug.Log("ƒJƒEƒ“ƒ^[I");
-        player.ShowText("ƒJƒEƒ“ƒ^[I");
-        /// ƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶‚µ‚ÄƒAƒjƒ[ƒVƒ‡ƒ“‚Ì•b”‚ğ‘ã“ü‚·‚éB
+        Debug.Log("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ï¼");
+        player.ShowText("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ï¼");
+        /// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å†ç”Ÿã—ã¦ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ç§’æ•°ã‚’ä»£å…¥ã™ã‚‹ã€‚
 
         _animationTime = 1f;
         _currentTime = 0f;
@@ -39,10 +40,10 @@ public class CounterAttackState : IRPGState
 
     public void EndState(BlockPlayerController player)
     {
-        // ¡‚ÌŠ‚ÍEndState‚Éƒ_ƒ[ƒW”»’è
+        // ä»Šã®æ‰€ã¯EndStateã«ãƒ€ãƒ¡ãƒ¼ã‚¸åˆ¤å®š
         player._enemy.AddDamage(player.Attack, 2);
         player._guageAttack += 10;
-        Debug.Log("ƒJƒEƒ“ƒ^[I‚í‚è");
+        Debug.Log("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼çµ‚ã‚ã‚Š");
     }
 
 }

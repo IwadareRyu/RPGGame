@@ -7,19 +7,19 @@ using UnityEngine.UI;
 
 public abstract class StatusClass : MonoBehaviour
 {
-    [SerializeField] int _defaultHP;
+    [SerializeField] int _defaultHP = 100;
     public int DefaulrHP => _defaultHP;
     int _hp = 100;
     public int HP => _hp;
 
-    [SerializeField] int _defaultAttack;
+    [SerializeField] int _defaultAttack = 1;
     int _attack = 10;
     float _attackBuffTime = 0;
     bool _buffAttack;
 
     public int Attack => _attack;
 
-    [SerializeField] int _defaultDiffence;
+    [SerializeField] int _defaultDiffence = 1; 
     int _diffence = 5;
     float _diffenceBuffTime = 0;
     bool _buffDiffence;

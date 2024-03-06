@@ -1,23 +1,23 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-/// <summary>BlockPlayer‚ÌState</summary>
+/// <summary>BlockPlayerã®State</summary>
 public enum BlockState
 {
-    [Tooltip("ˆÚ“®‚µ‚Ä‚¢‚éŠÔ‚ÌCoolTime")]
+    [Tooltip("ç§»å‹•ã—ã¦ã„ã‚‹é–“ã®CoolTime")]
     CoolTime,
-    [Tooltip("ƒK[ƒh")]
+    [Tooltip("ã‚¬ãƒ¼ãƒ‰")]
     Block,
-    [Tooltip("ƒJƒEƒ“ƒ^[€”õ")]
+    [Tooltip("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼æº–å‚™")]
     CoolCounter,
-    [Tooltip("ƒJƒEƒ“ƒ^[")]
+    [Tooltip("ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼")]
     Counter,
-    [Tooltip("UŒ‚")]
+    [Tooltip("æ”»æ’ƒ")]
     Attack,
-    [Tooltip("ƒ`ƒƒ[ƒWUŒ‚")]
+    [Tooltip("ãƒãƒ£ãƒ¼ã‚¸æ”»æ’ƒ")]
     ChageAttack,
 }
 
-/// <summary>‚Ç‚Ì–¡•û‚ğç‚é‚©</summary>
+/// <summary>ã©ã®å‘³æ–¹ã‚’å®ˆã‚‹ã‹</summary>
 public enum TargetGuard
 {
     None,
