@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>通常攻撃のState</summary>
 [Serializable]
 public class AttackStateBlock : MonoBehaviour,IRPGState
 {
@@ -30,15 +31,14 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
     {
         if (Input.GetButtonDown("BlockLeft"))
         {
-            // LeftCounterに移行。
-            player._targetGuard = TargetGuard.Magician;
-            //player.OnChangeState(player.LeftCounterActiveTime);
+            // Magicianの前に立ち、CoolCounterに移行。
+            ChangeCoolCounterState(player, TargetGuard.Magician);
+
         }
         else if (Input.GetButtonDown("BlockRight"))
         {
-            // RightCounterに移行。
-            player._targetGuard = TargetGuard.Attacker;
-            //player.OnChangeState(player.RightCounterActiveTime);
+            // Attackerの前に立ち、CoolCounterに移行。
+            ChangeCoolCounterState(player, TargetGuard.Attacker);
         }
 
         if (!_isAttackTime)
@@ -60,6 +60,14 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
                 StartCoroutine(AttackTime(player));
             }
         }
+    }
+
+    /// <summary>targetを前に立ち、targetを守るStateに移行するメソッド</summary>
+    void ChangeCoolCounterState(BlockPlayerController player,TargetGuard target)
+    {
+        player._targetGuard = target;
+        player.transform.position = player._trans[(int)target].position;
+        player.OnChangeState(player.CoolCounterState);
     }
 
     /// <summary>スキルで敵にダメージを与えるメソッドa</summary>

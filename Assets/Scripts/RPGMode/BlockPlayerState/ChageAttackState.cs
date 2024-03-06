@@ -1,7 +1,8 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>ãƒãƒ£ãƒ¼ã‚¸æ”»æ’ƒã®State</summary>
 public class ChageAttackState : MonoBehaviour,IRPGState
 {
     SkillInfomation _chageSkill;
@@ -14,7 +15,7 @@ public class ChageAttackState : MonoBehaviour,IRPGState
 
     public void StartState(BlockPlayerController player)
     {
-        player.ShowText("ƒ`ƒƒ[ƒWƒAƒ^ƒbƒNŠJn");
+        player.ShowText("ãƒãƒ£ãƒ¼ã‚¸æ”»æ’ƒé–‹å§‹");
         StartCoroutine(ChangeAttackTime(player));
     }
 
@@ -25,23 +26,23 @@ public class ChageAttackState : MonoBehaviour,IRPGState
 
     public void EndState(BlockPlayerController player)
     {
-        player.ShowText("ƒ`ƒƒ[ƒWƒAƒ^ƒbƒNI—¹");
+        player.ShowText("ãƒãƒ£ãƒ¼ã‚¸æ”»æ’ƒçµ‚äº†");
     }
 
-    /// <summary>ƒ`ƒƒ[ƒWƒAƒ^ƒbƒN‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ˆ—</summary>
+    /// <summary>ãƒãƒ£ãƒ¼ã‚¸æ”»æ’ƒã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†</summary>
     /// <param name="player"></param>
     /// <returns></returns>
     IEnumerator ChangeAttackTime(BlockPlayerController player)
     {
-        //ƒ`ƒƒ[ƒWƒAƒ^ƒbƒN‚ğ‚µ‚½ŒãAƒQ[ƒW‚ğ‚O‚É‚µ‚ÄAAttackó‘Ô‚É–ß‚éB
+        //ãƒãƒ£ãƒ¼ã‚¸æ”»æ’ƒã‚’ã—ãŸå¾Œã€ã‚²ãƒ¼ã‚¸ã‚’ï¼ã«ã—ã¦ã€AttackçŠ¶æ…‹ã«æˆ»ã‚‹ã€‚
         Debug.Log(_chageSkill._skillName);
         player.ShowText(_chageSkill._skillName);
-        ///AnimationƒvƒŒƒC
+        ///Animationãƒ—ãƒ¬ã‚¤
 
         ///
-        //ƒAƒjƒ[ƒVƒ‡ƒ“ˆ—À‘•‚ÌÛAƒAƒjƒ[ƒVƒ‡ƒ“‚Ì•b”‚ğ‘ã“ü
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†å®Ÿè£…ã®éš›ã€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ç§’æ•°ã‚’ä»£å…¥
         float animationTime = 0f;
-        //ƒ`ƒƒ[ƒWƒAƒ^ƒbƒNƒAƒjƒ[ƒVƒ‡ƒ“’†AŠÔ‚ğ~‚ß‚é‚È‚ç‚Ü‚½Œ`®‚ğ•Ï‚¦‚éB
+        //ãƒãƒ£ãƒ¼ã‚¸ã‚¢ã‚¿ãƒƒã‚¯ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ä¸­ã€æ™‚é–“ã‚’æ­¢ã‚ã‚‹ãªã‚‰ã¾ãŸå½¢å¼ã‚’å¤‰ãˆã‚‹ã€‚
         yield return new WaitForSeconds(animationTime);
 
         ChageAttack(player);
@@ -49,7 +50,7 @@ public class ChageAttackState : MonoBehaviour,IRPGState
         yield return null;
     }
 
-    /// <summary>ƒ`ƒƒ[ƒWƒAƒ^ƒbƒN</summary>
+    /// <summary>ãƒãƒ£ãƒ¼ã‚¸æ”»æ’ƒ</summary>
     /// <param name="player"></param>
     void ChageAttack(BlockPlayerController player)
     {

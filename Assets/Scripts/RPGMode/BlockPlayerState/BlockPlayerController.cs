@@ -1,52 +1,52 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AttackStateBlock))]
+[RequireComponent(typeof(ChageAttackState))]
+
 public class BlockPlayerController : StatusClass
 {
-
-    [Tooltip("ゲージアタックの値")]
-    [SerializeField]
+    [Header("チャージ攻撃関連")]
+    [Tooltip("チャージ攻撃の値")]
     public float _guageAttack = 0;
-    [Tooltip("ディフェンス職の状態"), SerializeField]
-    BlockState _conditionState = BlockState.Attack;
+    float _maxGuageAttack;
+    public float MaxGuageAttack => _maxGuageAttack;
+    [Tooltip("ディフェンス職の状態"),Header("ディフェンス職の状態")]
+    [SerializeField] BlockState _conditionState = BlockState.Attack;
     public BlockState Condition => _conditionState;
-    [Tooltip("移動の際止まる力")]
-    float _stopdis = 0.1f;
-    [Tooltip("移動スピード")]
-    float _speed = 6f;
-    [Tooltip("Blockの際、コルーチンを適切に動かすためのbool")]
-    bool _blockTime;
-    [Tooltip("Attackの際、コルーチンを適切に動かすためのbool")]
-    bool _attackTime;
-    [Tooltip("Counterの際、コルーチンを適切に動かすためのbool")]
-    bool _counterTime;
-    [Tooltip("CoolTimeの際、コルーチンを適切に動かすためのbool")]
-    bool _coolTimebool;
-    [Tooltip("状態のテキスト")]
+    [Tooltip("状態のテキスト"),Header("プレイヤーの状態を表示するテキスト")]
     [SerializeField] Text _enumtext;
-    [SerializeField] GameObject _blockObj;
-    [SerializeField] GetOutScripts _getOutPrefab;
-    GetOutScripts _getOutObj;
-    [SerializeField] Transform _getInPos;
+    //[SerializeField] GameObject _blockObj;
+    //[SerializeField] GetOutScripts _getOutPrefab;
+    //GetOutScripts _getOutObj;
+    //[SerializeField] Transform _getInPos;
+    [Header("プレイヤーのアニメーション")]
     [SerializeField] Animator _blockAnim;
-    [SerializeField] Canvas _statusCanvas;
-    [Tooltip("BlockPlayerの移動場所")]
-    [SerializeField]
-    Transform[] _trans;
+    //[SerializeField] Canvas _statusCanvas;
+    [Tooltip("BlockPlayerの移動場所"),Header("BlockPlayerの移動場所")]
+    public Transform[] _trans;
     bool _isCounter;
     public bool IsCounter => _isCounter;
 
     /// <summary>StateMachine用変数</summary>
+
     [Tooltip("State一覧")]
     IRPGState[] _states;
-    [SerializeField] AttackStateBlock _attackState;
-    [SerializeField] ChageAttackState _chageAttackState;
+    [Header("State関連")]
+    [Tooltip("ガード終了後、クールダウンのState")]
+    [SerializeField] CoolDownState _coolDownState = new();
+    [Tooltip("通常攻撃のState")]
+    AttackStateBlock _attackState;
+    [Tooltip("チャージ攻撃のState")]
+    ChageAttackState _chageAttackState;
+    [Tooltip("カウンターのクールタイムのState")]
     [SerializeField] CoolCounterState _coolCounterState = new();
+    [Tooltip("味方をガードするState")]
     [SerializeField] GuardState _guardState = new();
+    [Tooltip("カウンター攻撃をするState")]
     [SerializeField] CounterAttackState _counterAttackState = new();
+    public CoolDownState CoolDownState => _coolDownState;
     public AttackStateBlock AttackState => _attackState;
     public ChageAttackState ChageAttackState => _chageAttackState;
     public CoolCounterState CoolCounterState => _coolCounterState;
@@ -58,7 +58,7 @@ public class BlockPlayerController : StatusClass
     public IRPGState CurrentState => _currentState;
     ///
 
-    public TargetGuard _targetGuard = TargetGuard.None;
+    [NonSerialized] public TargetGuard _targetGuard = TargetGuard.None;
 
     public DataBase _dataBase;
 
@@ -66,18 +66,21 @@ public class BlockPlayerController : StatusClass
     {
         _dataBase = DataBase.Instance;
         _enemy = GameObject.FindGameObjectWithTag("RPGEnemy")?.GetComponent<EnemyController>();
+        _attackState = GetComponent<AttackStateBlock>();
+        _chageAttackState = GetComponent<ChageAttackState>();
         SetStatus();
         ShowSlider();
         Debug.Log($"BlockerHP:{HP}");
         Debug.Log($"BlockerAttack:{Attack}");
         Debug.Log($"BlockerDiffence:{Diffence}");
         _states = new IRPGState[1] { _attackState };
-        foreach(var state in _states)
+        foreach (var state in _states)
         {
             state.Init(this);
         }
         _currentState = _attackState;
         _currentState.StartState(this);
+        
     }
 
     // Update is called once per frame
@@ -106,7 +109,7 @@ public class BlockPlayerController : StatusClass
     /// <summary>カウンター成功時に呼ばれるメソッド</summary>
     public void TrueCounter()
     {
-        if (_currentState ==  CoolCounterState)
+        if (_currentState == CoolCounterState)
         {
             _isCounter = true;
             OnChangeState(CounterAttackState);

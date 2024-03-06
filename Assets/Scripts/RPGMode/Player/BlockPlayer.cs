@@ -15,10 +15,6 @@ public class BlockPlayer : StatusClass
     [Tooltip("ディフェンス職の状態"),SerializeField]
     BlockState _conditionState = BlockState.Attack;
     public BlockState Condition => _conditionState;
-    [Tooltip("移動の際止まる力")]
-    float _stopdis = 0.1f;
-    [Tooltip("移動スピード")]
-    float _speed = 6f;
     [Tooltip("Blockの際、コルーチンを適切に動かすためのbool")]
     bool _blockTime;
     [Tooltip("Attackの際、コルーチンを適切に動かすためのbool")]
