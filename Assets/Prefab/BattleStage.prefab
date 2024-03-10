@@ -63,7 +63,7 @@ MonoBehaviour:
   _animRobot: {fileID: 6171523058759598124}
   _enumtext: {fileID: 8398328267948166892}
   _attackPlayer: {fileID: 3547545559970227983}
-  _blockPlayer: {fileID: 3638036757050006382}
+  _blockPlayer: {fileID: 0}
   _magicObj: {fileID: 2983643019269664660}
   _ship: {fileID: 9222707294697826954, guid: f74200a65e7fb794badf093aa2ed88ed, type: 3}
 --- !u!136 &630428692101504650
@@ -334,7 +334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3777476977683269180}
   m_Layer: 0
-  m_Name: PosBlockRight
+  m_Name: PosBlockAttacker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1804,7 +1804,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7914928146086594275}
-  - component: {fileID: 3638036757050006382}
+  - component: {fileID: 3833503447544378612}
+  - component: {fileID: 7689091486954752390}
+  - component: {fileID: 3048741198138406366}
   m_Layer: 0
   m_Name: BlockPlayer
   m_TagString: BlockPlayer
@@ -1829,7 +1831,7 @@ Transform:
   m_Father: {fileID: 6659329191583192371}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3638036757050006382
+--- !u!114 &3833503447544378612
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1838,7 +1840,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3482585553674995886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d70bdf017b9d99a49bbe4809d19b3e03, type: 3}
+  m_Script: {fileID: 11500000, guid: cb540cfe6411e644498c6518d3f46005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultHP: 100
@@ -1850,20 +1852,45 @@ MonoBehaviour:
   _survive: 0
   _death: 0
   _conditionPanel: {fileID: 0}
+  _guageAttack: 0
+  _conditionState: 4
+  _enumtext: {fileID: 4504246650627383528}
+  _blockAnim: {fileID: 8635648782043530543}
   _trans:
   - {fileID: 6835610612887586249}
   - {fileID: 2853258967676072284}
   - {fileID: 3777476977683269180}
-  _guageAttack: 0
-  _conditionState: 6
-  _enumtext: {fileID: 4504246650627383528}
-  _blockObj: {fileID: 4905328453765362093, guid: b3d3f7d2d6302884ca906b5c3c999650,
-    type: 3}
-  _getOutPrefab: {fileID: 7822813426153906939, guid: b3d3f7d2d6302884ca906b5c3c999650,
-    type: 3}
-  _getInPos: {fileID: 2636717333519512885}
-  _blockAnim: {fileID: 8635648782043530543}
-  _statusCanvas: {fileID: 3685446751031375238}
+  _coolDownState:
+    _coolDownTime: 1
+  _coolCounterState:
+    _counterTime: 0
+  _counterAttackState:
+    mag: 2
+--- !u!114 &7689091486954752390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3482585553674995886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a010bd6d0aba3c34c83d0f9224ffedba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackCoolTime: 2
+--- !u!114 &3048741198138406366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3482585553674995886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34bd8706855e7e34e915c60dcc37f795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3685407022033407250
 GameObject:
   m_ObjectHideFlags: 0
@@ -4425,7 +4452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2853258967676072284}
   m_Layer: 0
-  m_Name: PosBlockLeft
+  m_Name: PosBlockMagician
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5084,7 +5111,7 @@ MonoBehaviour:
   _survive: 0
   _death: 0
   _conditionPanel: {fileID: 0}
-  _enemytext: {fileID: 1809191097785980319}
+  _enemyText: {fileID: 1809191097785980319}
   _getSkillPoint: 50
   _anim: {fileID: 3106516883324574041}
   _aliveAction: 0

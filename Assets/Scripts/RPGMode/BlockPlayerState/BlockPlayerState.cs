@@ -4,7 +4,7 @@
 public enum BlockState
 {
     [Tooltip("移動している間のCoolTime")]
-    CoolTime,
+    WaitCoolTime,
     [Tooltip("ガード")]
     Block,
     [Tooltip("カウンター準備")]
@@ -15,6 +15,8 @@ public enum BlockState
     Attack,
     [Tooltip("チャージ攻撃")]
     ChageAttack,
+    [Tooltip("戦闘不能")]
+    Death,
 }
 
 /// <summary>どの味方を守るか</summary>

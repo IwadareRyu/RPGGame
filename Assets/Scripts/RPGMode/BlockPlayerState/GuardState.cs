@@ -19,8 +19,8 @@ public class GuardState : IRPGState
 
     public void UpdateState(BlockPlayerController player)
     {
-        if(player._targetGuard == TargetGuard.Magician && Input.GetButtonUp("BlockLeft") ||
-           player._targetGuard == TargetGuard.Attacker && Input.GetButtonUp("BlockRight"))
+        if(player._targetGuard == TargetGuard.Magician && !Input.GetButton("BlockLeft") ||
+           player._targetGuard == TargetGuard.Attacker && !Input.GetButton("BlockRight"))
         {
             player.OnChangeState(player.CoolDownState);
         }

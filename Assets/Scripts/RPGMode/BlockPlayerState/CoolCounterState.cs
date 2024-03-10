@@ -9,6 +9,7 @@ public class CoolCounterState : IRPGState
 {
     float _currentTime = 0f;
     [SerializeField] float _counterTime;
+
     public void Init(BlockPlayerController player)
     {
 

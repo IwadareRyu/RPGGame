@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>チャージ攻撃のState</summary>
-public class ChageAttackState : MonoBehaviour,IRPGState
+public class ChargeAttackState : MonoBehaviour,IRPGState
 {
     SkillInfomation _chageSkill;
 

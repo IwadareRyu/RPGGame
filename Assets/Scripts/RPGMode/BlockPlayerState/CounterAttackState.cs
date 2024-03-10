@@ -10,6 +10,7 @@ public class CounterAttackState : IRPGState
     string _animationName;
     float _animationTime = 0f;
     float _currentTime;
+    [Tooltip("カウンター攻撃の倍率"),Header("カウンター攻撃の倍率")]
     [SerializeField] float mag = 2f;
     public void Init(BlockPlayerController player)
     {
@@ -30,11 +31,11 @@ public class CounterAttackState : IRPGState
 
     public void UpdateState(BlockPlayerController player)
     {
-        _currentTime = Time.deltaTime;
+        _currentTime += Time.deltaTime;
 
         if(_currentTime > _animationTime)
         {
-            player.OnChangeState(player.GuardState);
+            player.EndCounter();
         }
     }
 
