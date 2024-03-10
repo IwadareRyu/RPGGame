@@ -58,6 +58,7 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
             {
                 _isAttackTime = true;
                 StartCoroutine(AttackTime(player));
+                _time = 0f;
             }
         }
     }

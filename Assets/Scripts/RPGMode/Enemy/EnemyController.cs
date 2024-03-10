@@ -7,10 +7,10 @@ using UnityEngine.UI;
 
 public class EnemyController : StatusClass
 {
-    private BlockPlayer _blockPlayer;
+    private BlockPlayerController _blockPlayer;
     private MagicPlayer _magicPlayer;
     private AttackPlayer _attackPlayer;
-    [SerializeField] Text _enemytext;
+    [SerializeField] Text _enemyText;
     [SerializeField] int _getSkillPoint = 50;
     bool _enemyAttackbool;
     [SerializeField] Animator _anim;
@@ -25,7 +25,7 @@ public class EnemyController : StatusClass
     // Start is called before the first frame update
     void Start()
     {
-        _blockPlayer = GameObject.FindGameObjectWithTag("BlockPlayer")?.GetComponent<BlockPlayer>();
+        _blockPlayer = GameObject.FindGameObjectWithTag("BlockPlayer")?.GetComponent<BlockPlayerController>();
         _magicPlayer = GameObject.FindGameObjectWithTag("MagicPlayer")?.GetComponent<MagicPlayer>();
         _attackPlayer = GameObject.FindGameObjectWithTag("AttackPlayer")?.GetComponent<AttackPlayer>();
 
@@ -65,7 +65,7 @@ public class EnemyController : StatusClass
                 _fight = true;
                 _anim.SetBool("Death", true);
                 _survive = Survive.Death;
-                _enemytext.text = "ぬわああああああああああああ";
+                _enemyText.text = "ぬわああああああああああああ";
                 FightManager.Instance.Win(_getSkillPoint);
             }
 
@@ -96,12 +96,12 @@ public class EnemyController : StatusClass
             _anim.SetBool("Attack", true);
             if (ram < 50 && _magicPlayer.HP > 0 || _attackPlayer.HP <= 0)
             {
-                _enemytext.text = "Magicに攻撃";
+                _enemyText.text = "Magicに攻撃";
                 yield return EnemyAttack(true);
             }
             else
             {
-                _enemytext.text = "Attackerに攻撃";
+                _enemyText.text = "Attackerに攻撃";
                 yield return EnemyAttack(false);
             }
         }
@@ -109,6 +109,9 @@ public class EnemyController : StatusClass
         _enemyAttackbool = false;
     }
 
+    /// <summary>敵の攻撃時の処理</summary>
+    /// <param name="targetMagic"></param>
+    /// <returns></returns>
     IEnumerator EnemyAttack(bool targetMagic)
     {
         yield return new WaitForSeconds(1.1f);
@@ -117,60 +120,67 @@ public class EnemyController : StatusClass
         {
             if (targetMagic)
             {
-                if (_blockPlayer.Condition == BlockPlayer.BlockState.LeftBlock)
-                {
-                    Guard();
-                }
-                else if (_blockPlayer.Condition == BlockPlayer.BlockState.CoolLeftCounter)
-                {
-                    Counter();
-                }
-                else
-                {
-                    _enemytext.text = "Magicにダメージ！";
-                    _magicPlayer.AddDamage(Attack);
-                }
+                TargetAttack(TargetGuard.Magician,_magicPlayer);
             }
             else
             {
-                if (_blockPlayer.Condition == BlockPlayer.BlockState.RightBlock)
-                {
-                    Guard();
-                }
-                else if (_blockPlayer.Condition == BlockPlayer.BlockState.CoolRightCounter)
-                {
-                    Counter();
-                }
-                else
-                {
-                    _enemytext.text = "Attackerにダメージ！";
-                    _attackPlayer.AddDamage(Attack);
-                }
+                TargetAttack(TargetGuard.Attacker,_attackPlayer);
             }
         }
     }
 
+    /// <summary>誰に攻撃するか</summary>
+    /// <param name="targetGuard"></param>
+    void TargetAttack(TargetGuard target,StatusClass player)
+    {
+        if(_blockPlayer._targetGuard == target)
+        {
+            GuardOrCounter();
+        }
+        else
+        {
+            _enemyText.text = $"{target}にダメージ。";
+            player.AddDamage(Attack);
+        }
+    }
+
+    void GuardOrCounter()
+    {
+        if(_blockPlayer.CurrentState == _blockPlayer.CoolCounterState)
+        {
+            Counter();
+        }
+        else if(_blockPlayer.CurrentState == _blockPlayer.GuardState)
+        {
+            Guard();
+        }
+        else
+        {
+            Debug.LogWarning("ここに入るのはちょっとおかしいよ。");
+        }
+    }
+    
     public override void ActionMode()
     {
         _anim.Play("LoopAttack");
-        _enemytext.text = "アクションモード！";
+        _enemyText.text = "アクションモード！";
     }
 
     public override void RPGMode()
     {
         _anim.Play("Stand");
-        _enemytext.text = "RPGモード！";
+        _enemyText.text = "RPGモード！";
     }
 
     void Guard()
     {
-        _enemytext.text = "ガードされた！";
+        _enemyText.text = "ガードされた！";
         _blockPlayer.AddDamage(Attack);
     }
 
     void Counter()
     {
-        _enemytext.text = "カウンターされた！";
+        _enemyText.text = "カウンターされた！";
         _blockPlayer.TrueCounter();
         _blockPlayer.AddDamage(Attack);
     }
