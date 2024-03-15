@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 using UnityEngine.Timeline;
 
+[RequireComponent(typeof(InputAudio))]
 public class AudioManager : SingletonMonovihair<AudioManager>
 {
     [Tooltip("マスター音量"), Header("初期マスター音量")]
@@ -16,11 +18,13 @@ public class AudioManager : SingletonMonovihair<AudioManager>
     [Tooltip("SEの音量"), Header("SEの初期音量")]
     [SerializeField, Range(-10, -80)] float _seVolume = -10;
 
+    [ContextMenuItem("SetVolumeBGM","SetVolumeBGM")]
     [Tooltip("BGM一覧")]
-    [SerializeField] AudioSetting[] _bgmSetting;
+    [SerializeField] AudioSettingStruct[] _bgmSetting;
 
+    [ContextMenuItem("SetVolumeSE", "SetVolumeSE")]
     [Tooltip("SE一覧")]
-    [SerializeField] AudioSetting[] _seSetting;
+    [SerializeField] AudioSettingStruct[] _seSetting;
 
     [SerializeField] AudioMixer _audioMixer;
 
@@ -46,11 +50,49 @@ public class AudioManager : SingletonMonovihair<AudioManager>
     {
         _bgmSetting[(int)bgmState]._audio.Play();
     }
+
+    public void InputBGMSetting(AudioSource[] audios)
+    {
+        _bgmSetting = new AudioSettingStruct[audios.Length];
+        _bgmSetting = InputAudioSetting(audios,_bgmSetting);
+    }
+
+    public void InputSESetting(AudioSource[] audios)
+    {
+        _seSetting = new AudioSettingStruct[audios.Length];
+        _seSetting = InputAudioSetting(audios,_seSetting);
+    }
+
+    AudioSettingStruct[] InputAudioSetting(AudioSource[] audios,AudioSettingStruct[] audioSettings)
+    {
+        for(var i = 0;i < audios.Length;i++)
+        {
+            audioSettings[i]._audio = audios[i];
+            audioSettings[i]._volume = audios[i].volume;
+        }
+        return audioSettings;
+    }
+
+    void SetVolumeBGM()
+    {
+        for(var i = 0;i < _bgmSetting.Length;i++)
+        {
+            _bgmSetting[i]._audio.volume = _bgmSetting[i]._volume;
+        }
+    }
+
+    void SetVolumeSE()
+    {
+        for (var i = 0; i < _seSetting.Length; i++)
+        {
+            _seSetting[i]._audio.volume = _seSetting[i]._volume;
+        }
+    }
 }
 
 /// <summary>音量をInspectorで個々に設定できるようにするclass</summary>
 [Serializable]
-public struct AudioSetting
+public struct AudioSettingStruct
 {
     [Tooltip("AudioSource"),Header("AudioSourceを入れる")]
     [SerializeField] public AudioSource _audio;
