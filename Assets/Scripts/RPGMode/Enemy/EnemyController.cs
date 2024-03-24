@@ -118,6 +118,7 @@ public class EnemyController : StatusClass
 
         if (_survive != Survive.Death && FightManager.Instance.BattleState == BattleState.RPGBattle)
         {
+            AudioManager.Instance.SEPlay(SE.EnemyShordAttack);
             if (targetMagic)
             {
                 TargetAttack(TargetGuard.Magician,_magicPlayer);

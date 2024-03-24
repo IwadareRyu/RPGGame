@@ -56,7 +56,13 @@ public class ChargeAttackState : MonoBehaviour,IRPGState
     {
         if (_chageSkill._selectSkill is BlockSkillSelect blockSkill)
         {
-            player._enemy.AddDebuffDamage(player.Attack, blockSkill.AttackValue, blockSkill.EnemyOffencePower, blockSkill.EnemyDiffencePower);
+            player._enemy.AddDebuffDamage(
+                player.Attack, 
+                blockSkill.AttackValue, 
+                blockSkill.EnemyOffencePower, 
+                blockSkill.EnemyDiffencePower
+                );
+            AudioManager.Instance.SEPlay(SE.BlockerAttack);
         }
     }
 

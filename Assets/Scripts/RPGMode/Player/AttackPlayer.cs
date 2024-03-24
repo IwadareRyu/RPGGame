@@ -118,6 +118,7 @@ public class AttackPlayer : StatusClass
     void Attacker()
     {
         ShowText("攻撃！");
+        AudioManager.Instance.SEPlay(SE.AttackerAttack);
         _enemy.AddDamage(Attack);
         CommandReset();
     }
@@ -129,8 +130,11 @@ public class AttackPlayer : StatusClass
         var set = _dataBase.AttackSkillSelectData.SkillInfomation[_dataBase._attackSkillSetNo[i]];
         ShowText($"{set._skillName}！");
         _attackAnim.SetTrigger("NormalAttack");
-        if(set._selectSkill is AttackSkillSelect attackSkill)
-        _enemy.AddDamage(Attack, attackSkill.AttackValue);
+        if (set._selectSkill is AttackSkillSelect attackSkill)
+        {
+            _enemy.AddDamage(Attack, attackSkill.AttackValue);
+            AudioManager.Instance.SEPlay(SE.AttackerAttack);
+        }
         CommandReset();
     }
 

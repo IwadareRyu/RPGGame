@@ -23,7 +23,7 @@ public class MagicPlayer : StatusClass
     [SerializeField] Animator _animRobot;
     [SerializeField] Text _enumtext;
     [SerializeField] AttackPlayer _attackPlayer;
-    [SerializeField] BlockPlayer _blockPlayer;
+    [SerializeField] BlockPlayerController _blockPlayer;
     [SerializeField] Transform _magicObj;
     [SerializeField] GameObject _ship;
     DataBase _dataBase;
@@ -163,11 +163,13 @@ public class MagicPlayer : StatusClass
                         case 11:
                             var insShip = Instantiate(_ship, InsObjPoint);
                             yield return new WaitForSeconds(1f);
+                            AudioManager.Instance.SEPlay(SE.Explosion);
                             _enemy.AddMagicDamage(Attack, attackMagic.AttackValue);
 
                             break;
                         default:
                             _animRobot.SetTrigger("NormalAttack");
+                            AudioManager.Instance.SEPlay(SE.MagicianAttack);
                             _enemy.AddMagicDamage(Attack, attackMagic.AttackValue);
                             break;
 
@@ -183,6 +185,7 @@ public class MagicPlayer : StatusClass
                     _attackPlayer.AddBuff(blockMagic.PlusAttackPower, blockMagic.PlusDiffencePower, blockMagic.HealingHP);
                     _blockPlayer.AddBuff(blockMagic.PlusAttackPower, blockMagic.PlusDiffencePower, blockMagic.HealingHP);
                     AddBuff(blockMagic.PlusAttackPower, blockMagic.PlusDiffencePower, blockMagic.HealingHP);
+                    AudioManager.Instance.SEPlay(SE.Equip);
                 }
             }
         }

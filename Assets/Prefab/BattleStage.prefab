@@ -63,7 +63,7 @@ MonoBehaviour:
   _animRobot: {fileID: 6171523058759598124}
   _enumtext: {fileID: 8398328267948166892}
   _attackPlayer: {fileID: 3547545559970227983}
-  _blockPlayer: {fileID: 0}
+  _blockPlayer: {fileID: 3833503447544378612}
   _magicObj: {fileID: 2983643019269664660}
   _ship: {fileID: 9222707294697826954, guid: f74200a65e7fb794badf093aa2ed88ed, type: 3}
 --- !u!136 &630428692101504650
