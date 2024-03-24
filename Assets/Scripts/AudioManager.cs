@@ -1,6 +1,8 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
@@ -28,6 +30,12 @@ public class AudioManager : SingletonMonovihair<AudioManager>
 
     [SerializeField] AudioMixer _audioMixer;
 
+    AudioSettingStruct _nowBGM;
+
+    [SerializeField] float _changeBGMDurationTime = 1f;
+
+    [SerializeField] bool _startSetBGM = false;
+
     protected override bool _dontDestroyOnLoad { get { return true; } }
 
     private void Start()
@@ -35,6 +43,8 @@ public class AudioManager : SingletonMonovihair<AudioManager>
         _audioMixer.SetFloat("MasterVol",_masterVolume);
         _audioMixer.SetFloat("BGMVol",_bgmVolume);
         _audioMixer.SetFloat("SEVol",_seVolume);
+        _nowBGM = new();
+        if (_startSetBGM) { BGMPlay(BGM.Title); }
     }
 
     /// <summary>SEを再生するメソッド</summary>
@@ -49,20 +59,64 @@ public class AudioManager : SingletonMonovihair<AudioManager>
     public void BGMPlay(BGM bgmState)
     {
         _bgmSetting[(int)bgmState]._audio.Play();
+
+        
+        if (_nowBGM._audio == null) 
+        {
+            _nowBGM = _bgmSetting[(int)bgmState];
+            _nowBGM._audio.volume = _nowBGM._volume;
+        }   // 現在流しているBGMがない場合、普通に再生。
+        else 
+        { 
+            ChangeAudioPlay(bgmState); 
+        }   //現在流しているBGMがある場合、BGMを切り替えるメソッドを呼び出す。
     }
 
+    /// <summary>BGMをフェードイン、フェードアウトして切り替えるメソッド。</summary>
+    /// <param name="bgmState"></param>
+    void ChangeAudioPlay(BGM bgmState)
+    {
+        var beforeBGM = _nowBGM;
+        _nowBGM = _bgmSetting[(int)bgmState];
+        _nowBGM._audio.volume = 0f;
+        var bgmSeq = DOTween.Sequence();
+        bgmSeq.Append(_nowBGM._audio.DOFade(_nowBGM._volume, _changeBGMDurationTime))
+              .Join(beforeBGM._audio.DOFade(0f, _changeBGMDurationTime));
+        bgmSeq.Play().SetLink(gameObject).OnComplete(() => beforeBGM._audio.Stop());
+    }
+
+    public void StopBGM()
+    {
+        // tmpBGMに_nowBGMを代入することで、別でPlayBGMが呼ばれたときに誤作動が起こらないようにしている。
+        var tmpBGM = _nowBGM;
+        _nowBGM._audio = null;
+        tmpBGM._audio.DOFade(0f, _changeBGMDurationTime)
+            .OnComplete(() =>
+            {
+                tmpBGM._audio.Stop();
+            }).SetLink(gameObject);
+    }
+
+
+    /// <summary>_bgmSettingにAudioSourceを入れるメソッド</summary>
+    /// <param name="audios"></param>
     public void InputBGMSetting(AudioSource[] audios)
     {
         _bgmSetting = new AudioSettingStruct[audios.Length];
         _bgmSetting = InputAudioSetting(audios,_bgmSetting);
     }
 
+    /// <summary>_seSettingにAudioSourceを入れるメソッド</summary>
+    /// <param name="audios"></param>
     public void InputSESetting(AudioSource[] audios)
     {
         _seSetting = new AudioSettingStruct[audios.Length];
         _seSetting = InputAudioSetting(audios,_seSetting);
     }
 
+    /// <summary>AudioSettingStructにAudioSourceのクラスとボリュームの値を入れるメソッド</summary>
+    /// <param name="audios"></param>
+    /// <param name="audioSettings"></param>
     AudioSettingStruct[] InputAudioSetting(AudioSource[] audios,AudioSettingStruct[] audioSettings)
     {
         for(var i = 0;i < audios.Length;i++)
@@ -73,6 +127,7 @@ public class AudioManager : SingletonMonovihair<AudioManager>
         return audioSettings;
     }
 
+    /// <summary>_bgmSettingのボリュームをAudioSourceに反映させるメソッド</summary>
     void SetVolumeBGM()
     {
         for(var i = 0;i < _bgmSetting.Length;i++)
@@ -81,6 +136,7 @@ public class AudioManager : SingletonMonovihair<AudioManager>
         }
     }
 
+    /// <summary>_seSettingのボリュームをAudioSourceに反映させるメソッド</summary>
     void SetVolumeSE()
     {
         for (var i = 0; i < _seSetting.Length; i++)
@@ -90,7 +146,7 @@ public class AudioManager : SingletonMonovihair<AudioManager>
     }
 }
 
-/// <summary>音量をInspectorで個々に設定できるようにするclass</summary>
+/// <summary>AudioSourceのクラスとAudioの音量をいれる構造体</summary>
 [Serializable]
 public struct AudioSettingStruct
 {
@@ -113,6 +169,7 @@ public enum SE
     MagicianAttack,
     BlockerAttack,
     AttackerAttack,
+    EnemyShordAttack
 }
 
 

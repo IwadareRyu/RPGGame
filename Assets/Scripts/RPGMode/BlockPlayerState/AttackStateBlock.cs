@@ -114,6 +114,7 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
                 blockSkill.AttackValue,
                 blockSkill.EnemyOffencePower,
                 blockSkill.EnemyDiffencePower);
+            AudioManager.Instance.SEPlay(SE.BlockerAttack);
         }
     }
 

@@ -11,7 +11,7 @@ public class InputAudio : MonoBehaviour
     [SerializeField] AudioSource[] _bgmSource;
     [ContextMenuItem("SEInput", "SEInput")]
     [SerializeField] AudioSource[] _seSource;
-    
+
     void BGMInput()
     {
         if(_audioManager == null) { _audioManager.GetComponent<AudioManager>(); }

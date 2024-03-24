@@ -63,19 +63,12 @@ public class FightManager : SingletonMonovihair<FightManager>
         if (_player != null)
         {
             yield return _battleField =
-                Instantiate
-                (
-                    _battleFieldPrehab, other.transform.position, _player.transform.localRotation
-                );
+                Instantiate(_battleFieldPrehab, other.transform.position, _player.transform.localRotation);
         }
         else
         {
             yield return _battleField =
-                Instantiate
-                (
-                    _battleFieldPrehab, other.transform.position, other.transform.localRotation
-                );
-
+                Instantiate(_battleFieldPrehab, other.transform.position, other.transform.localRotation);
         }
         other.gameObject.SetActive(false);
         if (_player != null) { _player.SetActive(false); }
@@ -90,6 +83,7 @@ public class FightManager : SingletonMonovihair<FightManager>
             _battleState = BattleState.ActionBattle;
             OnEnterAction.Invoke();
         }
+        AudioManager.Instance.BGMPlay(BGM.RPGBattle);
     }
 
     /// <summary>敵を再出現させるメソッド</summary>
@@ -105,6 +99,8 @@ public class FightManager : SingletonMonovihair<FightManager>
     /// <param name="getpoint"></param>
     public void Win(int getpoint)
     {
+        AudioManager.Instance.StopBGM();
+        AudioManager.Instance.SEPlay(SE.Win);
         _battleState = BattleState.BattleEnd;
         _database.GetSkillPoint(getpoint);
         _winlosetext?.gameObject.SetActive(true);
@@ -117,6 +113,8 @@ public class FightManager : SingletonMonovihair<FightManager>
     /// <summary>負けた時に呼ばれるメソッド</summary>
     public void Lose()
     {
+        AudioManager.Instance.StopBGM();
+        AudioManager.Instance.SEPlay(SE.Lose);
         _battleState = BattleState.BattleEnd;
         _winlosetext?.gameObject.SetActive(true);
         if (_winlosetext != null) { _winlosetext.text = "Lose"; }
@@ -155,6 +153,7 @@ public class FightManager : SingletonMonovihair<FightManager>
         _inFight = false;
         if (_player != null) { _player.SetActive(true); }
         if (_battleField != null) { Destroy(_battleField); }
+        AudioManager.Instance.BGMPlay(BGM.RPGPart);
     }
 }
 
