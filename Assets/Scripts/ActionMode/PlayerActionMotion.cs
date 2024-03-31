@@ -36,6 +36,8 @@ public class PlayerActionMotion : MonoBehaviour
         var sideAttack = Instantiate(_sideAttackText, _spownPos.position, transform.rotation);
         sideAttack.transform.SetParent(transform);
         sideAttack.text = skillName[skillName.Length - 1];
+        //サイドアタックSE再生
+        AudioManager.Instance.SEPlay(SE.ActionAttack);
         // 移動処理
         yield return sideAttack.transform.DOLocalMoveX(_sideAttackStopPoint, _sideAttackTime).WaitForCompletion();
         // サイドアタックに入った敵を取ってくる処理
@@ -78,6 +80,8 @@ public class PlayerActionMotion : MonoBehaviour
                 // SkillPt獲得とTextの表示
                 _textSpawnScripts.GetPtText(deathEnemy[i].GetPoint(), transform.position);
             }   //攻撃の文字で敵を倒す(ように見せる)。
+            //爆発SE再生
+            AudioManager.Instance.SEPlay(SE.Explosion);
             yield return new WaitForSeconds(_sideAttackTime);
             foreach (var downAttack in downAttackList) { Destroy(downAttack.gameObject); }
         }

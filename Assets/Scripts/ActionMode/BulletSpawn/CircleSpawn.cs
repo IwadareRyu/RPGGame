@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,6 +11,7 @@ public class CircleSpawn : IBulletSpawn
     {
         for (float i = 0; i < 360; i += spawnEnemy.BulletRange)
         {
+            AudioManager.Instance.SEPlay(SE.EnemyShot);
             spawnEnemy.InitBullet(i);
             yield return new WaitForSeconds(_delaySpawnCoolTime);
         }
@@ -18,6 +19,7 @@ public class CircleSpawn : IBulletSpawn
 
     public void Spawn(BulletSpawnEnemy spawnEnemy)
     {
+        AudioManager.Instance.SEPlay(SE.EnemyShot);
         for (float i = 0; i < 360; i += spawnEnemy.BulletRange)
         {
             spawnEnemy.InitBullet(i);

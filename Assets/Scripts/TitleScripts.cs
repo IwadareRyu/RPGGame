@@ -10,6 +10,7 @@ public class TitleScripts : MonoBehaviour
     {
         FightManager.Instance.CanvasDisplay();
         PauseManager.PauseResume();
+        AudioManager.Instance.BGMPlay(BGM.Title);
     }
 
     // Update is called once per frame
@@ -17,6 +18,8 @@ public class TitleScripts : MonoBehaviour
     {
         if (Input.GetButtonDown("ActionDecition"))
         {
+            AudioManager.Instance.SEPlay(SE.Click);
+            AudioManager.Instance.BGMPlay(BGM.RPGPart);
             FightManager.Instance.CanvasDisplay();
             PauseManager.PauseResume();
             _titleCamera.enabled = false;
