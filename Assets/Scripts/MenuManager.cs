@@ -20,7 +20,8 @@ public class MenuManager : MonoBehaviour
         ///余裕があったらFightManagerのUnityActionでスクリプトのenableを切り替えても良いかも？
         if(Input.GetButtonDown("Menu") && !FightManager.Instance.InFight)
         {
-            if (_skillMenu.active)
+            AudioManager.Instance.SEPlay(SE.Click);
+            if (_skillMenu.activeSelf)
             {
                 _skillMenu.SetActive(false);
                 Cursor.visible = false;

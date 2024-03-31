@@ -31,6 +31,7 @@ public class SkillChangeScripts : MonoBehaviour
 
     public void ChangeSkill(int i)
     {
+        AudioManager.Instance.SEPlay(SE.Click);
         _skillChangeBottom[_setNo].SetActive(true);
         _skillChangeCanvas[_setNo].enabled = false;
         _skillChangeCanvas[i].enabled = true;
@@ -38,10 +39,5 @@ public class SkillChangeScripts : MonoBehaviour
         _selectText.text = ((SkillType)i).ToString();
         _skillSetScripts[i].SelectSkillReset();
         _setNo = i;
-    }
-
-    public void ChangeMamu()
-    {
-
     }
 }

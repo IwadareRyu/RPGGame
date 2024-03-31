@@ -154,7 +154,8 @@ public class TreeScript : MonoBehaviour
             if (DataBase.Instance.AttackMagicSelectData.SkillInfomation[i]._selectSkill is AttackMagicSelect attackMagic)
                 _cost += attackMagic.SkillPoint;
         }   //データの要素数からスキルデータを取ってきて、スキルデータのスキルポイントを合計コストに加算。
-
+        //クリックSEの再生
+        AudioManager.Instance.SEPlay(SE.Click);
         //スキルの説明、何のスキルを選択しているかを表示して、確認画面を出す。
         _tutorialText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[choiceNumber]._description;
         _skillText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[choiceNumber]._skillName} を選択中";
@@ -190,11 +191,15 @@ public class TreeScript : MonoBehaviour
         _confirmation.SetActive(false);
         if (_cost > _database.SkillPoint)
         {
+            //ClickSEの再生
+            AudioManager.Instance.SEPlay(SE.Click);
             Debug.Log("スキルポイントが足りないのでポイントを消費せず、処理を終了します。");
             _falseComfimation.SetActive(true);
         }   //スキルポイントが足りなかったら足りないときのウィンドウを出す。
         else
         {
+            //スキル習得のSE再生
+            AudioManager.Instance.SEPlay(SE.GetSkill);
             _database.GetSkillPoint(-_cost);
             _menuSkillPtText.text = _database.SkillPoint.ToString();
             foreach (var i in _ansList)
@@ -209,17 +214,19 @@ public class TreeScript : MonoBehaviour
 
     public void ResetButton()
     {
+        //クリックSEの再生
+        AudioManager.Instance.SEPlay(SE.Click);
         for (var i = 1; i < _attackMagicTreeButtom.Length; i++)
         {
             _attackMagicTreeButtom[i].interactable = true;
         }
     }
 
-
-
     /// <summary>確認を受け入れなかった時の処理</summary>
     void NoConfirmation()
     {
+        //クリックSEの再生
+        AudioManager.Instance.SEPlay(SE.Click);
         _confirmation.SetActive(false);
         AnswerReset();
     }
@@ -227,6 +234,8 @@ public class TreeScript : MonoBehaviour
     /// <summary>探索した時の処理を初期化する処理</summary>
     void AnswerReset()
     {
+        //クリックSEの再生
+        AudioManager.Instance.SEPlay(SE.Click);
         _answerbool = false;
         _ansList.Clear();
         _cost = 0;

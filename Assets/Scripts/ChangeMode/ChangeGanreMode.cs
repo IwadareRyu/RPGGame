@@ -9,7 +9,6 @@ public class ChangeGanreMode : MonoBehaviour
     [SerializeField] ChangeGanreState _changeGanreState = ChangeGanreState.RPG;
     [SerializeField] BulletSpawnEnemy[] enemys;
     [SerializeField] Rigidbody _rpgEnemy;
-    [SerializeField] bool _initialStage;
 
     private void Start()
     {
@@ -19,11 +18,6 @@ public class ChangeGanreMode : MonoBehaviour
         }   //Initでenemyの物理演算、弾幕を非アクティブにする。
         //RPGフロアの場合RPGのenemyの物理演算を非アクティブにする。
         if (_rpgEnemy != null) { _rpgEnemy.isKinematic = true; }
-        //初期フロアの場合、ChangeMode()で対象の敵を有効化する。
-        if (_initialStage) 
-        {
-            ChangeMode(); 
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -69,6 +63,7 @@ public class ChangeGanreMode : MonoBehaviour
     {
         if (_changeGanreState == ChangeGanreState.Action)
         {
+            AudioManager.Instance.BGMPlay(BGM.ActionPart);
             _actionCinemachine.enabled = true;
             foreach (var enemy in enemys)
             {
@@ -77,6 +72,7 @@ public class ChangeGanreMode : MonoBehaviour
         }   //Actionの場合、物理演算、弾幕をアクティブ、非アクティブにする。
         else
         {
+            AudioManager.Instance.BGMPlay(BGM.RPGPart);
             _actionCinemachine.enabled = false;
             _rpgEnemy.isKinematic = !_rpgEnemy.isKinematic;
         }   //RPGの場合、物理演算をアクティブ、非アクティブにする。

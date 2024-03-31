@@ -39,56 +39,6 @@ public class SkillSetScripts : MonoBehaviour
         }
     }
 
-    //private void OnEnable()
-    //{
-    //    if (_skillPanel.Length != 0)
-    //    {
-    //        for (var i = 0; i < _skillPanel.Length; i++)
-    //        {
-    //            var text = _skillPanel[i].GetComponentInChildren<Text>();
-    //            if (_skilltype == SkillType.BlockSkill)
-    //            {
-    //                text.text = DataBase.Instance.BlockSkillSelectData.SkillInfomation[DataBase.Instance._blockSkillSetNo[i]]._skillName;
-    //            }
-    //            else if (_skilltype == SkillType.AttackSkill)
-    //            {
-    //                text.text = DataBase.Instance.AttackSkillSelectData.SkillInfomation[DataBase.Instance._attackSkillSetNo[i]]._skillName;
-    //            }
-    //            else if (_skilltype == SkillType.AttackMagic)
-    //            {
-    //                text.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[DataBase.Instance._attackMagicSetNo[i]]._skillName;
-    //            }
-    //            else
-    //            {
-    //                text.text = DataBase.Instance.BlockMagicSelectData.SkillInfomation[DataBase.Instance._blockMagicSetNo[i]]._skillName;
-    //            }
-    //        }
-    //        foreach (Transform trans in _skillSetPoint.gameObject.transform)
-    //        {
-    //            Destroy(trans.gameObject);
-    //        }
-    //        if (_dataBase)
-    //        {
-    //            if (_skilltype == SkillType.BlockSkill)
-    //            {
-    //                SkillSet(_dataBase._blockSkillbool, DataBase.Instance.BlockSkillSelectData);
-    //            }
-    //            else if (_skilltype == SkillType.AttackSkill)
-    //            {
-    //                SkillSet(_dataBase._attackSkillbool, DataBase.Instance.AttackSkillSelectData);
-    //            }
-    //            else if (_skilltype == SkillType.AttackMagic)
-    //            {
-    //                SkillSet(_dataBase._attackMagicbool, DataBase.Instance.AttackMagicSelectData);
-    //            }
-    //            else
-    //            {
-    //                SkillSet(_dataBase._blockMagicbool, DataBase.Instance.BlockMagicSelectData);
-    //            }
-    //        }
-    //    }
-    //}
-
     private void Start()
     {
         _dataBase = DataBase.Instance;
@@ -196,6 +146,7 @@ public class SkillSetScripts : MonoBehaviour
 
     void SkillDis(SkillInfomation skillobj)
     {
+        AudioManager.Instance.SEPlay(SE.Click);
         _tutorialText.text = skillobj._description;
         _skillText.text = $"{skillobj._skillName} を選択中";
     }
@@ -203,6 +154,7 @@ public class SkillSetScripts : MonoBehaviour
     public void MoveSkillChoice(int i)
     {
         if (_tmp == -1) { return; }
+        
         if (_skilltype == SkillType.BlockSkill)
         {
             MoveSkill(i, _dataBase._blockSkillSetNo, DataBase.Instance.BlockSkillSelectData.SkillInfomation);
@@ -226,5 +178,6 @@ public class SkillSetScripts : MonoBehaviour
         var text = _skillPanel[i].GetComponentInChildren<Text>();
         text.text = _skill[_tmp]._skillName;
         SetNo[i] = _tmp;
+        AudioManager.Instance.SEPlay(SE.Equip);
     }
 }

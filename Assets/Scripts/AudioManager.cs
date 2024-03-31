@@ -58,31 +58,34 @@ public class AudioManager : SingletonMonovihair<AudioManager>
     /// <param name="bgmState">指定したBGMオーディオ</param>
     public void BGMPlay(BGM bgmState)
     {
-        _bgmSetting[(int)bgmState]._audio.Play();
-
-        
-        if (_nowBGM._audio == null) 
+        if (_nowBGM._audio != _bgmSetting[(int)bgmState]._audio)
         {
-            _nowBGM = _bgmSetting[(int)bgmState];
-            _nowBGM._audio.volume = _nowBGM._volume;
-        }   // 現在流しているBGMがない場合、普通に再生。
-        else 
-        { 
-            ChangeAudioPlay(bgmState); 
-        }   //現在流しているBGMがある場合、BGMを切り替えるメソッドを呼び出す。
+            _bgmSetting[(int)bgmState]._audio.Play();
+
+
+            if (_nowBGM._audio == null)
+            {
+                _nowBGM = _bgmSetting[(int)bgmState];
+                _nowBGM._audio.volume = _nowBGM._volume;
+            }   // 現在流しているBGMがない場合、普通に再生。
+            else
+            {
+                ChangeAudioPlay(bgmState);
+            }   //現在流しているBGMがある場合、BGMを切り替えるメソッドを呼び出す。
+        }
     }
 
     /// <summary>BGMをフェードイン、フェードアウトして切り替えるメソッド。</summary>
     /// <param name="bgmState"></param>
     void ChangeAudioPlay(BGM bgmState)
     {
-        var beforeBGM = _nowBGM;
-        _nowBGM = _bgmSetting[(int)bgmState];
-        _nowBGM._audio.volume = 0f;
-        var bgmSeq = DOTween.Sequence();
-        bgmSeq.Append(_nowBGM._audio.DOFade(_nowBGM._volume, _changeBGMDurationTime))
-              .Join(beforeBGM._audio.DOFade(0f, _changeBGMDurationTime));
-        bgmSeq.Play().SetLink(gameObject).OnComplete(() => beforeBGM._audio.Stop());
+            var beforeBGM = _nowBGM;
+            _nowBGM = _bgmSetting[(int)bgmState];
+            _nowBGM._audio.volume = 0f;
+            var bgmSeq = DOTween.Sequence();
+            bgmSeq.Append(_nowBGM._audio.DOFade(_nowBGM._volume, _changeBGMDurationTime))
+                  .Join(beforeBGM._audio.DOFade(0f, _changeBGMDurationTime));
+            bgmSeq.Play().SetLink(gameObject).OnComplete(() => beforeBGM._audio.Stop());
     }
 
     public void StopBGM()
