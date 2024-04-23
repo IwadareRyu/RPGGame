@@ -37,11 +37,6 @@ public abstract class StatusClass : MonoBehaviour
     public Survive _survive = Survive.Survive;
 
     public bool _death;
-
-    //[SerializeField] Transform _swordUpPrehab;
-    //[SerializeField] Transform _swordDownPrehab;
-    //[SerializeField] Transform _sheldUpPrehab;
-    //[SerializeField] Transform _sheldDownPrehab;
     [SerializeField] GameObject  _conditionPanel;
 
     private void OnEnable()
@@ -58,6 +53,7 @@ public abstract class StatusClass : MonoBehaviour
 
     public virtual void ActionMode() { }
     public virtual void RPGMode() { }
+
     /// <summary>バフの効果時間の処理</summary>
     public void TimeMethod()
     {
@@ -87,7 +83,7 @@ public abstract class StatusClass : MonoBehaviour
     /// <summary>普通にダメージを受けた時の処理</summary>
     /// <param name="damage"></param>
     /// <param name="skillParsent"></param>
-    public void AddDamage(float damage,float skillParsent = 1)
+    public virtual void AddDamage(float damage,float skillParsent = 1)
     {
         _hp = Mathf.Max(0,_hp - (int)(damage * skillParsent - _diffence));
         ShowSlider();
@@ -96,7 +92,7 @@ public abstract class StatusClass : MonoBehaviour
     /// <summary>特殊なダメージを受けた時の処理(防御貫通)</summary>
     /// <param name="damage"></param>
     /// <param name="skillParsent"></param>
-    public void AddMagicDamage(float damage, float skillParsent = 1)
+    public virtual void AddMagicDamage(float damage, float skillParsent = 1)
     {
         _hp = _hp - (int)(damage * skillParsent);
         ShowSlider();

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] GameObject _skillMenu;
     [SerializeField]PlayerController _controller;
+    [SerializeField] CinemachineFreeLook _cinemachine;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,7 @@ public class MenuManager : MonoBehaviour
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 _controller._menu = false;
+                _cinemachine.enabled = true;
             }
             else
             {
@@ -34,6 +37,7 @@ public class MenuManager : MonoBehaviour
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 _controller._menu = true;
+                _cinemachine.enabled = false;
             }
         }
     }

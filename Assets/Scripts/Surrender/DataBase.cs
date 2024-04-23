@@ -139,7 +139,10 @@ public class DataBase : MonoBehaviour
     {
         if(skillData._getSkill.Length != 0)
         {
-            return skillData._getSkill;
+            for(var i = 0; i < skillData._getSkill.Length;i++)
+            {
+                getBool[i] = skillData._getSkill[i];
+            }
         }
         return getBool;
     }
