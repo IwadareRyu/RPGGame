@@ -17,13 +17,8 @@ public class BlockPlayerController : StatusClass
     public BlockState Condition => _conditionState;
     [Tooltip("状態のテキスト"),Header("プレイヤーの状態を表示するテキスト")]
     [SerializeField] Text _enumtext;
-    //[SerializeField] GameObject _blockObj;
-    //[SerializeField] GetOutScripts _getOutPrefab;
-    //GetOutScripts _getOutObj;
-    //[SerializeField] Transform _getInPos;
     [Header("プレイヤーのアニメーション")]
     [SerializeField] Animator _blockAnim;
-    //[SerializeField] Canvas _statusCanvas;
     [Tooltip("BlockPlayerの移動場所"),Header("BlockPlayerの移動場所")]
     public Transform[] _trans;
     bool _isCounter;

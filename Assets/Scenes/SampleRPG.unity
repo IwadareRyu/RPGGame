@@ -2081,7 +2081,7 @@ PrefabInstance:
     - target: {fileID: 3396390871216154187, guid: 83b365f460fcec142a767b477b9b248b,
         type: 3}
       propertyPath: IsVersionUpFlag
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3396390871216154187, guid: 83b365f460fcec142a767b477b9b248b,
         type: 3}
@@ -2107,6 +2107,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: f39080fdad0289340becd9d03c6bf756,
         type: 2}
+    - target: {fileID: 3396390871216154187, guid: 83b365f460fcec142a767b477b9b248b,
+        type: 3}
+      propertyPath: _attackMagicbool.Array.size
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 3396390871216154187, guid: 83b365f460fcec142a767b477b9b248b,
         type: 3}
       propertyPath: _attackMagicbool.Array.data[1]
@@ -2171,6 +2176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _attackMagicbool.Array.data[10]
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3396390871216154187, guid: 83b365f460fcec142a767b477b9b248b,
+        type: 3}
+      propertyPath: _attackMagicbool.Array.data[11]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3396390871216154187, guid: 83b365f460fcec142a767b477b9b248b,
         type: 3}

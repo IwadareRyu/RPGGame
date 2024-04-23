@@ -141,7 +141,7 @@ public class EnemyController : StatusClass
         else
         {
             _enemyText.text = $"{target}にダメージ。";
-            player.AddDamage(Attack);
+            player.AddDamage(Attack,2);
         }
     }
 
