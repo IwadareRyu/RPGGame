@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RPGBattle;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class AttackPlayer : StatusClass
@@ -36,7 +37,7 @@ public class AttackPlayer : StatusClass
     {
         if (_survive == Survive.Survive)
         {
-            if (FightManager.Instance.BattleState == BattleState.RPGBattle)
+            if (RPGBattleManager.Instance.BattleState == BattleState.RPGBattle)
             {
                 if (!_commandbool)
                 {
@@ -75,7 +76,7 @@ public class AttackPlayer : StatusClass
             }
 
 
-            if (FightManager.Instance.BattleState == BattleState.ActionBattle)
+            if (RPGBattleManager.Instance.BattleState == BattleState.ActionBattle)
             {
                 if (Input.GetButtonDown("AttackerAttack"))
                 {
@@ -183,7 +184,7 @@ public class AttackPlayer : StatusClass
     {
         if (other.gameObject.tag == "EnemyBullet")
         {
-            if (FightManager.Instance.BattleState == BattleState.ActionBattle)
+            if (RPGBattleManager.Instance.BattleState == BattleState.ActionBattle)
             {
                 AddDamage(10);
             }

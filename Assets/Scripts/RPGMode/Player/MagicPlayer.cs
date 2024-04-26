@@ -2,6 +2,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using RPGBattle;
 
 public class MagicPlayer : StatusClass
 {
@@ -48,7 +49,7 @@ public class MagicPlayer : StatusClass
 
         if (_survive == Survive.Survive)
         {
-            if (FightManager.Instance.BattleState == BattleState.RPGBattle)
+            if (RPGBattleManager.Instance.BattleState == BattleState.RPGBattle)
             {
                 if (Input.GetButtonDown("MagicForward"))
                 {
@@ -75,7 +76,7 @@ public class MagicPlayer : StatusClass
                 TimeMethod();
             }
 
-            if (FightManager.Instance.BattleState == BattleState.ActionBattle)
+            if (RPGBattleManager.Instance.BattleState == BattleState.ActionBattle)
             {
                 if(Input.GetButtonDown("MagicAttack"))
                 {
@@ -150,7 +151,7 @@ public class MagicPlayer : StatusClass
     IEnumerator MagicTime()
     {
         yield return new WaitForSeconds(5f);
-        if (_survive == Survive.Survive && FightManager.Instance.BattleState == BattleState.RPGBattle)
+        if (_survive == Survive.Survive && RPGBattleManager.Instance.BattleState == BattleState.RPGBattle)
         {
             if (_magicpos == MagicPosition.AttackMagic)
             {
@@ -230,9 +231,9 @@ public class MagicPlayer : StatusClass
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "EnemyBullet" && FightManager.Instance.BattleState == BattleState.ActionBattle)
+        if (other.gameObject.tag == "EnemyBullet" && RPGBattleManager.Instance.BattleState == BattleState.ActionBattle)
         {
-            if (FightManager.Instance.BattleState == BattleState.ActionBattle)
+            if (RPGBattleManager.Instance.BattleState == BattleState.ActionBattle)
             {
                 AddDamage(10);
             }
