@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPGBattle;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -86,9 +87,10 @@ public class BlockPlayerController : StatusClass
     // Update is called once per frame
     void Update()
     {
-        _currentState.UpdateState(this);
+        if (RPGBattleManager.Instance.BattleState != BattleState.RPGBattle) { return; }
+            _currentState.UpdateState(this);
 
-        if(HP <= 0) { OnChangeState(DeathState); }
+            if (HP <= 0) { OnChangeState(DeathState); }
     }
 
     /// <summary>今のStateを変える時に呼ぶメソッド</summary>

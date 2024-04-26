@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using RPGBattle;
 
 public class FightManager : SingletonMonovihair<FightManager>
 {
@@ -9,6 +10,7 @@ public class FightManager : SingletonMonovihair<FightManager>
     [Header("テストプレイでもアタッチ必要")]
     [SerializeField] GameObject _battleFieldPrehab;
     private GameObject _battleField;
+    private RPGBattleManager _rpgBattleManager;
     [Header("テストプレイ時アタッチ不要")]
     [SerializeField] GameObject _player;
     [SerializeField] Text _winlosetext;
@@ -19,14 +21,6 @@ public class FightManager : SingletonMonovihair<FightManager>
     [SerializeField] bool _actionbool;
     [SerializeField] bool _isFalseCanvas;
     public bool InFight => _inFight;
-
-    public static event UnityAction OnEnterAction;
-    public static event UnityAction OnEnterRPG;
-    public static event UnityAction OnEnterBattle;
-    public static event UnityAction OnExitBattle;
-
-    BattleState _battleState;
-    public BattleState BattleState => _battleState;
     [Header("テストプレイ用")]
     [SerializeField] GameObject _testEnemyPrefab;
 
@@ -36,8 +30,8 @@ public class FightManager : SingletonMonovihair<FightManager>
     void Start()
     {
         _database = DataBase.Instance;
-        _winlosetext?.gameObject.SetActive(false);
-        _pointGetText?.gameObject.SetActive(false);
+        if (_winlosetext != null)_winlosetext.enabled = false;
+        if(_pointGetText != null)_pointGetText.enabled = false;
     }
 
     /// <summary>Canvasの表示非表示を切り替えるメソッド</summary>
@@ -70,19 +64,11 @@ public class FightManager : SingletonMonovihair<FightManager>
             yield return _battleField =
                 Instantiate(_battleFieldPrehab, other.transform.position, other.transform.localRotation);
         }
+
+        _rpgBattleManager = _battleField.GetComponent<RPGBattleManager>();
         other.gameObject.SetActive(false);
         if (_player != null) { _player.SetActive(false); }
         StartCoroutine(EndFightCoroutine(other));
-        //OnEnterBattle.Invoke();
-        if (!_actionbool)
-        {
-            _battleState = BattleState.RPGBattle;
-        }
-        else
-        {
-            _battleState = BattleState.ActionBattle;
-            OnEnterAction.Invoke();
-        }
         AudioManager.Instance.BGMPlay(BGM.RPGBattle);
     }
 
@@ -101,12 +87,18 @@ public class FightManager : SingletonMonovihair<FightManager>
     {
         AudioManager.Instance.StopBGM();
         AudioManager.Instance.SEPlay(SE.Win);
-        _battleState = BattleState.BattleEnd;
         _database.GetSkillPoint(getpoint);
-        _winlosetext?.gameObject.SetActive(true);
-        if (_winlosetext != null) { _winlosetext.text = "Win!"; }
-        _pointGetText?.gameObject.SetActive(true);
-        if (_pointGetText != null) { _pointGetText.text = $"SkillPointを {getpoint} pt獲得した"; }
+        
+        if (_winlosetext != null) 
+        {
+            _winlosetext.enabled = true ; 
+            _winlosetext.text = "Win!";
+        }
+        if (_pointGetText != null) 
+        {
+            _pointGetText.enabled = true;
+            _pointGetText.text = $"SkillPointを {getpoint} pt獲得した"; 
+        }
         StartCoroutine(EndBattle());
     }
 
@@ -115,30 +107,12 @@ public class FightManager : SingletonMonovihair<FightManager>
     {
         AudioManager.Instance.StopBGM();
         AudioManager.Instance.SEPlay(SE.Lose);
-        _battleState = BattleState.BattleEnd;
-        _winlosetext?.gameObject.SetActive(true);
-        if (_winlosetext != null) { _winlosetext.text = "Lose"; }
+        if (_winlosetext != null)
+        {
+            _winlosetext.enabled = true;
+            _winlosetext.text = "Lose";
+        }
         StartCoroutine(EndBattle());
-    }
-
-    /// <summary>RPG導入時に操作するメソッド</summary>
-    public void RPGEnter()
-    {
-        OnEnterRPG.Invoke();
-        _battleState = BattleState.BattleStop;
-    }
-
-    /// <summary>RPGが始まった時に動作するメソッド</summary>
-    public void StartRPG()
-    {
-        _battleState = BattleState.RPGBattle;
-    }
-
-    /// <summary>アクションモードが始まった時に動作するメソッド(今の所没)</summary>
-    public void ActionEnter()
-    {
-        OnEnterAction.Invoke();
-        _battleState = BattleState.ActionBattle;
     }
 
     /// <summary>バトルが終わった時に動作するメソッド</summary>
@@ -146,8 +120,8 @@ public class FightManager : SingletonMonovihair<FightManager>
     {
         yield return new WaitForSeconds(5f);
         //OnExitBattle.Invoke();
-        _winlosetext?.gameObject.SetActive(false);
-        _pointGetText?.gameObject.SetActive(false);
+        if (_winlosetext != null) _winlosetext.enabled = false;
+        if (_pointGetText != null) _pointGetText.enabled = false;
         if (_tutorialCanvas != null) { _tutorialCanvas.enabled = true; }
         if (_changeGanreCanvas != null) { _changeGanreCanvas.enabled = true; }
         _inFight = false;
@@ -155,14 +129,4 @@ public class FightManager : SingletonMonovihair<FightManager>
         if (_battleField != null) { Destroy(_battleField); }
         AudioManager.Instance.BGMPlay(BGM.RPGPart);
     }
-}
-
-
-public enum BattleState
-{
-    BattleStart,
-    BattleStop,
-    RPGBattle,
-    ActionBattle,
-    BattleEnd,
 }

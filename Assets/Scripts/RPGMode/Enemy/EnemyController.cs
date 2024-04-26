@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RPGBattle;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class EnemyController : StatusClass
     [SerializeField] int _getSkillPoint = 50;
     bool _enemyAttackbool;
     [SerializeField] Animator _anim;
-    bool _fight;
+    bool _notFight;
     [Header("アクションモード設定")]
     [SerializeField] bool _aliveAction;
     [SerializeField] TimelineBullet _timelineBullet;
@@ -44,8 +45,9 @@ public class EnemyController : StatusClass
             AddDamage(HP * 0.3f);
             _debugActionModeBool = false;
         }
+
         if (_survive == Survive.Survive && 
-            FightManager.Instance.BattleState == BattleState.RPGBattle)
+            RPGBattleManager.Instance.BattleState == BattleState.RPGBattle)
         {
             if (!_enemyAttackbool)
             {
@@ -55,14 +57,15 @@ public class EnemyController : StatusClass
 
             TimeMethod();
 
-            if (_magicPlayer.HP <= 0 && _attackPlayer.HP <= 0 && !_fight)
+            if ((_magicPlayer.HP <= 0 || _attackPlayer.HP <= 0) && !_notFight)
             {
-                _fight = true;
+                _notFight = true;
                 FightManager.Instance.Lose();
             }
-            else if (HP <= 0 && !_fight)
+
+            else if (HP <= 0 && !_notFight)
             {
-                _fight = true;
+                _notFight = true;
                 _anim.SetBool("Death", true);
                 _survive = Survive.Death;
                 _enemyText.text = "ぬわああああああああああああ";
@@ -71,16 +74,16 @@ public class EnemyController : StatusClass
 
             if(HP <= DefaulrHP * 0.75 && _aliveAction)
             {
-                FightManager.Instance.ActionEnter();
+                RPGBattleManager.Instance.ActionEnter();
                 _actionTime = _timelineBullet.ActionStart();
             }
         }
-        else if(FightManager.Instance.BattleState == BattleState.ActionBattle)
+        else if(RPGBattleManager.Instance.BattleState == BattleState.ActionBattle)
         {
             _actionTime -= Time.deltaTime;
             if(HP <= DefaulrHP * 0.25 || _actionTime < 0)
             {
-                FightManager.Instance.RPGEnter();
+                RPGBattleManager.Instance.BattleEnter();
                 _timelineBullet.ActionEnd();
                 _aliveAction = false;
             }
@@ -90,7 +93,7 @@ public class EnemyController : StatusClass
     IEnumerator EnemyAttackCoolTime()
     {
         yield return new WaitForSeconds(5f);
-        if (_survive != Survive.Death && FightManager.Instance.BattleState == BattleState.RPGBattle)
+        if (_survive != Survive.Death && RPGBattleManager.Instance.BattleState == BattleState.RPGBattle)
         {
             var ram = Random.Range(0, 100);
             _anim.SetBool("Attack", true);
@@ -116,7 +119,7 @@ public class EnemyController : StatusClass
     {
         yield return new WaitForSeconds(1.1f);
 
-        if (_survive != Survive.Death && FightManager.Instance.BattleState == BattleState.RPGBattle)
+        if (_survive != Survive.Death && RPGBattleManager.Instance.BattleState == BattleState.RPGBattle)
         {
             AudioManager.Instance.SEPlay(SE.EnemyShordAttack);
             if (targetMagic)

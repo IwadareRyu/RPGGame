@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RPGBattle;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -41,14 +42,14 @@ public abstract class StatusClass : MonoBehaviour
 
     private void OnEnable()
     {
-        FightManager.OnEnterAction += ActionMode;
-        FightManager.OnEnterRPG += RPGMode;
+        RPGBattleManager.OnEnterAction += ActionMode;
+        RPGBattleManager.OnEnterRPG += RPGMode;
     }
 
     private void OnDisable()
     {
-        FightManager.OnEnterAction -= ActionMode;
-        FightManager.OnEnterRPG -= RPGMode;
+        RPGBattleManager.OnEnterAction -= ActionMode;
+        RPGBattleManager.OnEnterRPG -= RPGMode;
     }
 
     public virtual void ActionMode() { }
