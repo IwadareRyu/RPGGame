@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,6 +13,8 @@ namespace RPGBattle
         [SerializeField] Color _fadeColor = Color.white;
         Color _defaultColor = Color.white;
         [SerializeField] float _fadeTime = 1f;
+
+        /// <summary>一斉制御するときに使うかもしれないUnityEvent</summary>
         public static event UnityAction OnEnterAction;
         public static event UnityAction OnEnterRPG;
         public static event UnityAction OnStartBattle;
@@ -37,7 +38,7 @@ namespace RPGBattle
             _blackPanel.enabled = true;
             _defaultColor = _ruleImage.color;
             _ruleImage.color = _fadeColor;
-            FadeChildText(0 ,1);
+            FadeChildText(0, 1);
             yield return _ruleImage.DOColor(_defaultColor, _fadeTime).SetLink(_ruleImage.gameObject).WaitForCompletion();
             yield return new WaitUntil(() => Input.anyKeyDown);
             FadeChildText(1, 0);
@@ -46,7 +47,7 @@ namespace RPGBattle
             StartRPG();
         }
 
-        void FadeChildText(float start,float end)
+        void FadeChildText(float start, float end)
         {
             foreach (Transform child in _ruleImage.transform)
             {
@@ -63,7 +64,7 @@ namespace RPGBattle
         /// <summary>BattleStart時に行うメソッド</summary>
         public void BattleEnter()
         {
-            //OnStartBattle.Invoke();
+
             _battleState = BattleState.BattleStart;
         }
 
@@ -72,18 +73,16 @@ namespace RPGBattle
             _battleState = BattleState.BattleStop;
         }
 
+        public void BattleEnd()
+        {
+            _battleState = BattleState.BattleEnd;
+        }
+
 
         /// <summary>RPGが始まった時に動作するメソッド</summary>
         public void StartRPG()
         {
             _battleState = BattleState.RPGBattle;
-        }
-
-        /// <summary>アクションモードが始まった時に動作するメソッド(今の所没)</summary>
-        public void ActionEnter()
-        {
-            OnEnterAction.Invoke();
-            _battleState = BattleState.ActionBattle;
         }
     }
 
@@ -92,7 +91,6 @@ namespace RPGBattle
         BattleStart,
         BattleStop,
         RPGBattle,
-        ActionBattle,
         BattleEnd,
     }
 }

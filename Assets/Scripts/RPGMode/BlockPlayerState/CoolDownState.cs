@@ -10,7 +10,7 @@ public class CoolDownState : IRPGState
     float _currentTime = 0f;
     public void Init(BlockPlayerController player)
     {
-        
+
     }
 
     public void StartState(BlockPlayerController player)
@@ -20,11 +20,13 @@ public class CoolDownState : IRPGState
         player._targetGuard = TargetGuard.None;
         player.transform.position = player._trans[(int)TargetGuard.None].position;
         _currentTime = 0f;
+        player.ChantingViewAccess(_currentTime, _coolDownTime);
     }
 
     public void UpdateState(BlockPlayerController player)
     {
         _currentTime += Time.deltaTime;
+        player.ChantingViewAccess(_currentTime,_coolDownTime);
 
         if(_currentTime > _coolDownTime)
         {
@@ -35,6 +37,8 @@ public class CoolDownState : IRPGState
     public void EndState(BlockPlayerController player)
     {
         Debug.Log("クールダウン終了");
+        _currentTime = 0f;
+        player.ChantingViewAccess(_currentTime, _coolDownTime);
     }
 
 }

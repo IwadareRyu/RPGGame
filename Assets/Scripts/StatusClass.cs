@@ -6,13 +6,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class StatusClass : MonoBehaviour
+public abstract class StatusClass : MonoBehaviour,IViewCharaUI
 {
+    /// <summary>HP系</summary>
     [SerializeField] int _defaultHP = 100;
     public int DefaulrHP => _defaultHP;
     int _hp = 100;
     public int HP => _hp;
 
+    /// <summary>攻撃力系</summary>
     [SerializeField] int _defaultAttack = 1;
     int _attack = 10;
     float _attackBuffTime = 0;
@@ -20,14 +22,20 @@ public abstract class StatusClass : MonoBehaviour
 
     public int Attack => _attack;
 
+    /// <summary>防御力系</summary>
     [SerializeField] int _defaultDiffence = 1; 
     int _diffence = 5;
     float _diffenceBuffTime = 0;
     bool _buffDiffence;
 
     public int Diffence => _diffence;
+
+    /// <summary>敵への攻撃の際のアクセス</summary>
     [HideInInspector]
     public EnemyController _enemy;
+
+    /// <summary>UIへのアクセス</summary>
+    [SerializeField] UIView _uIView;
     [SerializeField]
     Slider _hpSlider;
 
@@ -36,9 +44,6 @@ public abstract class StatusClass : MonoBehaviour
     public Transform InsObjPoint => _insObjPoint;
 
     public Survive _survive = Survive.Survive;
-
-    public bool _death;
-    [SerializeField] GameObject  _conditionPanel;
 
     private void OnEnable()
     {
@@ -87,7 +92,7 @@ public abstract class StatusClass : MonoBehaviour
     public virtual void AddDamage(float damage,float skillParsent = 1)
     {
         _hp = Mathf.Max(0,_hp - (int)(damage * skillParsent - _diffence));
-        ShowSlider();
+        HPViewAccess();
     }
 
     /// <summary>特殊なダメージを受けた時の処理(防御貫通)</summary>
@@ -96,7 +101,7 @@ public abstract class StatusClass : MonoBehaviour
     public virtual void AddMagicDamage(float damage, float skillParsent = 1)
     {
         _hp = _hp - (int)(damage * skillParsent);
-        ShowSlider();
+        HPViewAccess();
     }
 
     /// <summary>デバフとダメージを受けた時の処理</summary>
@@ -107,7 +112,7 @@ public abstract class StatusClass : MonoBehaviour
     public void AddDebuffDamage(float damage, float skillParsent = 1,int attackDebuff = 0,int diffenceDebuff = 0)
     {
         _hp = _hp - (int)(damage * skillParsent);
-        ShowSlider();
+        HPViewAccess();
         if (_attack >= _defaultAttack && attackDebuff != 0)
         {
             StartCoroutine(AttackBuffTIme(attackDebuff));
@@ -135,14 +140,8 @@ public abstract class StatusClass : MonoBehaviour
         if (heal != 0 && _hp > 0)
         {
             _hp = Mathf.Min(_defaultHP, _hp + heal);
-            ShowSlider();
+            HPViewAccess();
         }
-    }
-
-    /// <summary>HPのゲージを更新する処理</summary>
-    public void ShowSlider()
-    {
-        _hpSlider.value = (float)_hp / (float)_defaultHP;
     }
 
     /// <summary>攻撃のバフ、デバフを受けた時のコルーチン</summary>
@@ -178,6 +177,20 @@ public abstract class StatusClass : MonoBehaviour
         _diffence = _defaultDiffence;
         Debug.Log("防御状態変化解除");
     }
+
+    /// <summary>HPのゲージを更新する処理</summary>
+    public void HPViewAccess()
+    {
+        _uIView.HPView(_hp,_defaultHP);
+    }
+
+    /// <summary>攻撃の詠唱時間ゲージを更新する処理</summary>
+    public void ChantingViewAccess(float currentChanting, float maxChanting)
+    {
+        _uIView.ChantingView(currentChanting,maxChanting);
+    }
+
+    public virtual void ChantingTimeReset() { return; }
 
     /// <summary>生きているか死んでいるかのstate</summary>
     public enum Survive
