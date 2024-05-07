@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class AttackPlayer : StatusClass
 {
-    float _time;
+    [SerializeField] float _commandTime = 10f;
+    float _commandCoolTime;
     bool _commandbool;
     [SerializeField] GameObject _commandObj;
     [SerializeField] Text[] _commandText;
@@ -21,7 +22,8 @@ public class AttackPlayer : StatusClass
         _enemy = GameObject.FindGameObjectWithTag("RPGEnemy")?.GetComponent<EnemyController>();
         if (_commandObj) _commandObj.SetActive(false);
         SetStatus();
-        ShowSlider();
+        HPViewAccess();
+        ChantingViewAccess(_commandCoolTime, _commandTime);
         Debug.Log($"AttackerHP:{HP}");
         Debug.Log($"AttackerAttack:{Attack}");
         Debug.Log($"AttackerDiffence:{Diffence}");
@@ -35,53 +37,25 @@ public class AttackPlayer : StatusClass
     // Update is called once per frame
     void Update()
     {
+        if (RPGBattleManager.Instance.BattleState != BattleState.RPGBattle) { return; }
         if (_survive == Survive.Survive)
         {
-            if (RPGBattleManager.Instance.BattleState == BattleState.RPGBattle)
+            if (!_commandbool)
+            {
+                _commandCoolTime += Time.deltaTime;
+                ChantingViewAccess(_commandCoolTime,_commandTime);
+            }
+
+            if (_commandCoolTime > _commandTime)
             {
                 if (!_commandbool)
                 {
-                    _time += Time.deltaTime;
+                    if (_commandObj) _commandObj.SetActive(true);
+                    _commandbool = true;
+                    ShowText("コマンド？");
                 }
 
-                if (_time > 10f)
-                {
-                    if (!_commandbool)
-                    {
-                        if (_commandObj) _commandObj.SetActive(true);
-                        _commandbool = true;
-                        ShowText("コマンド？");
-                    }
-
-                    if (Input.GetButtonDown("Attack"))
-                    {
-                        Attacker();
-                    }
-
-                    if (Input.GetButtonDown("Skill1"))
-                    {
-                        SkillAttack(0);
-                    }
-
-                    if (Input.GetButtonDown("Skill2"))
-                    {
-                        SkillAttack(1);
-                    }
-
-                    if (Input.GetButtonDown("Skill3"))
-                    {
-                        SkillAttack(2);
-                    }
-                }
-            }
-
-
-            if (RPGBattleManager.Instance.BattleState == BattleState.ActionBattle)
-            {
-                if (Input.GetButtonDown("AttackerAttack"))
-                {
-                    ActionAttack();
-                }
+                Command();
             }
 
             if (HP <= 0)
@@ -92,11 +66,30 @@ public class AttackPlayer : StatusClass
         }
         else
         {
-            if (!_death)
-            {
-                _death = true;
-                Death();
-            }
+            Death();
+        }
+    }
+
+    void Command()
+    {
+        if (Input.GetButtonDown("Attack"))
+        {
+            Attacker();
+        }
+
+        if (Input.GetButtonDown("Skill1"))
+        {
+            SkillAttack(0);
+        }
+
+        if (Input.GetButtonDown("Skill2"))
+        {
+            SkillAttack(1);
+        }
+
+        if (Input.GetButtonDown("Skill3"))
+        {
+            SkillAttack(2);
         }
     }
 
@@ -139,20 +132,6 @@ public class AttackPlayer : StatusClass
         CommandReset();
     }
 
-    void ActionAttack()
-    {
-        Collider[] cols = Physics.OverlapSphere(transform.position + transform.forward * 2, _attackLange);
-        _attackAnim.SetTrigger("NormalAttack");
-        foreach (Collider col in cols)
-        {
-            if (col.gameObject.tag == "EnemyBullet")
-            {
-                _enemy.AddMagicDamage(Attack * (Mathf.Max(0.1f, _attackSkillCount / 8)));
-                Destroy(col.gameObject);
-            }
-        }
-    }
-
     public override void RPGMode()
     {
         ShowText("戻ってきたか！");
@@ -161,7 +140,8 @@ public class AttackPlayer : StatusClass
     /// <summary>コマンドの待機時間などをリセットする処理</summary>
     void CommandReset()
     {
-        _time = 0;
+        _commandCoolTime = 0;
+        ChantingViewAccess(_commandCoolTime, _commandTime);
         if (_commandObj) _commandObj.SetActive(false);
         _commandbool = false;
     }
@@ -173,22 +153,16 @@ public class AttackPlayer : StatusClass
         _enumtext.text = str;
     }
 
+    public override void ChantingTimeReset()
+    {
+        CommandReset();
+    }
+
     /// <summary>死んだときの処理</summary>
     void Death()
     {
-        _attackObj.transform.Rotate(90f, 0f, 0f);
-        ShowText("俺は死んだぜ☆");
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "EnemyBullet")
-        {
-            if (RPGBattleManager.Instance.BattleState == BattleState.ActionBattle)
-            {
-                AddDamage(10);
-            }
-            Destroy(other.gameObject);
-        }
+        RPGBattleManager.Instance.BattleEnd();
+        FightManager.Instance.Lose();
+        ShowText("☆Attackerは星になった☆");
     }
 }

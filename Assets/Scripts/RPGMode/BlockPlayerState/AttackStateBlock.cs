@@ -18,6 +18,7 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
         _normalSkill = set;
         _isAttackTime = false;
         _time = 0;
+        player.ChantingViewAccess(_time,_attackCoolTime);
     }
 
     public void StartState(BlockPlayerController player)
@@ -44,6 +45,7 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
         if (!_isAttackTime)
         {
             _time += Time.deltaTime;
+            player.ChantingViewAccess(_time, _attackCoolTime);
         }
 
         if (_time > _attackCoolTime)
@@ -59,6 +61,7 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
                 _isAttackTime = true;
                 StartCoroutine(AttackTime(player));
                 _time = 0f;
+                player.ChantingViewAccess(_time, _attackCoolTime);
             }
         }
     }
@@ -121,6 +124,7 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
     public void EndState(BlockPlayerController player)
     {
         _time = 0;
+        player.ChantingViewAccess(_time, _attackCoolTime);
         Debug.Log("攻撃終了:Block");
     }
 }

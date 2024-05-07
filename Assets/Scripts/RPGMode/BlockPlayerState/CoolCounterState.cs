@@ -18,6 +18,7 @@ public class CoolCounterState : IRPGState
     public void StartState(BlockPlayerController player)
     {
         _currentTime = 0f;
+        player.ChantingViewAccess(_currentTime, _counterTime);
         Debug.Log("カウンター準備");
         player.ShowText("カウンターをしようとしている...");
     }
@@ -27,6 +28,7 @@ public class CoolCounterState : IRPGState
         if (!player.IsCounter)
         {
             _currentTime += Time.deltaTime;
+            player.ChantingViewAccess(_currentTime, _counterTime);
 
             if (_currentTime > 0.3f)
             {

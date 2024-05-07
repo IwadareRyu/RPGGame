@@ -69,7 +69,8 @@ public class BlockPlayerController : StatusClass
         _attackState = GetComponent<AttackStateBlock>();
         _chageAttackState = GetComponent<ChargeAttackState>();
         SetStatus();
-        ShowSlider();
+        HPViewAccess();
+        ChantingViewAccess(0,1);
         Debug.Log($"BlockerHP:{HP}");
         Debug.Log($"BlockerAttack:{Attack}");
         Debug.Log($"BlockerDiffence:{Diffence}");
@@ -125,5 +126,6 @@ public class BlockPlayerController : StatusClass
         _isCounter = false;
         OnChangeState(GuardState);
     }
+
 
 }

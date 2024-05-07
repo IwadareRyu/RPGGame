@@ -1,9 +1,6 @@
 ﻿using RPGBattle;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class EnemyController : StatusClass
@@ -13,15 +10,10 @@ public class EnemyController : StatusClass
     private AttackPlayer _attackPlayer;
     [SerializeField] Text _enemyText;
     [SerializeField] int _getSkillPoint = 50;
+    [SerializeField] float _attackCoolTime = 5f;
+    float _currentAttackCoolTime = 0f;
     bool _enemyAttackbool;
     [SerializeField] Animator _anim;
-    bool _notFight;
-    [Header("アクションモード設定")]
-    [SerializeField] bool _aliveAction;
-    [SerializeField] TimelineBullet _timelineBullet;
-    [SerializeField]
-    bool _debugActionModeBool;
-    float _actionTime;
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +21,9 @@ public class EnemyController : StatusClass
         _blockPlayer = GameObject.FindGameObjectWithTag("BlockPlayer")?.GetComponent<BlockPlayerController>();
         _magicPlayer = GameObject.FindGameObjectWithTag("MagicPlayer")?.GetComponent<MagicPlayer>();
         _attackPlayer = GameObject.FindGameObjectWithTag("AttackPlayer")?.GetComponent<AttackPlayer>();
-
         SetStatus();
-        ShowSlider();
+        HPViewAccess();
+        ChantingViewAccess(_currentAttackCoolTime,_attackCoolTime);
         Debug.Log($"EnemyHP:{HP}");
         Debug.Log($"EnemyAttack:{Attack}");
         Debug.Log($"EnemyDiffence:{Diffence}");
@@ -40,14 +32,9 @@ public class EnemyController : StatusClass
     // Update is called once per frame
     void Update()
     {
-        if (_debugActionModeBool) 
-        {
-            AddDamage(HP * 0.3f);
-            _debugActionModeBool = false;
-        }
+        if (RPGBattleManager.Instance.BattleState != BattleState.RPGBattle) { return; }
 
-        if (_survive == Survive.Survive && 
-            RPGBattleManager.Instance.BattleState == BattleState.RPGBattle)
+        if (_survive == Survive.Survive)
         {
             if (!_enemyAttackbool)
             {
@@ -57,42 +44,24 @@ public class EnemyController : StatusClass
 
             TimeMethod();
 
-            if ((_magicPlayer.HP <= 0 || _attackPlayer.HP <= 0) && !_notFight)
+            if (HP <= 0)
             {
-                _notFight = true;
-                FightManager.Instance.Lose();
-            }
-
-            else if (HP <= 0 && !_notFight)
-            {
-                _notFight = true;
                 _anim.SetBool("Death", true);
                 _survive = Survive.Death;
                 _enemyText.text = "ぬわああああああああああああ";
+                RPGBattleManager.Instance.BattleEnd();
                 FightManager.Instance.Win(_getSkillPoint);
-            }
-
-            if(HP <= DefaulrHP * 0.75 && _aliveAction)
-            {
-                RPGBattleManager.Instance.ActionEnter();
-                _actionTime = _timelineBullet.ActionStart();
-            }
-        }
-        else if(RPGBattleManager.Instance.BattleState == BattleState.ActionBattle)
-        {
-            _actionTime -= Time.deltaTime;
-            if(HP <= DefaulrHP * 0.25 || _actionTime < 0)
-            {
-                RPGBattleManager.Instance.BattleEnter();
-                _timelineBullet.ActionEnd();
-                _aliveAction = false;
             }
         }
     }
 
     IEnumerator EnemyAttackCoolTime()
     {
-        yield return new WaitForSeconds(5f);
+        for ( ; _currentAttackCoolTime < _attackCoolTime; _currentAttackCoolTime += Time.deltaTime)
+        {
+            ChantingViewAccess(_currentAttackCoolTime,_attackCoolTime);
+            yield return new WaitForEndOfFrame();
+        }
         if (_survive != Survive.Death && RPGBattleManager.Instance.BattleState == BattleState.RPGBattle)
         {
             var ram = Random.Range(0, 100);
@@ -109,6 +78,8 @@ public class EnemyController : StatusClass
             }
         }
         _anim.SetBool("Attack", false);
+        _currentAttackCoolTime = 0;
+        ChantingViewAccess(_currentAttackCoolTime, _attackCoolTime);
         _enemyAttackbool = false;
     }
 
@@ -124,37 +95,38 @@ public class EnemyController : StatusClass
             AudioManager.Instance.SEPlay(SE.EnemyShordAttack);
             if (targetMagic)
             {
-                TargetAttack(TargetGuard.Magician,_magicPlayer);
+                TargetAttack(TargetGuard.Magician, _magicPlayer);
             }
             else
             {
-                TargetAttack(TargetGuard.Attacker,_attackPlayer);
+                TargetAttack(TargetGuard.Attacker, _attackPlayer);
             }
         }
     }
 
     /// <summary>誰に攻撃するか</summary>
     /// <param name="targetGuard"></param>
-    void TargetAttack(TargetGuard target,StatusClass player)
+    void TargetAttack(TargetGuard target, StatusClass player)
     {
-        if(_blockPlayer._targetGuard == target)
+        if (_blockPlayer._targetGuard == target)
         {
             GuardOrCounter();
         }
         else
         {
             _enemyText.text = $"{target}にダメージ。";
-            player.AddDamage(Attack,2);
+            player.AddDamage(Attack, 2);
+            player.ChantingTimeReset();
         }
     }
 
     void GuardOrCounter()
     {
-        if(_blockPlayer.CurrentState == _blockPlayer.CoolCounterState)
+        if (_blockPlayer.CurrentState == _blockPlayer.CoolCounterState)
         {
             Counter();
         }
-        else if(_blockPlayer.CurrentState == _blockPlayer.GuardState)
+        else if (_blockPlayer.CurrentState == _blockPlayer.GuardState)
         {
             Guard();
         }
@@ -163,12 +135,12 @@ public class EnemyController : StatusClass
             Debug.LogWarning("ここに入るのはちょっとおかしいよ。");
         }
     }
-    
-    public override void ActionMode()
-    {
-        _anim.Play("LoopAttack");
-        _enemyText.text = "アクションモード！";
-    }
+
+    //public override void ActionMode()
+    //{
+    //    _anim.Play("LoopAttack");
+    //    _enemyText.text = "アクションモード！";
+    //}
 
     public override void RPGMode()
     {
