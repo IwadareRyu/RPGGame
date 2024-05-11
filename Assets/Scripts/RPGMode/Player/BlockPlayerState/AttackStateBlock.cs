@@ -18,6 +18,7 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
         _normalSkill = set;
         _isAttackTime = false;
         _time = 0;
+        _attackCoolTime = player.ChantingSet(set);
         player.ChantingViewAccess(_time,_attackCoolTime);
     }
 

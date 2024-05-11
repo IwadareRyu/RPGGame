@@ -21,6 +21,7 @@ namespace MasterData
         public string Adjacent;
         public string TmpName;
         public SkillType SkillType;
+        public float ChantingTime;
     }
 
     [Serializable]

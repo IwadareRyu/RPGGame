@@ -86,6 +86,11 @@ public abstract class StatusClass : MonoBehaviour,IViewCharaUI
         _diffence = _defaultDiffence;
     }
 
+    public float ChantingSet(SkillInfomation skill)
+    {
+        return skill._chastingTime;
+    }
+
     /// <summary>普通にダメージを受けた時の処理</summary>
     /// <param name="damage"></param>
     /// <param name="skillParsent"></param>

@@ -19,6 +19,7 @@ public class SelectorSkillObjects : ScriptableObject
             _skillInfomation[i]._tmpSkillName = skills.Data[i].TmpName;
             _skillInfomation[i]._description = skills.Data[i].Description;
             _skillInfomation[i]._type = skills.Data[i].SkillType;
+            _skillInfomation[i]._chastingTime = skills.Data[i].ChantingTime;
             if (_skillInfomation[i]._selectSkill is AttackSkillSelect attackSkill)
             {
                 attackSkill.AttackSkillLoad(skills.Data[i]);
@@ -55,6 +56,9 @@ public struct SkillInfomation
 
     [TextArea(10, 10)]
     public string _description;
+
+    [Header("スキルの詠唱時間"),Tooltip("スキルの詠唱時間")]
+    public float _chastingTime;
 
     [SerializeReference, SubclassSelector] public IAttributeSkill _selectSkill;
 

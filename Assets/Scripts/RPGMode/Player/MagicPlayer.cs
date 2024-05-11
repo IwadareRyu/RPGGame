@@ -36,6 +36,7 @@ public class MagicPlayer : StatusClass
         SetStatus();
         HPViewAccess();
         ChantingViewAccess(_currentMagicCoolTime,_magicCoolTime);
+        _magicCoolTime = ChantingSet(_dataBase.AttackMagicSelectData.SkillInfomation[_dataBase._attackMagicSetNo[0]]);
         Debug.Log($"MagicHP:{HP}");
         Debug.Log($"MagicAttack:{Attack}");
         Debug.Log($"MagicDiffence:{Diffence}");
@@ -109,11 +110,13 @@ public class MagicPlayer : StatusClass
         {
             _attackMagic = (AttackMagic)_blockMagic;
             Debug.Log(_attackMagic);
+            _magicCoolTime = ChantingSet(_dataBase.AttackMagicSelectData.SkillInfomation[_dataBase._attackMagicSetNo[(int)_attackMagic]]);
         }
         else
         {
             _blockMagic = (BlockMagic)_attackMagic;
             Debug.Log(_blockMagic);
+            _magicCoolTime = ChantingSet(_dataBase.BlockMagicSelectData.SkillInfomation[_dataBase._blockMagicSetNo[(int)_blockMagic]]);
         }
         _currentMagicCoolTime = 0;
         ChantingViewAccess(_currentMagicCoolTime, _magicCoolTime);
@@ -125,11 +128,13 @@ public class MagicPlayer : StatusClass
         {
             _attackMagic = (AttackMagic)i;
             ShowText(_attackMagic.ToString());
+            _magicCoolTime = ChantingSet(_dataBase.AttackMagicSelectData.SkillInfomation[_dataBase._attackMagicSetNo[(int)_attackMagic]]);
         }
         else
         {
             _blockMagic = (BlockMagic)i;
             ShowText(_blockMagic.ToString());
+            _magicCoolTime = ChantingSet(_dataBase.BlockMagicSelectData.SkillInfomation[_dataBase._blockMagicSetNo[(int)_blockMagic]]);
         }
         _currentMagicCoolTime = 0;
         ChantingViewAccess(_currentMagicCoolTime, _magicCoolTime);
