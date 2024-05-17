@@ -195,6 +195,18 @@ public abstract class StatusClass : MonoBehaviour,IViewCharaUI
         _uIView.ChantingView(currentChanting,maxChanting);
     }
 
+    /// <summary>キャラの状態を表示する処理</summary>
+    /// <param name="str"></param>
+    public void ConditionTextViewAccess(string str)
+    {
+        _uIView.ConditionTextView(str);
+    }
+
+    public void CommandCoolTimeViewAccess(float currentCoolTime,float maxCoolTime)
+    {
+        _uIView.CommandView(currentCoolTime, maxCoolTime);
+    }
+
     public virtual void ChantingTimeReset() { return; }
 
     /// <summary>生きているか死んでいるかのstate</summary>

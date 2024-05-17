@@ -20,7 +20,7 @@ public class CoolCounterState : IRPGState
         _currentTime = 0f;
         player.ChantingViewAccess(_currentTime, _counterTime);
         Debug.Log("カウンター準備");
-        player.ShowText("カウンターをしようとしている...");
+        player.ConditionTextViewAccess("カウンターをしようとしている...");
     }
 
     public void UpdateState(BlockPlayerController player)

@@ -8,7 +8,6 @@ public class EnemyController : StatusClass
     private BlockPlayerController _blockPlayer;
     private MagicPlayer _magicPlayer;
     private AttackPlayer _attackPlayer;
-    [SerializeField] Text _enemyText;
     [SerializeField] int _getSkillPoint = 50;
     [SerializeField] float _attackCoolTime = 5f;
     float _currentAttackCoolTime = 0f;
@@ -24,9 +23,7 @@ public class EnemyController : StatusClass
         SetStatus();
         HPViewAccess();
         ChantingViewAccess(_currentAttackCoolTime,_attackCoolTime);
-        Debug.Log($"EnemyHP:{HP}");
-        Debug.Log($"EnemyAttack:{Attack}");
-        Debug.Log($"EnemyDiffence:{Diffence}");
+        Debug.Log($"EnemyHP:{HP}\nEnemyAttack:{Attack}\nEnemyDiffence:{Diffence}");
     }
 
     // Update is called once per frame
@@ -48,7 +45,7 @@ public class EnemyController : StatusClass
             {
                 _anim.SetBool("Death", true);
                 _survive = Survive.Death;
-                _enemyText.text = "ぬわああああああああああああ";
+                ConditionTextViewAccess("ぬわああああああああああああ")   ;
                 RPGBattleManager.Instance.BattleEnd();
                 FightManager.Instance.Win(_getSkillPoint);
             }
@@ -68,12 +65,12 @@ public class EnemyController : StatusClass
             _anim.SetBool("Attack", true);
             if (ram < 50 && _magicPlayer.HP > 0 || _attackPlayer.HP <= 0)
             {
-                _enemyText.text = "Magicに攻撃";
+                ConditionTextViewAccess("Magicに攻撃");
                 yield return EnemyAttack(true);
             }
             else
             {
-                _enemyText.text = "Attackerに攻撃";
+                ConditionTextViewAccess("Attackerに攻撃");
                 yield return EnemyAttack(false);
             }
         }
@@ -114,7 +111,7 @@ public class EnemyController : StatusClass
         }
         else
         {
-            _enemyText.text = $"{target}にダメージ。";
+            ConditionTextViewAccess($"{target}にダメージ。");
             player.AddDamage(Attack, 2);
             player.ChantingTimeReset();
         }
@@ -136,27 +133,21 @@ public class EnemyController : StatusClass
         }
     }
 
-    //public override void ActionMode()
-    //{
-    //    _anim.Play("LoopAttack");
-    //    _enemyText.text = "アクションモード！";
-    //}
-
     public override void RPGMode()
     {
         _anim.Play("Stand");
-        _enemyText.text = "RPGモード！";
+        ConditionTextViewAccess("RPGモード！");
     }
 
     void Guard()
     {
-        _enemyText.text = "ガードされた！";
+        ConditionTextViewAccess("ガードされた！");
         _blockPlayer.AddDamage(Attack);
     }
 
     void Counter()
     {
-        _enemyText.text = "カウンターされた！";
+        ConditionTextViewAccess("カウンターされた！");
         _blockPlayer.TrueCounter();
         _blockPlayer.AddDamage(Attack);
     }

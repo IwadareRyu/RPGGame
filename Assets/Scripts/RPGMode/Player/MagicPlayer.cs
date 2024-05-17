@@ -22,7 +22,6 @@ public class MagicPlayer : StatusClass
     int _magicSkillCount = 0;
     [SerializeField] float _attackLange = 3;
     [SerializeField] Animator _animRobot;
-    [SerializeField] Text _enumtext;
     [SerializeField] AttackPlayer _attackPlayer;
     [SerializeField] BlockPlayerController _blockPlayer;
     [SerializeField] Transform _magicObj;
@@ -37,9 +36,7 @@ public class MagicPlayer : StatusClass
         HPViewAccess();
         ChantingViewAccess(_currentMagicCoolTime,_magicCoolTime);
         _magicCoolTime = ChantingSet(_dataBase.AttackMagicSelectData.SkillInfomation[_dataBase._attackMagicSetNo[0]]);
-        Debug.Log($"MagicHP:{HP}");
-        Debug.Log($"MagicAttack:{Attack}");
-        Debug.Log($"MagicDiffence:{Diffence}");
+        Debug.Log($"MagicHP:{HP}\nMagicAttack:{Attack}\nMagicDiffence:{Diffence}");
     }
 
 
@@ -93,7 +90,7 @@ public class MagicPlayer : StatusClass
         {
             _magicSkillCount += _dataBase._attackMagicbool[i] ? 1 : 0;
         }
-        ShowText("LeftShiftでAttack！");
+        ConditionTextViewAccess("LeftShiftでAttack！");
     }
 
     void OnDrawGizmos()
@@ -105,7 +102,7 @@ public class MagicPlayer : StatusClass
     {
         transform.position = _trans[i].position;
         _magicpos = magic;
-        ShowText(_magicpos.ToString());
+        ConditionTextViewAccess(_magicpos.ToString());
         if (_magicpos == MagicPosition.AttackMagic)
         {
             _attackMagic = (AttackMagic)_blockMagic;
@@ -127,13 +124,13 @@ public class MagicPlayer : StatusClass
         if (_magicpos == MagicPosition.AttackMagic)
         {
             _attackMagic = (AttackMagic)i;
-            ShowText(_attackMagic.ToString());
+            ConditionTextViewAccess(_attackMagic.ToString());
             _magicCoolTime = ChantingSet(_dataBase.AttackMagicSelectData.SkillInfomation[_dataBase._attackMagicSetNo[(int)_attackMagic]]);
         }
         else
         {
             _blockMagic = (BlockMagic)i;
-            ShowText(_blockMagic.ToString());
+            ConditionTextViewAccess(_blockMagic.ToString());
             _magicCoolTime = ChantingSet(_dataBase.BlockMagicSelectData.SkillInfomation[_dataBase._blockMagicSetNo[(int)_blockMagic]]);
         }
         _currentMagicCoolTime = 0;
@@ -155,7 +152,7 @@ public class MagicPlayer : StatusClass
             if (_magicpos == MagicPosition.AttackMagic)
             {
                 var set = _dataBase.AttackMagicSelectData.SkillInfomation[_dataBase._attackMagicSetNo[(int)_attackMagic]];
-                ShowText($"{set._skillName}！");
+                ConditionTextViewAccess($"{set._skillName}！");
                 if (set._selectSkill is AttackMagicSelect attackMagic)
                 {
                     switch (set._skillID)
@@ -179,7 +176,7 @@ public class MagicPlayer : StatusClass
             else
             {
                 var set = _dataBase.BlockMagicSelectData.SkillInfomation[_dataBase._blockMagicSetNo[(int)_blockMagic]];
-                ShowText($"{set._skillName}！");
+                ConditionTextViewAccess($"{set._skillName}！");
                 if (set._selectSkill is BlockMagicSelect blockMagic)
                 {
                     _attackPlayer.AddBuff(blockMagic.PlusAttackPower, blockMagic.PlusDiffencePower, blockMagic.HealingHP);
@@ -202,22 +199,22 @@ public class MagicPlayer : StatusClass
 
     public override void RPGMode()
     {
-        ShowText("無事だったか！");
+        ConditionTextViewAccess("無事だったか！");
     }
 
-    /// <summary>テキスト表示</summary>
-    /// <param name="str"></param>
-    void ShowText(string str)
-    {
-        _enumtext.text = str;
-    }
+    ///// <summary>テキスト表示</summary>
+    ///// <param name="str"></param>
+    //void ShowText(string str)
+    //{
+    //    _enumtext.text = str;
+    //}
 
     /// <summary>死亡判定</summary>
     void Death()
     {
         RPGBattleManager.Instance.BattleEnd();
         FightManager.Instance.Lose();
-        ShowText("☆Magicianは星になった☆");
+        ConditionTextViewAccess("☆Magicianは星になった☆");
     }
 
     enum MagicPosition

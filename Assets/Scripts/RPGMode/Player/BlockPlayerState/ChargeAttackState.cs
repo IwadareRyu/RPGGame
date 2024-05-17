@@ -15,7 +15,7 @@ public class ChargeAttackState : MonoBehaviour,IRPGState
 
     public void StartState(BlockPlayerController player)
     {
-        player.ShowText("チャージ攻撃開始");
+        player.ConditionTextViewAccess("チャージ攻撃開始");
         StartCoroutine(ChangeAttackTime(player));
     }
 
@@ -26,7 +26,7 @@ public class ChargeAttackState : MonoBehaviour,IRPGState
 
     public void EndState(BlockPlayerController player)
     {
-        player.ShowText("チャージ攻撃終了");
+        player.ConditionTextViewAccess("チャージ攻撃終了");
     }
 
     /// <summary>チャージ攻撃のアニメーション処理</summary>
@@ -36,7 +36,7 @@ public class ChargeAttackState : MonoBehaviour,IRPGState
     {
         //チャージ攻撃をした後、ゲージを０にして、Attack状態に戻る。
         Debug.Log(_chageSkill._skillName);
-        player.ShowText(_chageSkill._skillName);
+        player.ConditionTextViewAccess(_chageSkill._skillName);
         ///Animationプレイ
 
         ///

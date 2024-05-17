@@ -21,7 +21,7 @@ public class CounterAttackState : IRPGState
     public void StartState(BlockPlayerController player)
     {
         Debug.Log("カウンター！");
-        player.ShowText("カウンター！");
+        player.ConditionTextViewAccess("カウンター！");
         /// アニメーションを再生してアニメーションの秒数を代入する。
 
         _animationTime = 1f;

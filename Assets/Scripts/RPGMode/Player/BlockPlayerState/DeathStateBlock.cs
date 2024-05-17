@@ -14,7 +14,7 @@ public class DeathStateBlock : IRPGState
     {
         Debug.Log("戦闘不能");
         player.transform.position = player._trans[0].position;
-        player.ShowText("やられた～");
+        player.ConditionTextViewAccess("やられた～");
     }
 
     public void UpdateState(BlockPlayerController player)
