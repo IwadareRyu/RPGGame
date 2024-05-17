@@ -18,6 +18,7 @@ MonoBehaviour:
     _tmpSkillName: "\u30C0\u30FC\u30AF\u30CD\u30B9\u30A8\u30F3\u30C9\u30EC\u30B9\u30AB\u30AA\u30B9"
     _type: 1
     _description: "1.2\u500D\u306E\u653B\u6483"
+    _chastingTime: 0.5
     _selectSkill:
       rid: 2471629163554406419
   - _skillID: 2
@@ -25,20 +26,23 @@ MonoBehaviour:
     _tmpSkillName: "\u30E1\u30E9\u30F3\u30BD\u30FC\u30C9"
     _type: 1
     _description: "1.5\u500D\u306E\u653B\u6483"
+    _chastingTime: 1.2
     _selectSkill:
       rid: 2471629163554406421
   - _skillID: 3
-    _skillName: "4\u500D \u306E \u653B\u6483"
+    _skillName: "4.0\u500D \u306E \u653B\u6483"
     _tmpSkillName: "\u7206\u88C2\u30A2\u30C3\u30D1\u30FC"
     _type: 1
     _description: "4\u500D\u306E\u653B\u6483"
+    _chastingTime: 3
     _selectSkill:
       rid: 2471629163554406422
   - _skillID: 4
-    _skillName: "2\u500D \u306E \u653B\u6483"
+    _skillName: "2.0\u500D \u306E \u653B\u6483"
     _tmpSkillName: "\u53F3\u30B9\u30C8\u30EC\u30FC\u30C8\u3067\u3076\u3063\u98DB\u3070\u3059"
     _type: 1
     _description: "2\u500D\u306E\u653B\u6483"
+    _chastingTime: 1.5
     _selectSkill:
       rid: 2471629163554406423
   - _skillID: 5
@@ -46,6 +50,7 @@ MonoBehaviour:
     _tmpSkillName: "\u30B2\u30FC\u30E0\u7BA1\u7406\u30D7\u30ED\u30B0\u30E9\u30E0\u76F4\u6483"
     _type: 1
     _description: "1\u25C7\u3007\u306E\u25B3\u6483"
+    _chastingTime: 8
     _selectSkill:
       rid: 2471629163554406424
   references:

@@ -18,6 +18,7 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
         _normalSkill = set;
         _isAttackTime = false;
         _time = 0;
+        _attackCoolTime = player.ChantingSet(set);
         player.ChantingViewAccess(_time,_attackCoolTime);
     }
 
@@ -25,7 +26,7 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
     {
         _isAttackTime = false;
         Debug.Log("攻撃開始:Block");
-        player.ShowText("攻撃開始");
+        player.ConditionTextViewAccess("攻撃開始");
     }
 
     public void UpdateState(BlockPlayerController player)
@@ -78,7 +79,7 @@ public class AttackStateBlock : MonoBehaviour,IRPGState
     /// <param name="player"></param>
     IEnumerator AttackTime(BlockPlayerController player)
     {
-        player.ShowText(_normalSkill._skillName);
+        player.ConditionTextViewAccess(_normalSkill._skillName);
         player._guageAttack += 1;
         ///Animationつける
         

@@ -16,7 +16,7 @@ public class CoolDownState : IRPGState
     public void StartState(BlockPlayerController player)
     {
         Debug.Log("クールダウン");
-        player.ShowText("クールダウン中");
+        player.ConditionTextViewAccess("クールダウン中");
         player._targetGuard = TargetGuard.None;
         player.transform.position = player._trans[(int)TargetGuard.None].position;
         _currentTime = 0f;

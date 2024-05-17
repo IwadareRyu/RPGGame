@@ -14,7 +14,7 @@ public class GuardState : IRPGState
     public void StartState(BlockPlayerController player)
     {
         Debug.Log("ガード開始");
-        player.ShowText($"{player._targetGuard}をガード中");
+        player.ConditionTextViewAccess($"{player._targetGuard}をガード中");
     }
 
     public void UpdateState(BlockPlayerController player)

@@ -16,8 +16,6 @@ public class BlockPlayerController : StatusClass
     [Tooltip("ディフェンス職の状態"),Header("ディフェンス職の状態")]
     [SerializeField] BlockState _conditionState = BlockState.Attack;
     public BlockState Condition => _conditionState;
-    [Tooltip("状態のテキスト"),Header("プレイヤーの状態を表示するテキスト")]
-    [SerializeField] Text _enumtext;
     [Header("プレイヤーのアニメーション")]
     [SerializeField] Animator _blockAnim;
     [Tooltip("BlockPlayerの移動場所"),Header("BlockPlayerの移動場所")]
@@ -71,9 +69,7 @@ public class BlockPlayerController : StatusClass
         SetStatus();
         HPViewAccess();
         ChantingViewAccess(0,1);
-        Debug.Log($"BlockerHP:{HP}");
-        Debug.Log($"BlockerAttack:{Attack}");
-        Debug.Log($"BlockerDiffence:{Diffence}");
+        Debug.Log($"BlockerHP:{HP}\nBlockerAttack:{Attack}\nBlockerDiffence:{Diffence}");
         _states = new IRPGState[7] { _coolDownState, _attackState, _chageAttackState, 
             _coolCounterState, _counterAttackState, 
             _guardState, _deathState };
@@ -104,12 +100,12 @@ public class BlockPlayerController : StatusClass
     }
 
 
-    /// <summary>テキストの更新の処理</summary>
-    /// <param name="str"></param>
-    public void ShowText(string str)
-    {
-        _enumtext.text = str;
-    }
+    ///// <summary>テキストの更新の処理</summary>
+    ///// <param name="str"></param>
+    //public void ShowText(string str)
+    //{
+    //    _enumtext.text = str;
+    //}
 
     /// <summary>カウンター成功時に呼ばれるメソッド</summary>
     public void TrueCounter()

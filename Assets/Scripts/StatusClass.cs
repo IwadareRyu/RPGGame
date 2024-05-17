@@ -86,6 +86,11 @@ public abstract class StatusClass : MonoBehaviour,IViewCharaUI
         _diffence = _defaultDiffence;
     }
 
+    public float ChantingSet(SkillInfomation skill)
+    {
+        return skill._chastingTime;
+    }
+
     /// <summary>普通にダメージを受けた時の処理</summary>
     /// <param name="damage"></param>
     /// <param name="skillParsent"></param>
@@ -188,6 +193,18 @@ public abstract class StatusClass : MonoBehaviour,IViewCharaUI
     public void ChantingViewAccess(float currentChanting, float maxChanting)
     {
         _uIView.ChantingView(currentChanting,maxChanting);
+    }
+
+    /// <summary>キャラの状態を表示する処理</summary>
+    /// <param name="str"></param>
+    public void ConditionTextViewAccess(string str)
+    {
+        _uIView.ConditionTextView(str);
+    }
+
+    public void CommandCoolTimeViewAccess(float currentCoolTime,float maxCoolTime)
+    {
+        _uIView.CommandView(currentCoolTime, maxCoolTime);
     }
 
     public virtual void ChantingTimeReset() { return; }

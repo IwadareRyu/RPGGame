@@ -152,10 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8adb0fcf7382a4b906567144e2e565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackMagicURL: https://script.google.com/macros/s/AKfycbzJZAN4noJWn_pMrDJpqtWlSzaQpnCm2I6fPVIUtiWpRxiVnMGF8BDG5d-fr2des8ZzXA/exec
-  _blockMagicURL: https://script.google.com/macros/s/AKfycbylB-h568JHNdda_Am68zPZBYzUZ5sHJnFcd-ib_CmUJECn201GBrrLCPHyBMALoNUzqA/exec
-  _attackSkillURL: https://script.google.com/macros/s/AKfycbxD-VLj76crR54K8pQymLk2j-9pU9lTxrJZGAJPiNsKVEPYMGBMI4PHhEZuWp-QLlbQxQ/exec
-  _blockSkillURL: https://script.google.com/macros/s/AKfycbzdgyB-ovKFBPe0LEmKBX0z7A6Mg4_naJ0IND9vvXRPDoebCZ2i7DW8RmL7TENvc8rQ/exec
+  _attackMagicURL: https://script.google.com/macros/s/AKfycbzr-OIwJaS-v59QHPoUDmPN-76y0bzGgdEzkW2lgV2T7jgcqF3rLxTM-bcQV1uZKHcQgQ/exec
+  _blockMagicURL: https://script.google.com/macros/s/AKfycbyPKVx6LocLVb3Qmfwv_vIvh5v-R6qzxT0XV5S1iY0ScsA9cCwqmqmy7NeyNyNxaDbHUg/exec
+  _attackSkillURL: https://script.google.com/macros/s/AKfycbwcnRNfM-F-2d-VCH3xZ4P7UYDNiT5UWESlOB47faFvoiuSJDrdmiui4p0g29GPlkx0qA/exec
+  _blockSkillURL: https://script.google.com/macros/s/AKfycbz-31ut8gkSf20RnMMgfynFXMOKFDwrSNnWerq_GdbGYZzddn8Naqerj0-90U4DpamIVA/exec
   IsVersionUpFlag: 1
   _attackSkillsSelect: {fileID: 11400000, guid: f39080fdad0289340becd9d03c6bf756,
     type: 2}
