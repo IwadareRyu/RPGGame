@@ -1,7 +1,7 @@
 ﻿using RPGBattle;
 using System.Collections;
+using UnityEditor.Build;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnemyController : StatusClass
 {
@@ -11,8 +11,15 @@ public class EnemyController : StatusClass
     [SerializeField] int _getSkillPoint = 50;
     [SerializeField] float _attackCoolTime = 5f;
     float _currentAttackCoolTime = 0f;
+    int _currentAttackCount = 0;
+    public int CurrentAttackCount => _currentAttackCount;
     bool _enemyAttackbool;
-    [SerializeField] Animator _anim;
+    public Animator _anim;
+    [SerializeField] NormalAttack[] _normalAttacks;
+    int _currentNormalAttackIndex = 0;
+    [SerializeField] TwiceAttack _twiceAttack = new();
+    EnemyInterface _currentAttackScripts;
+    TargetGuard _currentTargetPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -20,32 +27,34 @@ public class EnemyController : StatusClass
         _blockPlayer = GameObject.FindGameObjectWithTag("BlockPlayer")?.GetComponent<BlockPlayerController>();
         _magicPlayer = GameObject.FindGameObjectWithTag("MagicPlayer")?.GetComponent<MagicPlayer>();
         _attackPlayer = GameObject.FindGameObjectWithTag("AttackPlayer")?.GetComponent<AttackPlayer>();
+        _currentAttackScripts = _normalAttacks[_currentNormalAttackIndex];
         SetStatus();
         HPViewAccess();
-        ChantingViewAccess(_currentAttackCoolTime,_attackCoolTime);
+        ChantingViewAccess(_currentAttackCoolTime, _attackCoolTime);
         Debug.Log($"EnemyHP:{HP}\nEnemyAttack:{Attack}\nEnemyDiffence:{Diffence}");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (RPGBattleManager.Instance.BattleState != BattleState.RPGBattle) { return; }
+        TimeMethod();
+        if (RPGBattleManager.Instance.BattleState != BattleState.RPGBattle || _enemyAttackbool) { return; }
+
 
         if (_survive == Survive.Survive)
         {
-            if (!_enemyAttackbool)
+            if (_currentAttackScripts.TimeBoolean(this, ref _currentAttackCoolTime))
             {
+                _currentAttackCoolTime = 0f;
                 _enemyAttackbool = true;
                 StartCoroutine(EnemyAttackCoolTime());
             }
-
-            TimeMethod();
 
             if (HP <= 0)
             {
                 _anim.SetBool("Death", true);
                 _survive = Survive.Death;
-                ConditionTextViewAccess("ぬわああああああああああああ")   ;
+                ConditionTextViewAccess("ぬわああああああああああああ");
                 RPGBattleManager.Instance.BattleEnd();
                 FightManager.Instance.Win(_getSkillPoint);
             }
@@ -54,69 +63,62 @@ public class EnemyController : StatusClass
 
     IEnumerator EnemyAttackCoolTime()
     {
-        for ( ; _currentAttackCoolTime < _attackCoolTime; _currentAttackCoolTime += Time.deltaTime)
-        {
-            ChantingViewAccess(_currentAttackCoolTime,_attackCoolTime);
-            yield return new WaitForEndOfFrame();
-        }
-        if (_survive != Survive.Death && RPGBattleManager.Instance.BattleState == BattleState.RPGBattle)
-        {
-            var ram = Random.Range(0, 100);
-            _anim.SetBool("Attack", true);
-            if (ram < 50 && _magicPlayer.HP > 0 || _attackPlayer.HP <= 0)
-            {
-                ConditionTextViewAccess("Magicに攻撃");
-                yield return EnemyAttack(true);
-            }
-            else
-            {
-                ConditionTextViewAccess("Attackerに攻撃");
-                yield return EnemyAttack(false);
-            }
-        }
-        _anim.SetBool("Attack", false);
-        _currentAttackCoolTime = 0;
-        ChantingViewAccess(_currentAttackCoolTime, _attackCoolTime);
+        yield return _currentAttackScripts.AttackTime(this);
         _enemyAttackbool = false;
+        _currentAttackCount = 0;
+        ChantingViewAccess(_currentAttackCoolTime, _attackCoolTime);
+    }
+
+    public void TargetChange()
+    {
+        var ram = UnityEngine.Random.Range(0, 100);
+        if (ram < 50)
+        {
+            ConditionTextViewAccess("Magicに攻撃");
+            _currentTargetPlayer = TargetGuard.Magician;
+        }
+        else
+        {
+            ConditionTextViewAccess("Attackerに攻撃");
+            _currentTargetPlayer = TargetGuard.Attacker;
+        }
     }
 
     /// <summary>敵の攻撃時の処理</summary>
     /// <param name="targetMagic"></param>
     /// <returns></returns>
-    IEnumerator EnemyAttack(bool targetMagic)
+    public void EnemyAttack()
     {
-        yield return new WaitForSeconds(1.1f);
-
         if (_survive != Survive.Death && RPGBattleManager.Instance.BattleState == BattleState.RPGBattle)
         {
             AudioManager.Instance.SEPlay(SE.EnemyShordAttack);
-            if (targetMagic)
-            {
-                TargetAttack(TargetGuard.Magician, _magicPlayer);
-            }
-            else
-            {
-                TargetAttack(TargetGuard.Attacker, _attackPlayer);
-            }
+            if(_currentTargetPlayer == TargetGuard.Magician) { TargetAttack(_magicPlayer); }
+            else { TargetAttack(_attackPlayer); }
         }
+        // 攻撃回数をカウント
+        AddAttackCount();
+        //指定の攻撃回数に達してれば次の攻撃に移る、してなければ攻撃のターゲットを変える。
+        if (!_currentAttackScripts.EndAttackBoolean(this)) { TargetChange(); }
+        else { ChangeNormalAttack(); }
     }
 
     /// <summary>誰に攻撃するか</summary>
     /// <param name="targetGuard"></param>
-    void TargetAttack(TargetGuard target, StatusClass player)
+    void TargetAttack(StatusClass player)
     {
-        if (_blockPlayer._targetGuard == target)
+        if (_blockPlayer._targetGuard == _currentTargetPlayer)
         {
             GuardOrCounter();
         }
         else
         {
-            ConditionTextViewAccess($"{target}にダメージ。");
+            ConditionTextViewAccess($"{_currentTargetPlayer}にダメージ。");
             player.AddDamage(Attack, 2);
             player.ChantingTimeReset();
         }
     }
 
+    /// <summary>Blockerがカウンター状態かGuard状態</summary>
     void GuardOrCounter()
     {
         if (_blockPlayer.CurrentState == _blockPlayer.CoolCounterState)
@@ -131,6 +133,18 @@ public class EnemyController : StatusClass
         {
             Debug.LogWarning("ここに入るのはちょっとおかしいよ。");
         }
+    }
+
+    public void AddAttackCount()
+    {
+        _currentAttackCount++;
+    }
+
+    public void ChangeNormalAttack()
+    {
+        _currentNormalAttackIndex = (_currentNormalAttackIndex + 1) % _normalAttacks.Length;
+        Debug.Log(_currentNormalAttackIndex);
+        _currentAttackScripts = _normalAttacks[_currentNormalAttackIndex];
     }
 
     public override void RPGMode()

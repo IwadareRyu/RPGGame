@@ -1,12 +1,9 @@
 ﻿using RPGBattle;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class StatusClass : MonoBehaviour,IViewCharaUI
+public abstract class StatusClass : MonoBehaviour, IViewCharaUI
 {
     /// <summary>HP系</summary>
     [SerializeField] int _defaultHP = 100;
@@ -23,7 +20,7 @@ public abstract class StatusClass : MonoBehaviour,IViewCharaUI
     public int Attack => _attack;
 
     /// <summary>防御力系</summary>
-    [SerializeField] int _defaultDiffence = 1; 
+    [SerializeField] int _defaultDiffence = 1;
     int _diffence = 5;
     float _diffenceBuffTime = 0;
     bool _buffDiffence;
@@ -64,9 +61,9 @@ public abstract class StatusClass : MonoBehaviour,IViewCharaUI
     public void TimeMethod()
     {
         //timeの変数が0より高い時、秒数をはかる。0になったらboolをtrueにしてコルーチンの待機処理を抜ける。
-        if(_attackBuffTime > 0) { _attackBuffTime = DeltaTime(_attackBuffTime); }
+        if (_attackBuffTime > 0) { _attackBuffTime = DeltaTime(_attackBuffTime); }
         else if (!_buffAttack) { _buffAttack = true; }
-        if(_diffenceBuffTime > 0) { _diffenceBuffTime = DeltaTime(_diffenceBuffTime); }
+        if (_diffenceBuffTime > 0) { _diffenceBuffTime = DeltaTime(_diffenceBuffTime); }
         else if (!_buffDiffence) { _buffDiffence = true; }
     }
 
@@ -94,9 +91,9 @@ public abstract class StatusClass : MonoBehaviour,IViewCharaUI
     /// <summary>普通にダメージを受けた時の処理</summary>
     /// <param name="damage"></param>
     /// <param name="skillParsent"></param>
-    public virtual void AddDamage(float damage,float skillParsent = 1)
+    public virtual void AddDamage(float damage, float skillParsent = 1)
     {
-        _hp = Mathf.Max(0,_hp - (int)(damage * skillParsent - _diffence));
+        _hp = Mathf.Max(0, _hp - (int)(damage * skillParsent - _diffence));
         HPViewAccess();
     }
 
@@ -114,7 +111,7 @@ public abstract class StatusClass : MonoBehaviour,IViewCharaUI
     /// <param name="skillParsent"></param>
     /// <param name="attackDebuff"></param>
     /// <param name="diffenceDebuff"></param>
-    public void AddDebuffDamage(float damage, float skillParsent = 1,int attackDebuff = 0,int diffenceDebuff = 0)
+    public void AddDebuffDamage(float damage, float skillParsent = 1, int attackDebuff = 0, int diffenceDebuff = 0)
     {
         _hp = _hp - (int)(damage * skillParsent);
         HPViewAccess();
@@ -122,7 +119,7 @@ public abstract class StatusClass : MonoBehaviour,IViewCharaUI
         {
             StartCoroutine(AttackBuffTIme(attackDebuff));
         }
-        if(_diffence >= _defaultDiffence && diffenceDebuff != 0)
+        if (_diffence >= _defaultDiffence && diffenceDebuff != 0)
         {
             StartCoroutine(DiffenceBuffTIme(diffenceDebuff));
         }
@@ -132,7 +129,7 @@ public abstract class StatusClass : MonoBehaviour,IViewCharaUI
     /// <param name="attackBuff"></param>
     /// <param name="diffenceBuff"></param>
     /// <param name="heal"></param>
-    public void AddBuff(int attackBuff, int diffenceBuff,int heal)
+    public void AddBuff(int attackBuff, int diffenceBuff, int heal)
     {
         if (_attack <= _defaultAttack && attackBuff != 0)
         {
@@ -186,13 +183,13 @@ public abstract class StatusClass : MonoBehaviour,IViewCharaUI
     /// <summary>HPのゲージを更新する処理</summary>
     public void HPViewAccess()
     {
-        _uIView.HPView(_hp,_defaultHP);
+        _uIView.HPView(_hp, _defaultHP);
     }
 
     /// <summary>攻撃の詠唱時間ゲージを更新する処理</summary>
     public void ChantingViewAccess(float currentChanting, float maxChanting)
     {
-        _uIView.ChantingView(currentChanting,maxChanting);
+        _uIView.ChantingView(currentChanting, maxChanting);
     }
 
     /// <summary>キャラの状態を表示する処理</summary>
@@ -202,7 +199,7 @@ public abstract class StatusClass : MonoBehaviour,IViewCharaUI
         _uIView.ConditionTextView(str);
     }
 
-    public void CommandCoolTimeViewAccess(float currentCoolTime,float maxCoolTime)
+    public void CommandCoolTimeViewAccess(float currentCoolTime, float maxCoolTime)
     {
         _uIView.CommandView(currentCoolTime, maxCoolTime);
     }
