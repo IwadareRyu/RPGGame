@@ -83,7 +83,7 @@ public class MagicPlayer : StatusClass
         }
     }
 
-    public override void ActionMode()
+    public override void GetEnemy()
     {
         ChangeCondition(0, MagicPosition.AttackMagic);
         for (var i = 0; i < _dataBase._attackMagicbool.Length; i++)

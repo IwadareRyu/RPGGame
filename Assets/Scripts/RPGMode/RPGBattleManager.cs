@@ -13,9 +13,10 @@ namespace RPGBattle
         [SerializeField] Color _fadeColor = Color.white;
         Color _defaultColor = Color.white;
         [SerializeField] float _fadeTime = 1f;
+        [SerializeField] Transform _EnemyInstansPoint;
 
         /// <summary>一斉制御するときに使うかもしれないUnityEvent</summary>
-        public static event UnityAction OnEnterAction;
+        public static event UnityAction OnEnterEnemy;
         public static event UnityAction OnEnterRPG;
         public static event UnityAction OnStartBattle;
         public static event UnityAction OnEndBattle;
@@ -34,19 +35,26 @@ namespace RPGBattle
 
         IEnumerator StartBattle()
         {
+            //バトル準備開始
             BattleEnter();
+            //ルール(勝ち負けの)説明表示
             _blackPanel.enabled = true;
             _defaultColor = _ruleImage.color;
             _ruleImage.color = _fadeColor;
             FadeChildText(0, 1);
             yield return _ruleImage.DOColor(_defaultColor, _fadeTime).SetLink(_ruleImage.gameObject).WaitForCompletion();
+            //キーのどれかが押されたらルール説明を非表示にする。
             yield return new WaitUntil(() => Input.anyKeyDown);
             FadeChildText(1, 0);
             yield return _ruleImage.DOColor(_fadeColor, _fadeTime).SetLink(_ruleImage.gameObject).WaitForCompletion();
             _blackPanel.enabled = false;
+            //RPGバトル開始
             StartRPG();
         }
 
+        /// <summary>ルール説明パネル(子オブジェクトのText含めて)FadeOut、FadeIn</summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
         void FadeChildText(float start, float end)
         {
             foreach (Transform child in _ruleImage.transform)
@@ -64,7 +72,6 @@ namespace RPGBattle
         /// <summary>BattleStart時に行うメソッド</summary>
         public void BattleEnter()
         {
-
             _battleState = BattleState.BattleStart;
         }
 

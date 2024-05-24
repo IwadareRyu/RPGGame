@@ -9,7 +9,6 @@ public class EnemyController : StatusClass
     private MagicPlayer _magicPlayer;
     private AttackPlayer _attackPlayer;
     [SerializeField] int _getSkillPoint = 50;
-    [SerializeField] float _attackCoolTime = 5f;
     float _currentAttackCoolTime = 0f;
     int _currentAttackCount = 0;
     public int CurrentAttackCount => _currentAttackCount;
@@ -30,7 +29,7 @@ public class EnemyController : StatusClass
         _currentAttackScripts = _normalAttacks[_currentNormalAttackIndex];
         SetStatus();
         HPViewAccess();
-        ChantingViewAccess(_currentAttackCoolTime, _attackCoolTime);
+        ChantingViewAccess(_currentAttackCoolTime, 1);
         Debug.Log($"EnemyHP:{HP}\nEnemyAttack:{Attack}\nEnemyDiffence:{Diffence}");
     }
 
@@ -66,7 +65,7 @@ public class EnemyController : StatusClass
         yield return _currentAttackScripts.AttackTime(this);
         _enemyAttackbool = false;
         _currentAttackCount = 0;
-        ChantingViewAccess(_currentAttackCoolTime, _attackCoolTime);
+        ChantingViewAccess(_currentAttackCoolTime, 1);
     }
 
     public void TargetChange()
@@ -157,6 +156,7 @@ public class EnemyController : StatusClass
     {
         ConditionTextViewAccess("ガードされた！");
         _blockPlayer.AddDamage(Attack);
+        _blockPlayer.EndGuard();
     }
 
     void Counter()

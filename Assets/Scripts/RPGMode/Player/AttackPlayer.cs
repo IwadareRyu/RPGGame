@@ -88,7 +88,7 @@ public class AttackPlayer : StatusClass
     }
 
     /// <summary>没処理</summary>
-    public override void ActionMode()
+    public override void GetEnemy()
     {
         for (var i = 0; i < _dataBase._attackSkillbool.Length; i++)
         {
