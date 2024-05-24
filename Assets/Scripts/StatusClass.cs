@@ -33,8 +33,6 @@ public abstract class StatusClass : MonoBehaviour, IViewCharaUI
 
     /// <summary>UIへのアクセス</summary>
     [SerializeField] UIView _uIView;
-    [SerializeField]
-    Slider _hpSlider;
 
     [SerializeField]
     Transform _insObjPoint;
@@ -44,17 +42,17 @@ public abstract class StatusClass : MonoBehaviour, IViewCharaUI
 
     private void OnEnable()
     {
-        RPGBattleManager.OnEnterAction += ActionMode;
+        RPGBattleManager.OnEnterEnemy += GetEnemy;
         RPGBattleManager.OnEnterRPG += RPGMode;
     }
 
     private void OnDisable()
     {
-        RPGBattleManager.OnEnterAction -= ActionMode;
+        RPGBattleManager.OnEnterEnemy -= GetEnemy;
         RPGBattleManager.OnEnterRPG -= RPGMode;
     }
 
-    public virtual void ActionMode() { }
+    public virtual void GetEnemy() { }
     public virtual void RPGMode() { }
 
     /// <summary>バフの効果時間の処理</summary>

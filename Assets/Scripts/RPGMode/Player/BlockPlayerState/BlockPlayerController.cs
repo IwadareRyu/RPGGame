@@ -99,14 +99,6 @@ public class BlockPlayerController : StatusClass
         _currentState.StartState(this);
     }
 
-
-    ///// <summary>テキストの更新の処理</summary>
-    ///// <param name="str"></param>
-    //public void ShowText(string str)
-    //{
-    //    _enumtext.text = str;
-    //}
-
     /// <summary>カウンター成功時に呼ばれるメソッド</summary>
     public void TrueCounter()
     {
@@ -120,8 +112,11 @@ public class BlockPlayerController : StatusClass
     public void EndCounter()
     {
         _isCounter = false;
-        OnChangeState(GuardState);
+        OnChangeState(CoolDownState);
     }
 
-
+    public void EndGuard()
+    {
+        OnChangeState(CoolDownState);
+    }
 }
