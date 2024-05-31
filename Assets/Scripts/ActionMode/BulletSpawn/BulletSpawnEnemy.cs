@@ -26,7 +26,7 @@ public class BulletSpawnEnemy : MonoBehaviour
     public bool _isAttackTime;
     [SerializeField] StunEnemy _stunEnemy;
     [Header("弾のプール")]
-    [SerializeField] BulletPoolActive _bulletPool;
+    [SerializeField] BulletPool _bulletPool;
     float _coolTime;
 
     ForwardSpawn _forwardSpawn = new();
@@ -78,12 +78,15 @@ public class BulletSpawnEnemy : MonoBehaviour
                     _anim.SetTrigger("Attack");
                     switch (_spawnBulletState)
                     {
+                        // 一つだけ弾を生成
                         case SpawnState.Forward:
                             _forwardSpawn.Spawn(this);
                             break;
+                        //360度均等に弾を生成
                         case SpawnState.Circle:
                             _circleSpawn.Spawn(this);
                             break;
+                        //360度均等に一つずつ弾を生成
                         case SpawnState.DelayCircle:
                             yield return StartCoroutine(_circleSpawn.DelaySpawn(this));
                             break;
@@ -95,12 +98,15 @@ public class BulletSpawnEnemy : MonoBehaviour
         }
     }
 
-
+    /// <summary>弾の生成</summary>
     public void InitBullet(float rota)
     {
+        //Poolから取り出す
         var bullet = _bulletPool.GetBullet();
+        //弾の初期位置、向きの設定
         bullet.transform.position = new Vector3(transform.position.x, transform.position.y + _bulletYPos, transform.position.z);
         bullet.transform.Rotate(0, rota, 0);
+        // 弾の動きを設定する
         var bulletScript = bullet.GetComponent<BulletMoveScripts>();
         bulletScript.BulletMoveStart(_bulletSpeed, _bulletRota, _bulletMoveState);
     }
