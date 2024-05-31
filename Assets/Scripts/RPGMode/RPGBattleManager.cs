@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,6 +15,7 @@ namespace RPGBattle
         Color _defaultColor = Color.white;
         [SerializeField] float _fadeTime = 1f;
         [SerializeField] Transform _EnemyInstansPoint;
+        [SerializeField] EnemyStruct[] _enemyStruct;
 
         /// <summary>一斉制御するときに使うかもしれないUnityEvent</summary>
         public static event UnityAction OnEnterEnemy;
@@ -100,4 +102,13 @@ namespace RPGBattle
         RPGBattle,
         BattleEnd,
     }
+
+    [Serializable]
+    struct EnemyStruct
+    {
+        public EnemyTypeState enemyState;
+        public EnemyController enemyPrefab;
+    }
+
 }
+

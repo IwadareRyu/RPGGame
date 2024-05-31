@@ -22,7 +22,7 @@ public class FightManager : SingletonMonovihair<FightManager>
     [SerializeField] bool _isFalseCanvas;
     public bool InFight => _inFight;
     [Header("テストプレイ用")]
-    [SerializeField] GameObject _testEnemyPrefab;
+    [SerializeField] EncountEnemy _testEnemyPrefab;
 
     protected override bool _dontDestroyOnLoad { get { return true; } }
 
@@ -49,7 +49,7 @@ public class FightManager : SingletonMonovihair<FightManager>
 
     /// <summary>RPGのバトル開始時呼ばれるメソッド</summary>
     /// <param name="other">当たった敵</param>
-    public IEnumerator InBattle(GameObject other)
+    public IEnumerator InBattle(EncountEnemy other)
     {
         if (_tutorialCanvas != null) { _tutorialCanvas.enabled = false; }
         if (_changeGanreCanvas != null) { _changeGanreCanvas.enabled = false; }
@@ -68,7 +68,7 @@ public class FightManager : SingletonMonovihair<FightManager>
         _rpgBattleManager = _battleField.GetComponent<RPGBattleManager>();
         other.gameObject.SetActive(false);
         if (_player != null) { _player.SetActive(false); }
-        StartCoroutine(EndFightCoroutine(other));
+        StartCoroutine(EndFightCoroutine(other.gameObject));
         AudioManager.Instance.BGMPlay(BGM.RPGBattle);
     }
 

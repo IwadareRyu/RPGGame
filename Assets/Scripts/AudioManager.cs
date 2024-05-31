@@ -172,7 +172,8 @@ public enum SE
     MagicianAttack,
     BlockerAttack,
     AttackerAttack,
-    EnemyShordAttack
+    EnemyShordAttack,
+    ActionHitBullet
 }
 
 

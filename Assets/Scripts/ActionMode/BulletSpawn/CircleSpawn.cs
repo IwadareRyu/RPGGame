@@ -7,22 +7,31 @@ public class CircleSpawn : IBulletSpawn
 {
     [SerializeField] float _delaySpawnCoolTime = 0.1f;
 
-    public IEnumerator DelaySpawn(BulletSpawnEnemy spawnEnemy)
+    /// <summary>360度均等に弾を生成</summary>
+    public void Spawn(BulletSpawnEnemy spawnEnemy)
     {
+        //SE再生
+        AudioManager.Instance.SEPlay(SE.EnemyShot);
+        //360度均等に弾を生成
         for (float i = 0; i < 360; i += spawnEnemy.BulletRange)
         {
-            AudioManager.Instance.SEPlay(SE.EnemyShot);
+            //弾を生成
             spawnEnemy.InitBullet(i);
-            yield return new WaitForSeconds(_delaySpawnCoolTime);
         }
     }
 
-    public void Spawn(BulletSpawnEnemy spawnEnemy)
+    /// <summary>360度均等に1つずつ球を生成</summary>
+    public IEnumerator DelaySpawn(BulletSpawnEnemy spawnEnemy)
     {
-        AudioManager.Instance.SEPlay(SE.EnemyShot);
+        //360度均等に弾を生成
         for (float i = 0; i < 360; i += spawnEnemy.BulletRange)
         {
+            // SEを鳴らす。
+            AudioManager.Instance.SEPlay(SE.EnemyShot);
+            //弾を生成。
             spawnEnemy.InitBullet(i);
+            //何秒間か待ってからBulletRange度ずらして弾を生成する。
+            yield return new WaitForSeconds(_delaySpawnCoolTime);
         }
     }
 }

@@ -66,6 +66,7 @@ public class BulletMoveScripts : MonoBehaviour
         {
             if (col.gameObject.tag == "Player")
             {
+                AudioManager.Instance.SEPlay(SE.ActionHitBullet);
                 return true;
             }
         }

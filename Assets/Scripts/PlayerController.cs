@@ -156,18 +156,18 @@ public class PlayerController : MonoBehaviour, IPause
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.TryGetComponent<EncountEnemy>(out var encountEnemy))
         {
             Debug.Log("接敵！");
-            StartCoroutine(StandEncount(collision));
+            StartCoroutine(StandEncount(encountEnemy));
         }
     }
 
-    IEnumerator StandEncount(Collision other)
+    IEnumerator StandEncount(EncountEnemy encountEnemy)
     {
         yield return new WaitUntil(() => !_menu);
         Debug.Log("戦闘開始！");
-        StartCoroutine(FightManager.Instance.InBattle(other.gameObject));
+        StartCoroutine(FightManager.Instance.InBattle(encountEnemy));
     }
 
     public void Pause(bool pause)

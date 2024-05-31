@@ -2788,7 +2788,14 @@ MonoBehaviour:
   _ruleImage: {fileID: 3961523021895129388}
   _fadeColor: {r: 1, g: 1, b: 1, a: 0}
   _fadeTime: 1
-  _EnemyInstansPoint: {fileID: 0}
+  _EnemyInstansPoint: {fileID: 5038932908248379106}
+  _enemyStruct:
+  - enemyState: 0
+    enemyPrefab: {fileID: 4873066651665246841, guid: 7fc74ffe0ad66aa40845d6f0d77ac5d0,
+      type: 3}
+  - enemyState: 1
+    enemyPrefab: {fileID: 5087455029639660186, guid: c7bfcd9ed949c0949ab5e95f69326d87,
+      type: 3}
 --- !u!114 &4336699807535257151
 MonoBehaviour:
   m_ObjectHideFlags: 0
