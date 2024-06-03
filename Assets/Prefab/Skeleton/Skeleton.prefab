@@ -71,15 +71,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1df514909a8e543ba706ee204190fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultHP: 10000
-  _defaultAttack: 20
-  _defaultDiffence: 15
+  _defaultHP: 500
+  _defaultAttack: 15
+  _defaultDiffence: 10
   _enemy: {fileID: 0}
   _uIView: {fileID: 5951317056651685138}
   _insObjPoint: {fileID: 0}
   _survive: 0
   _getSkillPoint: 50
-  _attackCoolTime: 5
   _anim: {fileID: 7279401997327313275}
   _normalAttacks:
   - _attackCoolTime: 2

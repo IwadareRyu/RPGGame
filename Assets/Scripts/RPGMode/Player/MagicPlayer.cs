@@ -202,13 +202,6 @@ public class MagicPlayer : StatusClass
         ConditionTextViewAccess("無事だったか！");
     }
 
-    ///// <summary>テキスト表示</summary>
-    ///// <param name="str"></param>
-    //void ShowText(string str)
-    //{
-    //    _enumtext.text = str;
-    //}
-
     /// <summary>死亡判定</summary>
     void Death()
     {

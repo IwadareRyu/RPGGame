@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChangeGanreMode : MonoBehaviour
@@ -15,9 +16,13 @@ public class ChangeGanreMode : MonoBehaviour
         foreach (var enemy in enemys)
         {
             enemy.Init();
+            enemy.gameObject.SetActive(false);
         }   //Initでenemyの物理演算、弾幕を非アクティブにする。
         //RPGフロアの場合RPGのenemyの物理演算を非アクティブにする。
-        if (_rpgEnemy != null) { _rpgEnemy.isKinematic = true; }
+        if (_rpgEnemy != null) 
+        {
+            _rpgEnemy.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,7 +36,7 @@ public class ChangeGanreMode : MonoBehaviour
             }   // ジャンルを変える。
             else
             {
-                ChangeMode();
+                ChangeMode(true);
             }
         }   
     }
@@ -40,7 +45,7 @@ public class ChangeGanreMode : MonoBehaviour
     {
         if (other.TryGetComponent<PlayerController>(out var player))
         {
-            ChangeMode();
+            ChangeMode(false);
         }   //フロアの抜けた際、対象の敵の物理演算や弾幕を非アクティブにする。
     }
 
@@ -55,11 +60,11 @@ public class ChangeGanreMode : MonoBehaviour
         //ポーズ解除
         PauseManager.PauseResume();
         //物理演算、弾幕をアクティブにする。
-        ChangeMode();
+        ChangeMode(true);
     }
 
     /// <summary>物理演算、弾幕のアクティブ、非アクティブを切り替えるメソッド</summary>
-    void ChangeMode()
+    void ChangeMode(bool isEnter)
     {
         if (_changeGanreState == ChangeGanreState.Action)
         {
@@ -67,14 +72,16 @@ public class ChangeGanreMode : MonoBehaviour
             _actionCinemachine.enabled = true;
             foreach (var enemy in enemys)
             {
-                enemy.ChangeAttackTime();
+                if (enemy.gameObject.activeSelf) { enemy.ChangeAttackTime(); }
+                enemy.gameObject.SetActive(isEnter);
+                if (enemy.gameObject.activeSelf) { enemy.ChangeAttackTime(); }
             }
         }   //Actionの場合、物理演算、弾幕をアクティブ、非アクティブにする。
         else
         {
             AudioManager.Instance.BGMPlay(BGM.RPGPart);
             _actionCinemachine.enabled = false;
-            _rpgEnemy.isKinematic = !_rpgEnemy.isKinematic;
+            _rpgEnemy.gameObject.SetActive(isEnter);
         }   //RPGの場合、物理演算をアクティブ、非アクティブにする。
     }
 }
