@@ -10,7 +10,7 @@ public class CoolDownState : IRPGState
     float _currentTime = 0f;
     public void Init(BlockPlayerController player)
     {
-
+        return;
     }
 
     public void StartState(BlockPlayerController player)

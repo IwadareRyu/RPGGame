@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using RPGBattle;
+using DG.Tweening;
 
 public class FightManager : SingletonMonovihair<FightManager>
 {
@@ -13,6 +14,7 @@ public class FightManager : SingletonMonovihair<FightManager>
     private RPGBattleManager _rpgBattleManager;
     [Header("テストプレイ時アタッチ不要")]
     [SerializeField] GameObject _player;
+    [SerializeField] float _warpPosition = 100f;
     [SerializeField] Text _winlosetext;
     [SerializeField] Text _pointGetText;
     [SerializeField] Canvas _tutorialCanvas;
@@ -67,7 +69,13 @@ public class FightManager : SingletonMonovihair<FightManager>
 
         _rpgBattleManager = _battleField.GetComponent<RPGBattleManager>();
         other.gameObject.SetActive(false);
-        if (_player != null) { _player.SetActive(false); }
+        if (_player != null) 
+        {
+            var tmptrans = _player.transform.position;
+            tmptrans.z = other.transform.localPosition.z + _warpPosition;
+            _player.transform.position = tmptrans;
+            _player.SetActive(false); 
+        }
         StartCoroutine(EndFightCoroutine(other.gameObject));
         AudioManager.Instance.BGMPlay(BGM.RPGBattle);
     }

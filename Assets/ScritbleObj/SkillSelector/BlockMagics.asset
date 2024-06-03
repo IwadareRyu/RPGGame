@@ -17,7 +17,7 @@ MonoBehaviour:
     _skillName: "\u653B\u9632 \u30A2\u30B2\u30A2\u30B2"
     _tmpSkillName: "\u6E3E\u6C8C\u306E\u53CC\u7FFC\u6B4C"
     _type: 3
-    _description: "Attack\u304C5\\nDiffence\u304C5\u30A2\u30C3\u30D7"
+    _description: "Attack\u304C5\nDiffence\u304C5\u30A2\u30C3\u30D7"
     _chastingTime: 5
     _selectSkill:
       rid: 2471629163554406434

@@ -67,7 +67,10 @@ public class PlayerActionMotion : MonoBehaviour
             {
                 var pos = deathEnemy[i].transform.position;
                 pos.y += 10;
-                deathEnemy[i].ResetStun();
+                deathEnemy[i].StunEnemy.ResetStun();
+                deathEnemy[i].ChangeAttackTime();
+                // SkillPt獲得とTextの表示
+                _textSpawnScripts.GetPtText(deathEnemy[i].StunEnemy.GetPoint(), transform.position);
                 deathEnemy[i].gameObject.SetActive(false);
                 downAttackList[i].PlayParticle();
                 var ragdollRbs = Instantiate(_ragdoll, pos, Quaternion.identity).GetComponents<Rigidbody>();
@@ -77,8 +80,6 @@ public class PlayerActionMotion : MonoBehaviour
                     ragdoll.AddExplosionForce(_expPower, pos, 10,
                         _expUpPower, ForceMode.Impulse);
                 }   //ラグドールの吹っ飛ばし(今回はあまり影響なし)
-                // SkillPt獲得とTextの表示
-                _textSpawnScripts.GetPtText(deathEnemy[i].GetPoint(), transform.position);
             }   //攻撃の文字で敵を倒す(ように見せる)。
             //爆発SE再生
             AudioManager.Instance.SEPlay(SE.Explosion);

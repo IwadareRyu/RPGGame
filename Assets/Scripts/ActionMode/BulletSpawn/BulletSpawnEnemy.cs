@@ -25,9 +25,11 @@ public class BulletSpawnEnemy : MonoBehaviour
     //[NonSerialized]
     public bool _isAttackTime;
     [SerializeField] StunEnemy _stunEnemy;
+    public StunEnemy StunEnemy => _stunEnemy;
     [Header("弾のプール")]
     [SerializeField] BulletPool _bulletPool;
     float _coolTime;
+    Coroutine _activeCoroutine;
 
     ForwardSpawn _forwardSpawn = new();
     [SerializeField] CircleSpawn _circleSpawn = new();
@@ -36,11 +38,6 @@ public class BulletSpawnEnemy : MonoBehaviour
     {
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         _rb = GetComponent<Rigidbody>();
-    }
-
-    private void Start()
-    {
-        StartCoroutine(SpawnBullet());
     }
 
     public void Init()
@@ -64,13 +61,15 @@ public class BulletSpawnEnemy : MonoBehaviour
     {
         _rb.isKinematic = !_rb.isKinematic;
         _isAttackTime = !_isAttackTime;
+        if (_isAttackTime) { _activeCoroutine = StartCoroutine(SpawnBullet()); }
+        else if(_activeCoroutine != null){ StopCoroutine(_activeCoroutine); }
     }
 
     IEnumerator SpawnBullet()
     {
         while (true)
         {
-            if (_isAttackTime && !_stunEnemy.Stun)
+            if (!_stunEnemy.Stun)
             {
                 _coolTime += Time.deltaTime;
                 if (_coolTime > _spawnCoolTime)

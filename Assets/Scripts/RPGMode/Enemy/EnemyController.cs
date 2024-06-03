@@ -1,6 +1,5 @@
 ﻿using RPGBattle;
 using System.Collections;
-using UnityEditor.Build;
 using UnityEngine;
 
 public class EnemyController : StatusClass
@@ -37,16 +36,19 @@ public class EnemyController : StatusClass
     void Update()
     {
         TimeMethod();
-        if (RPGBattleManager.Instance.BattleState != BattleState.RPGBattle || _enemyAttackbool) { return; }
+        if (RPGBattleManager.Instance.BattleState != BattleState.RPGBattle) { return; }
 
 
         if (_survive == Survive.Survive)
         {
-            if (_currentAttackScripts.TimeBoolean(this, ref _currentAttackCoolTime))
+            if (!_enemyAttackbool)
             {
-                _currentAttackCoolTime = 0f;
-                _enemyAttackbool = true;
-                StartCoroutine(EnemyAttackCoolTime());
+                if (_currentAttackScripts.TimeBoolean(this, ref _currentAttackCoolTime))
+                {
+                    _currentAttackCoolTime = 0f;
+                    _enemyAttackbool = true;
+                    StartCoroutine(EnemyAttackCoolTime());
+                }
             }
 
             if (HP <= 0)
@@ -73,7 +75,7 @@ public class EnemyController : StatusClass
         var ram = UnityEngine.Random.Range(0, 100);
         if (ram < 50)
         {
-            ConditionTextViewAccess("Magicに攻撃");
+            ConditionTextViewAccess("Magicianに攻撃");
             _currentTargetPlayer = TargetGuard.Magician;
         }
         else
@@ -91,7 +93,7 @@ public class EnemyController : StatusClass
         if (_survive != Survive.Death && RPGBattleManager.Instance.BattleState == BattleState.RPGBattle)
         {
             AudioManager.Instance.SEPlay(SE.EnemyShordAttack);
-            if(_currentTargetPlayer == TargetGuard.Magician) { TargetAttack(_magicPlayer); }
+            if (_currentTargetPlayer == TargetGuard.Magician) { TargetAttack(_magicPlayer); }
             else { TargetAttack(_attackPlayer); }
         }
         // 攻撃回数をカウント
