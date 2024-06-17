@@ -27,6 +27,9 @@ public class SkillSetScripts : MonoBehaviour
     [SerializeField]
     Text _skillText;
 
+    [SerializeField]
+    Text _coolTimeText;
+
     public int _tmp = -1;
 
     private void Awake()
@@ -141,6 +144,7 @@ public class SkillSetScripts : MonoBehaviour
     {
         _tutorialText.text = "";
         _skillText.text = "";
+        _coolTimeText.text = "";
         _tmp = -1;
     }
 
@@ -149,6 +153,7 @@ public class SkillSetScripts : MonoBehaviour
         AudioManager.Instance.SEPlay(SE.Click);
         _tutorialText.text = skillobj._description;
         _skillText.text = $"{skillobj._skillName} を選択中";
+        _coolTimeText.text = skillobj._chastingTime.ToString("0.0");
     }
 
     public void MoveSkillChoice(int i)

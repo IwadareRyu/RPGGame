@@ -33,6 +33,9 @@ public class TreeScript : MonoBehaviour
     [Header("選択の確認の際スキルの説明を書くテキスト"), Tooltip("選択の確認の際スキルの説明を書くテキスト"), SerializeField]
     Text _tutorialText;
 
+    [Header("選択したスキルのクールタイムを表示するテキスト"), Tooltip("選択したスキルのクールタイムを表示するテキスト"), SerializeField]
+    Text _coolTimeText;
+
     [Header("何のスキルを選択しているかを表示するテキスト"), Tooltip("何のスキルを選択しているかを表示するテキスト"), SerializeField]
     Text _skillText;
 
@@ -159,6 +162,7 @@ public class TreeScript : MonoBehaviour
         //スキルの説明、何のスキルを選択しているかを表示して、確認画面を出す。
         _tutorialText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[choiceNumber]._description;
         _skillText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[choiceNumber]._skillName} を選択中";
+        _coolTimeText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[choiceNumber]._chastingTime.ToString("0.0");
         _confirmation.SetActive(true);
         _skillNameText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[_ansList[0]]._skillName}\nを含む{_ansList.Count}種のスキル";
         _skillPointText.text = _cost.ToString();
@@ -264,6 +268,7 @@ public class TreeScript : MonoBehaviour
         //スキルの説明、何のスキルを選択しているかを表示して、確認画面を出す。
         _tutorialText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[end]._description;
         _skillText.text = $"{DataBase.Instance.AttackMagicSelectData.SkillInfomation[end]._skillName} を選択中";
+        _coolTimeText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[end]._chastingTime.ToString("0.0");
         _confirmation.SetActive(true);
         _skillNameText.text = DataBase.Instance.AttackMagicSelectData.SkillInfomation[_ansList[_ansList.Count - 1]]._skillName;
         _skillPointText.text = _cost.ToString();
