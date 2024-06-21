@@ -2763,6 +2763,7 @@ MonoBehaviour:
   _battleFieldPrehab: {fileID: 3867917608953392896, guid: ae3ef407fb5e69941acac7f919df494a,
     type: 3}
   _player: {fileID: 0}
+  _warpPosition: 100
   _winlosetext: {fileID: 297369280}
   _pointGetText: {fileID: 613496177}
   _tutorialCanvas: {fileID: 0}
@@ -2770,7 +2771,7 @@ MonoBehaviour:
   _inFight: 0
   _actionbool: 0
   _isFalseCanvas: 0
-  _testEnemyPrefab: {fileID: 728553258}
+  _testEnemyPrefab: {fileID: 728553263}
 --- !u!4 &1755693784
 Transform:
   m_ObjectHideFlags: 0

@@ -55,6 +55,8 @@ public class FightManager : SingletonMonovihair<FightManager>
     {
         if (_tutorialCanvas != null) { _tutorialCanvas.enabled = false; }
         if (_changeGanreCanvas != null) { _changeGanreCanvas.enabled = false; }
+
+
         _inFight = true;
         if (_player != null)
         {
@@ -76,18 +78,17 @@ public class FightManager : SingletonMonovihair<FightManager>
             _player.transform.position = tmptrans;
             _player.SetActive(false); 
         }
-        StartCoroutine(EndFightCoroutine(other.gameObject));
         AudioManager.Instance.BGMPlay(BGM.RPGBattle);
     }
 
     /// <summary>敵を再出現させるメソッド</summary>
     /// <param name="enemy">非表示させた敵</param>
-    IEnumerator EndFightCoroutine(GameObject enemy)
-    {
-        yield return new WaitUntil(() => _inFight == false);
-        yield return new WaitForSeconds(30f);
-        enemy?.gameObject.SetActive(true);
-    }
+    //IEnumerator EndFightCoroutine(GameObject enemy)
+    //{
+    //    yield return new WaitUntil(() => _inFight == false);
+    //    yield return new WaitForSeconds(30f);
+    //    enemy?.gameObject.SetActive(true);
+    //}
 
     /// <summary>勝った時に呼ばれるメソッド</summary>
     /// <param name="getpoint"></param>

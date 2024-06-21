@@ -18,6 +18,7 @@ public class ChangeGanreMode : MonoBehaviour
             enemy.Init();
             enemy.gameObject.SetActive(false);
         }   //Initでenemyの物理演算、弾幕を非アクティブにする。
+
         //RPGフロアの場合RPGのenemyの物理演算を非アクティブにする。
         if (_rpgEnemy != null) 
         {
