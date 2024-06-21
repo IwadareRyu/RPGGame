@@ -6,4 +6,9 @@ public class EncountEnemy : MonoBehaviour
 {
     [SerializeField] EnemyTypeState _enemyType = EnemyTypeState.Skeleton;
     public EnemyTypeState EnemyType => _enemyType;
+
+    public void SetEnemyType(EnemyTypeState state)
+    {
+        _enemyType = state;
+    }
 }
