@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>スキルのデータベース</summary>
 public class DataBase : MonoBehaviour
 {
     [SerializeField] bool IsVersionUpFlag = false;
