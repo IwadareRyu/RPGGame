@@ -18,7 +18,7 @@ MonoBehaviour:
     _tmpSkillName: "\u6E3E\u6C8C\u306E\u53CC\u7FFC\u6B4C"
     _type: 3
     _description: "Attack\u304C5\nDiffence\u304C5\u30A2\u30C3\u30D7"
-    _chastingTime: 5
+    _chastingTime: 3
     _selectSkill:
       rid: 2471629163554406434
   - _skillID: 1
@@ -26,7 +26,7 @@ MonoBehaviour:
     _tmpSkillName: "\u5927\u5730\u306E\u6075\u307F"
     _type: 3
     _description: "HP10\u56DE\u5FA9"
-    _chastingTime: 7.5
+    _chastingTime: 5
     _selectSkill:
       rid: 2471629163554406435
   - _skillID: 2
@@ -42,7 +42,7 @@ MonoBehaviour:
     _tmpSkillName: "\u30EC\u30BE\u30CA\u30F3\u30B9\u30D6\u30EC\u30B9"
     _type: 3
     _description: "Attack\u304C20\u30A2\u30C3\u30D7"
-    _chastingTime: 7.5
+    _chastingTime: 5
     _selectSkill:
       rid: 2471629163554406437
   references:

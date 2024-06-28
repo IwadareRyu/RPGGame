@@ -74,7 +74,7 @@ public abstract class StatusClass : MonoBehaviour, IViewCharaUI
     }
 
     /// <summary>キャラの戦闘ステータスを設定する処理</summary>
-    public void SetStatus()
+    public virtual void SetStatus()
     {
         _hp = _defaultHP;
         _attack = _defaultAttack;

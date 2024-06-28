@@ -70,6 +70,7 @@ public class FightManager : SingletonMonovihair<FightManager>
         }
 
         _rpgBattleManager = _battleField.GetComponent<RPGBattleManager>();
+        StartCoroutine(_rpgBattleManager.StartBattle(other.EnemyType));
         other.gameObject.SetActive(false);
         if (_player != null) 
         {
