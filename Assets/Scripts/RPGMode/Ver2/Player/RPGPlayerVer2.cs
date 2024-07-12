@@ -1,9 +1,6 @@
 ﻿using RPGBattle;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class RPGPlayerVer2 : StatusClass
 {
@@ -12,6 +9,10 @@ public class RPGPlayerVer2 : StatusClass
     [NonSerialized]
     public SkillInfomation _useSkill;
 
+    /// <summary>選んだスキル</summary>
+    public ChoiceSkill _choiceSkill;
+
+    /// <summary>現在のスキル</summary>
     IRPGStateVer2 _currentRPGState;
 
     /// <summary>クールタイムのState</summary>
@@ -27,8 +28,13 @@ public class RPGPlayerVer2 : StatusClass
     public ChoiceSkillStateVer2 ChoiceSkillState => _choiceSkillState;
 
     /// <summary>カウンター状態のState</summary>
-    CounterStateVer2 _counterState = new();
+    [SerializeField] CounterStateVer2 _counterState = new();
     public CounterStateVer2 CounterState => _counterState;
+
+    TrueCounterStateVer2 _trueCounterState = new();
+    public TrueCounterStateVer2 TrueCounterState => _trueCounterState;
+
+    public bool _blockTime = false;
 
     void Start()
     {
@@ -60,9 +66,18 @@ public class RPGPlayerVer2 : StatusClass
     /// <param name="state"></param>
     public void OnChangeState(IRPGStateVer2 state)
     {
-        _currentRPGState.EndState(this);
-        _currentRPGState = state;
-        _currentRPGState.StartState(this);
+        if (_currentRPGState != state)
+        {
+            _currentRPGState.EndState(this);
+            _currentRPGState = state;
+            _currentRPGState.StartState(this);
+        }
     }
 
+}
+
+public enum ChoiceSkill
+{
+    AttackSkill,
+    AssistSkill
 }

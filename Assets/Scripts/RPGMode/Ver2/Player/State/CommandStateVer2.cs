@@ -1,5 +1,4 @@
-﻿using MasterData;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +10,6 @@ public class CommandStateVer2 : IRPGStateVer2
     [SerializeField] Image _attackCommandImage;
     [SerializeField] Image _assistCommandImage;
     Image _currentChoiceSkill;
-    ChoicceSkill _choiceSkillState;
     bool _choiceSkill;
 
     public CommandStateVer2()
@@ -51,14 +49,14 @@ public class CommandStateVer2 : IRPGStateVer2
         {
             _currentChoiceSkill = _attackCommandImage;
             _currentChoiceSkill.enabled = true;
-            _choiceSkillState = ChoicceSkill.AttackSkill;
+            player._choiceSkill = global::ChoiceSkill.AttackSkill;
             return true;
         }
         else if(Input.GetButtonDown("Skill2"))
         {
             _currentChoiceSkill = _assistCommandImage;
             _currentChoiceSkill.enabled = true;
-            _choiceSkillState = ChoicceSkill.AssistSkill;
+            player._choiceSkill = global::ChoiceSkill.AssistSkill;
             return true;
         }
         else if(Input.GetButtonDown("Skill3"))
@@ -78,7 +76,7 @@ public class CommandStateVer2 : IRPGStateVer2
         else if(Input.GetButtonDown("Skill1"))
         {
             //使うSkillを_useSkillにアタッチ
-            if (_choiceSkillState == ChoicceSkill.AttackSkill)
+            if (player._choiceSkill == global::ChoiceSkill.AttackSkill)
             {
                 player._useSkill = DataBase.Instance.AttackMagicSelectData.SkillInfomation[DataBase.Instance._attackMagicSetNo[0]];
             }
@@ -91,7 +89,7 @@ public class CommandStateVer2 : IRPGStateVer2
         else if(Input.GetButtonDown("Skill3"))
         {
             //使うSkillを_useSkillにアタッチ
-            if (_choiceSkillState == ChoicceSkill.AttackSkill)
+            if (player._choiceSkill == global::ChoiceSkill.AttackSkill)
             {
                 player._useSkill = DataBase.Instance.AttackMagicSelectData.SkillInfomation[DataBase.Instance._attackMagicSetNo[1]];
                 
@@ -109,11 +107,5 @@ public class CommandStateVer2 : IRPGStateVer2
     {
         _commandImage.enabled = false;
         _currentChoiceSkill.enabled = false;
-    }
-
-    public enum ChoicceSkill
-    {
-        AttackSkill,
-        AssistSkill
     }
 }
