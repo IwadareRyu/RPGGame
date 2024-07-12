@@ -27,13 +27,14 @@ public class CoolDownStateVer2 : IRPGStateVer2
 
         if (_currentTime > _coolDownTime)
         {
-            //player.OnChangeState(player.AttackState);
+            player.OnChangeState(player.CommandState);
         }
     }
 
     public void EndState(RPGPlayerVer2 player)
     {
         Debug.Log("クールダウン終了");
+        if(player._blockTime) player._blockTime = false;
         _currentTime = 0f;
         player.ChantingViewAccess(_currentTime, _coolDownTime);
     }

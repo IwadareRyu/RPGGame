@@ -59,10 +59,30 @@ public abstract class StatusClass : MonoBehaviour, IViewCharaUI
     public void TimeMethod()
     {
         //timeの変数が0より高い時、秒数をはかる。0になったらboolをtrueにしてコルーチンの待機処理を抜ける。
-        if (_attackBuffTime > 0) { _attackBuffTime = DeltaTime(_attackBuffTime); }
-        else if (!_buffAttack) { _buffAttack = true; }
-        if (_diffenceBuffTime > 0) { _diffenceBuffTime = DeltaTime(_diffenceBuffTime); }
-        else if (!_buffDiffence) { _buffDiffence = true; }
+        
+        //攻撃バフのクールタイム
+        if (_attackBuffTime > 0) 
+        {
+            _attackBuffTime = DeltaTime(_attackBuffTime); 
+        }
+        else if (!_buffAttack) 
+        {
+            _buffAttack = true;
+            _attack = _defaultAttack;
+            Debug.Log("攻撃状態解除");
+        }
+
+        //防御バフのクールタイム
+        if (_diffenceBuffTime > 0) 
+        {
+            _diffenceBuffTime = DeltaTime(_diffenceBuffTime); 
+        }
+        else if (!_buffDiffence) 
+        {
+            _buffDiffence = true;
+            _diffence = _defaultDiffence;
+            Debug.Log("防御状態解除");
+        }
     }
 
     /// <summary>時間を減らしていく処理</summary>
@@ -129,11 +149,11 @@ public abstract class StatusClass : MonoBehaviour, IViewCharaUI
     /// <param name="heal"></param>
     public void AddBuff(int attackBuff, int diffenceBuff, int heal)
     {
-        if (_attack <= _defaultAttack && attackBuff != 0)
+        if (attackBuff != 0)
         {
             StartCoroutine(AttackBuffTIme(attackBuff));
         }
-        if (_diffence <= _defaultDiffence && diffenceBuff != 0)
+        if (diffenceBuff != 0)
         {
             StartCoroutine(DiffenceBuffTIme(diffenceBuff));
         }
@@ -155,10 +175,6 @@ public abstract class StatusClass : MonoBehaviour, IViewCharaUI
         Debug.Log(_attack);
         _attackBuffTime = 30f;
         _buffAttack = false;
-        //ここで30秒経つか、ステータス更新(デバフならバフ、バフならデバフを受けた時)まで待機処理
-        yield return new WaitUntil(() => _buffAttack == true);
-        _attack = _defaultAttack;
-        Debug.Log("攻撃状態変化解除");
     }
 
     /// <summary>防御のバフ、デバフを受けた時のコルーチン</summary>
@@ -172,10 +188,6 @@ public abstract class StatusClass : MonoBehaviour, IViewCharaUI
         Debug.Log(_diffence);
         _diffenceBuffTime = 30f;
         _buffDiffence = false;
-        //ここで30秒経つか、ステータス更新(デバフならバフ、バフならデバフを受けた時)まで待機処理
-        yield return new WaitUntil(() => _buffDiffence == true);
-        _diffence = _defaultDiffence;
-        Debug.Log("防御状態変化解除");
     }
 
     /// <summary>HPのゲージを更新する処理</summary>
